@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaymentDTO {
-    @JsonProperty("paymentId")
-    private int id;
     private int orderId;
     @NotNull(message = "Payment method can't blank")
     private String paymentMethod;

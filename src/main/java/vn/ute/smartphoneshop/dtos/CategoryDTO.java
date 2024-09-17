@@ -10,8 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDTO {
-    @JsonProperty("categoryId")
-    private int id;
     @NotNull(message = "Category's name is required")
     private String categoryName;
     private String description;

@@ -12,8 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
-    @JsonProperty("productId")
-    private int id;
     @NotNull(message = "Product's name is required")
     private String name;
     private String brand;

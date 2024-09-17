@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class VoucherDTO {
-    @JsonProperty("voucherId")
-    private int id;
     @NotNull(message = "Code is required")
     private String code;
     private Double discountPercent;

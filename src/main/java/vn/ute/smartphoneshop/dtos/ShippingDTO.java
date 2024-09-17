@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class ShippingDTO {
-    private int shippingId;
     private int orderId;
     @NotNull(message = "Shipping address can't blank")
     private String shippingAddress;

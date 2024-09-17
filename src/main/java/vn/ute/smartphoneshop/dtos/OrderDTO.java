@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
-    @JsonProperty("orderId")
-    private int id;
 
     @NotNull(message = "Order date can't blank")
     private LocalDateTime orderDate;

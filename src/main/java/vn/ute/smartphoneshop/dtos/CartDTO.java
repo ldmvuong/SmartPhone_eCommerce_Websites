@@ -11,8 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 
 public class CartDTO {
-    @JsonProperty("cartId")
-    private int id;
     @Min(value = 1, message = "User's ID must be > 0")
     private int userId;
 }

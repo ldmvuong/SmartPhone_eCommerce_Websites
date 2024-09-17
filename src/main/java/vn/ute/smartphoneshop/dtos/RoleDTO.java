@@ -10,8 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleDTO {
-    @JsonProperty("roleId")
-    private int id;
     @NotNull(message = "Role name is required")
     public String roleName;
 }

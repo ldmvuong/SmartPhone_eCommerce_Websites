@@ -10,7 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDetailDTO {
-    private int orderDetailId;
     private int orderId;
     private int productId;
     @NotNull(message = "Quantity is required")
