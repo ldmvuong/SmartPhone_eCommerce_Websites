@@ -10,6 +10,7 @@ import lombok.Setter;
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoryId")
     private int categoryId;
 
     @Column(name = "categoryName", nullable = false)
