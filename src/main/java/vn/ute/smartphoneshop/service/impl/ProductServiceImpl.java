@@ -37,4 +37,11 @@ public class ProductServiceImpl implements ProductService {
         }
         return result;
     }
+
+    @Override
+    public ProductDTO findById(int id) {
+
+        ProductDTO productDTO = productDTOConverter.toProductDTO(productRepository.findById(id).get());
+        return productDTO;
+    }
 }

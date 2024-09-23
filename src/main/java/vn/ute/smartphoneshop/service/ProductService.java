@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface ProductService {
     List<ProductDTO>findAll(Map<String,Object> params);
+    ProductDTO findById(int id);
 }
