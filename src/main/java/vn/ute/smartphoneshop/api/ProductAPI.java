@@ -25,7 +25,7 @@ public class ProductAPI {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @GetMapping(value = "/api/product/")
+    @GetMapping(value = "/api/product")
     public List<ProductDTO> getProduct(@RequestParam Map<String, Object> params) {
     List<ProductDTO> products = productService.findAll(params);
     return products;
