@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Getter
@@ -14,9 +15,11 @@ import java.time.LocalDateTime;
 public class OrderDTO {
 
     @NotNull(message = "Order date can't blank")
-    private LocalDateTime orderDate;
-    private int userId;
-    private int voucherId;
+    private Date orderDate;
+    @JsonProperty("userId")
+    private int user_id;
+    @JsonProperty("voucherId")
+    private int voucher_id;
     @NotNull(message = "Order status cannot blank")
     private String orderStatus;
 }
