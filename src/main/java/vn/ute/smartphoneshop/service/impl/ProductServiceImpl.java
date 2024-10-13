@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.builder.ProductSearchBuilder;
 import vn.ute.smartphoneshop.converter.ProductDTOConverter;
 import vn.ute.smartphoneshop.converter.ProductSearchBuilderConverter;
-import vn.ute.smartphoneshop.dtos.ProductDTO;
+import vn.ute.smartphoneshop.model.dto.ProductDTO;
 import vn.ute.smartphoneshop.entity.ProductEntity;
-import vn.ute.smartphoneshop.repositories.ProductRepository;
-import vn.ute.smartphoneshop.repositories.custom.ProductRepositoryCustom;
+import vn.ute.smartphoneshop.repository.ProductRepository;
+import vn.ute.smartphoneshop.repository.custom.ProductRepositoryCustom;
 import vn.ute.smartphoneshop.service.ProductService;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package vn.ute.smartphoneshop.service;
 
-import vn.ute.smartphoneshop.dtos.ProductDTO;
+import vn.ute.smartphoneshop.model.dto.ProductDTO;
 
 import java.util.List;
 import java.util.Map;

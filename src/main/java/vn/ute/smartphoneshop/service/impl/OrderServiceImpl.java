@@ -2,19 +2,17 @@ package vn.ute.smartphoneshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vn.ute.smartphoneshop.dtos.OrderDTO;
+import vn.ute.smartphoneshop.model.dto.OrderDTO;
 import vn.ute.smartphoneshop.entity.OrderEntity;
 import vn.ute.smartphoneshop.entity.UserEntity;
 import vn.ute.smartphoneshop.entity.VoucherEntity;
-import vn.ute.smartphoneshop.exceptions.DataNotFoundException;
-import vn.ute.smartphoneshop.repositories.OrderRepository;
-import vn.ute.smartphoneshop.repositories.UserRepository;
-import vn.ute.smartphoneshop.repositories.VoucherRepository;
+import vn.ute.smartphoneshop.exception.DataNotFoundException;
+import vn.ute.smartphoneshop.repository.OrderRepository;
+import vn.ute.smartphoneshop.repository.UserRepository;
+import vn.ute.smartphoneshop.repository.VoucherRepository;
 import vn.ute.smartphoneshop.service.IOrderService;
 
-import java.util.Date;
 import java.util.List;
 
 @Service

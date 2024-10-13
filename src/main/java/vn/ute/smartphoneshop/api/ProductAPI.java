@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import vn.ute.smartphoneshop.dtos.ProductDTO;
-import vn.ute.smartphoneshop.repositories.ProductRepository;
+import vn.ute.smartphoneshop.model.dto.ProductDTO;
+import vn.ute.smartphoneshop.repository.ProductRepository;
 import vn.ute.smartphoneshop.service.ProductService;
 
 import java.util.List;
