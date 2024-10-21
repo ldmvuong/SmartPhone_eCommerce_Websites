@@ -37,4 +37,22 @@ public class ProductServiceImpl implements ProductService {
         }
         return result;
     }
+
+    @Override
+    public List<ProductDTO> findAllProduct() {
+        List<ProductEntity> productEntities =productRepository.findAll();
+
+        List<ProductDTO> result = new ArrayList<ProductDTO>();
+        for (ProductEntity item : productEntities) {
+            ProductDTO building = productDTOConverter.toProductDTO(item);
+            result.add(building);
+        }
+        return result;
+    }
+
+    @Override
+    public void save(ProductDTO product) {
+        ProductEntity productEntity = productDTOConverter.toProductEntity(product);
+        productRepository.save(productEntity);
+    }
 }

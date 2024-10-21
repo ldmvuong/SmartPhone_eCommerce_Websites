@@ -14,14 +14,14 @@ public class CategoryController{
     @Autowired
     private CategoryServiceImpl categoryServiceImpl;
 
-    @GetMapping(value = "user/categories")
+    @GetMapping(value = "/user/categories")
     public String category(Model model){
         List<CategoryEntity>  list = this.categoryServiceImpl.findAll();
         model.addAttribute("categories",list);
         return "web/shop-right-sidebar";
     }
 
-    @GetMapping(value = "admin/list-category")
+    @GetMapping(value = "/admin/list-category")
     public String listCategory(Model model){
         List<CategoryEntity> list = this.categoryServiceImpl.findAll();
         model.addAttribute("categories",list);

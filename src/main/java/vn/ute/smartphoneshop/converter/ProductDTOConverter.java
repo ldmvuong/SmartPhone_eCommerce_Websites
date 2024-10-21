@@ -11,9 +11,14 @@ public class ProductDTOConverter {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ProductDTO toProductDTO(ProductEntity item) {
-        ProductDTO product = modelMapper.map(item, ProductDTO.class);
-        return product;
+    public ProductDTO toProductDTO(ProductEntity productEntity) {
+        ProductDTO productDTO = modelMapper.map(productEntity, ProductDTO.class);
+        return productDTO;
+    }
+
+    public ProductEntity toProductEntity(ProductDTO productDTO) {
+        ProductEntity productEntity = modelMapper.map(productDTO, ProductEntity.class);
+        return productEntity;
     }
 
 }
