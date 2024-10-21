@@ -1,6 +1,5 @@
 package vn.ute.smartphoneshop.controller;
 
-import jakarta.servlet.annotation.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +39,36 @@ public class CategoryController{
         }
         else {
             model.addAttribute("category", category); // Truyền lại category vào model
-            return "redirect:/edit-category/"+ category.getCategoryId();
+            return "redirect:/admin/edit-category/"+ category.getCategoryId();
+        }
+    }
+
+    @GetMapping(value = "/admin/add-category")
+    public String addCategory(Model model){
+        CategoryEntity category = new CategoryEntity();
+        category.setStatus(1);
+        model.addAttribute("category",category);
+        return "web/categories/add-category";
+    }
+
+    @PostMapping(value = "/admin/add")
+    public String add(@ModelAttribute("category") CategoryEntity category){
+        category.setStatus(1);
+        if (this.categoryServiceImpl.addCategory(category)){
+            return "redirect:/admin/list-category";
+        }
+        else {
+            return "redirect:/admin/add-category";
+        }
+    }
+
+    @GetMapping(value = "/admin/delete-category/{id}")
+    public String deleteCategory( @PathVariable("id") int id){
+        if(categoryServiceImpl.deleteCategory(id)){
+            return "redirect:/admin/list-category";
+        }
+        else {
+            return "redirect:/admin/add-category";
         }
     }
 }
