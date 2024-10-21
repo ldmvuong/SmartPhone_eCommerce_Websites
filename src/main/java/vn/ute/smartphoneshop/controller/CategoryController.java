@@ -39,7 +39,7 @@ public class CategoryController{
         }
         else {
             model.addAttribute("category", category); // Truyền lại category vào model
-            return "redirect:/edit-category/"+ category.getCategoryId();
+            return "redirect:/admin/edit-category/"+ category.getCategoryId();
         }
     }
 
@@ -58,7 +58,7 @@ public class CategoryController{
             return "redirect:/admin/list-category";
         }
         else {
-            return "redirect:/add-category";
+            return "redirect:/admin/add-category";
         }
     }
 
@@ -68,7 +68,7 @@ public class CategoryController{
             return "redirect:/admin/list-category";
         }
         else {
-            return "redirect:/add-category";
+            return "redirect:/admin/add-category";
         }
     }
 }

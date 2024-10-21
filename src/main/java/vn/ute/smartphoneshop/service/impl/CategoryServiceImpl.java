@@ -40,11 +40,13 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public boolean addCategory(CategoryEntity category) {
-        try {
-            this.categoryRepository.save(category);
-            return true;
-        }catch (Exception e) {
-            e.printStackTrace();
+        if(this.categoryRepository.existByCategoryName(category.getCategoryName()) == null) {
+            try {
+                this.categoryRepository.save(category);
+                return true;
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }
