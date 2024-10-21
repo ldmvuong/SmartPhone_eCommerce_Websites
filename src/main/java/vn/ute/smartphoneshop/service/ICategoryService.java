@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import vn.ute.smartphoneshop.entity.CategoryEntity;
+import vn.ute.smartphoneshop.model.dto.CategoryDTO;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface ICategoryService {
     public List<CategoryEntity> findAll();
     public boolean update(CategoryEntity category);
     public CategoryEntity findById(int id);
+    public boolean addCategory(CategoryEntity category);
 }

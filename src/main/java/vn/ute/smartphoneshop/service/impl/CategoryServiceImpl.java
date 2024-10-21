@@ -37,4 +37,15 @@ public class CategoryServiceImpl implements ICategoryService {
     public CategoryEntity findById(int id) {
         return this.categoryRepository.findById(id).get();
     }
+
+    @Override
+    public boolean addCategory(CategoryEntity category) {
+        try {
+            this.categoryRepository.save(category);
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
