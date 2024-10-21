@@ -1,8 +1,46 @@
 package vn.ute.smartphoneshop.controller;
 
 import jakarta.servlet.annotation.WebServlet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import vn.ute.smartphoneshop.entity.CategoryEntity;
+import vn.ute.smartphoneshop.service.impl.CategoryServiceImpl;
 
-@WebServlet("api/v1/categories")
+import java.util.List;
+@Controller
 public class CategoryController{
+    @Autowired
+    private CategoryServiceImpl categoryServiceImpl;
 
+    @GetMapping(value = "user/categories")
+    public String category(Model model){
+        List<CategoryEntity>  list = this.categoryServiceImpl.findAll();
+        model.addAttribute("categories",list);
+        return "web/shop-right-sidebar";
+    }
+
+    @GetMapping(value = "admin/list-category")
+    public String listCategory(Model model){
+        List<CategoryEntity> list = this.categoryServiceImpl.findAll();
+        model.addAttribute("categories",list);
+        return "web/category";
+    }
+    @GetMapping(value = "/admin/edit-category/{id}")
+    public String editCategory(Model model, @PathVariable("id") int id){
+        CategoryEntity category = this.categoryServiceImpl.findById(id);
+        model.addAttribute("category",category);
+        return "web/categories/edit-category";
+    }
+    @PostMapping(value = "/admin/edit")
+    public String edit( Model model, @ModelAttribute("category") CategoryEntity category){
+        if(this.categoryServiceImpl.update(category)){
+            return "redirect:/admin/list-category";
+        }
+        else {
+            model.addAttribute("category", category); // Truyền lại category vào model
+            return "redirect:/edit-category/"+ category.getCategoryId();
+        }
+    }
 }

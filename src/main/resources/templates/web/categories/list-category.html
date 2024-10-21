@@ -1,0 +1,8 @@
+<aside class="widget widget-categories box-shadow mb-30" th:fragment="list-category">
+    <h6 class="widget-title border-left mb-20">Categories</h6>
+    <div id="cat-treeview-2" class="product-cat">
+        <ul th:each="category : ${categories}" class="closed">
+            <li><a href="#" th:text="${category.categoryName}"></a></li>
+        </ul>
+    </div>
+</aside>

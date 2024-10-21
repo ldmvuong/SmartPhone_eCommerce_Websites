@@ -1,0 +1,47 @@
+<div class="payment-method" th:fragment="payment-method">
+    <h6 class="widget-title border-left mb-20">payment method</h6>
+    <div id="accordion">
+        <div class="panel">
+            <h4 class="payment-title box-shadow">
+                <a data-bs-toggle="collapse" href="#bank-transfer" >
+                    direct bank transfer
+                </a>
+            </h4>
+            <div id="bank-transfer" class="panel-collapse collapse show" data-bs-parent="#accordion">
+                <div class="payment-content">
+                    <p>Lorem Ipsum is simply in dummy text of the printing and type setting industry. Lorem Ipsum has been.</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <h4 class="payment-title box-shadow">
+                <a class="collapsed" data-bs-toggle="collapse" href="#collapseTwo">
+                    cheque payment
+                </a>
+            </h4>
+            <div id="collapseTwo" class="panel-collapse collapse" data-bs-parent="#accordion">
+                <div class="payment-content">
+                    <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <h4 class="payment-title box-shadow">
+                <a data-bs-toggle="collapse" href="#collapseThree" >
+                    paypal
+                </a>
+            </h4>
+            <div id="collapseThree" class="panel-collapse collapse" data-bs-parent="#accordion">
+                <div class="payment-content">
+                    <p>Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
+                    <ul class="payent-type mt-10">
+                        <li><a href="#"><img th:src="@{/web/img/payment/1.png}" alt=""></a></li>
+                        <li><a href="#"><img th:src="@{/web/img/payment/2.png}" alt=""></a></li>
+                        <li><a href="#"><img th:src="@{/web/img/payment/3.png}" alt=""></a></li>
+                        <li><a href="#"><img th:src="@{/web/img/payment/4.png}" alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- Mirrored from htmldemo.net/subas/subas/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:37 GMT -->
+<head th:replace="~{web/fragments/head::head}"></head>
+
+<body>
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper">
+
+        <!-- START HEADER AREA -->
+        <div th:replace="~{web/fragments/header::header}"></div>
+        <!-- END HEADER AREA -->
+
+        <!-- Start page content -->
+        <section id="page-content" class="page-wrapper section">
+
+            <!-- ADDRESS SECTION START -->
+            <div th:replace="~{web/contact/address-section::address-section}"></div>
+            <!-- ADDRESS SECTION END -->
+
+
+            <!-- MESSAGE BOX SECTION START -->
+            <div th:replace="~{web/contact/contact-content::contact-content}"></div>
+            <!-- MESSAGE BOX SECTION END -->
+        </section>
+        <!-- End page content -->
+
+        <!-- START FOOTER AREA -->
+        <div th:replace="~{web/fragments/footer::footer}"></div>
+        <!-- END FOOTER AREA -->
+
+    </div>
+    <!-- Body main wrapper end -->
+
+    <!-- Placed JS at the end of the document so the pages load faster -->
+    <!-- jquery latest version -->
+    <div th:replace="~{web/fragments/script::script}"></div>
+
+</body>
+
+
+<!-- Mirrored from htmldemo.net/subas/subas/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:41 GMT -->
+</html>

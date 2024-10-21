@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- Mirrored from htmldemo.net/subas/subas/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:37 GMT -->
+<head th:replace="~{web/fragments/head::head}"></head>
+
+<body>
+
+<!-- Body main wrapper start -->
+<div class="wrapper">
+
+    <!-- START HEADER AREA -->
+    <div th:replace="~{web/fragments/header::header}"></div>
+    <!-- END HEADER AREA -->
+
+    <!-- Start page content -->
+    <div id="page-content" class="page-wrapper section">
+
+        <!-- SHOP SECTION START -->
+        <div class="shop-section mb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 order-lg-1 order-1">
+                        <div class="shop-content">
+                            <!-- shop-option start -->
+                            <div th:replace="~{web/product/product-page-option::product-option}"></div>
+                            <!-- shop-option end -->
+                            <!-- Tab Content start -->
+                            <div th:replace="web/product/product-view::product-view"></div>
+                            <!-- Tab Content end -->
+                            <!-- shop-pagination start -->
+                            <div th:replace="web/product/product-pagination::pagination"></div>
+                            <!-- shop-pagination end -->
+                        </div>
+                    </div>
+                    <!--                        START SIDEBAR-->
+                    <div th:replace="~{web/blog/sidebar::sidebar}"></div>
+                    <!--                        END SIDEBAR-->
+                </div>
+            </div>
+        </div>
+        <!-- SHOP SECTION END -->
+
+    </div>
+    <!-- End page content -->
+
+    <!-- START FOOTER AREA -->
+    <div th:replace="~{web/fragments/footer::footer}"></div>
+    <!-- END FOOTER AREA -->
+
+    <!-- START QUICKVIEW PRODUCT -->
+    <div th:replace="~{web/product/quickviewProduct::quickview}"></div>
+    <!-- END QUICKVIEW PRODUCT -->
+
+</div>
+<!-- Body main wrapper end -->
+
+<!-- Placed JS at the end of the document so the pages load faster -->
+<!-- jquery latest version -->
+<div th:replace="~{web/fragments/script::script}"></div>
+
+</body>
+
+
+<!-- Mirrored from htmldemo.net/subas/subas/shop-right-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:37 GMT -->
+</html>

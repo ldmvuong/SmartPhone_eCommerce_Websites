@@ -18,5 +18,8 @@ public class CategoryEntity {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "status")
+    private int status;
 }
 

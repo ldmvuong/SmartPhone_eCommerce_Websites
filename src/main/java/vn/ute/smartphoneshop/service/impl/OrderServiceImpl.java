@@ -2,6 +2,7 @@ package vn.ute.smartphoneshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.model.dto.OrderDTO;
 import vn.ute.smartphoneshop.entity.OrderEntity;
@@ -13,14 +14,19 @@ import vn.ute.smartphoneshop.repository.UserRepository;
 import vn.ute.smartphoneshop.repository.VoucherRepository;
 import vn.ute.smartphoneshop.service.IOrderService;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements IOrderService {
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final OrderRepository orderRepository;
+    @Autowired
     private final VoucherRepository voucherRepository;
+    @Autowired
     private final ModelMapper modelMapper;
     @Override
     public OrderEntity createOrder(OrderDTO order) {

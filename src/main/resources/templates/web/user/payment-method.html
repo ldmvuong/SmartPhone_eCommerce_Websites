@@ -1,0 +1,63 @@
+<div class="card" th:fragment="payment">
+    <div class="card-header">
+        <h4 class="card-title">
+            <a data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Payment
+                Method</a>
+        </h4>
+    </div>
+    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+        <div class="panel-body">
+            <form action="#">
+                <div class="new-customers p-30">
+                    <select class="custom-select">
+                        <option value="defalt">Card Type</option>
+                        <option value="c-1">Master Card</option>
+                        <option value="c-2">Paypal</option>
+                        <option value="c-3">Paypal</option>
+                        <option value="c-4">Paypal</option>
+                    </select>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="Card Number">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="Card Security Code">
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="custom-select">
+                                <option value="defalt">Month</option>
+                                <option value="c-1">January</option>
+                                <option value="c-2">February</option>
+                                <option value="c-3">March</option>
+                                <option value="c-4">April</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="custom-select">
+                                <option value="defalt">Year</option>
+                                <option value="c-4">2022</option>
+                                <option value="c-1">2016</option>
+                                <option value="c-2">2015</option>
+                                <option value="c-3">2014</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                    value="register">pay now</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                    value="register">cancel order</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="submit-btn-1 mt-20 f-right btn-hover-1" type="submit"
+                                    value="register">continue</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

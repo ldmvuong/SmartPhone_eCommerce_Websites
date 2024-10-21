@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- Mirrored from htmldemo.net/subas/subas/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:37 GMT -->
+<head th:replace="~{web/fragments/head::head}"></head>
+
+<body>
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper">
+
+        <!-- START HEADER AREA -->
+        <div th:replace="~{web/fragments/header::header}"></div>
+        <!-- END HEADER AREA -->
+
+        <!-- Start page content -->
+        <div id="page-content" class="page-wrapper section">
+
+            <!-- LOGIN SECTION START -->
+            <div class="login-section mb-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2">
+                            <div class="my-account-content" id="accordion">
+                                <!-- My Personal Information -->
+                                <div th:replace="~{web/user/user-inf::personal-inf}"></div>
+                                <!-- My shipping address -->
+                                <div th:replace="~{web/user/shipping-address::shipping-address}"></div>
+                                <!-- My billing details -->
+                                <div th:replace="~{web/user/billing-detail::billing-detail}"></div>
+                                <!-- Payment Method -->
+                                <div th:replace="~{web/user/payment-method::payment}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- LOGIN SECTION END -->
+        </div>
+        <!-- End page content -->
+
+        <!-- START FOOTER AREA -->
+        <div th:replace="~{web/fragments/footer::footer}"></div>
+        <!-- END FOOTER AREA -->
+
+    </div>
+    <!-- Body main wrapper end -->
+
+    <!-- Placed JS at the end of the document so the pages load faster -->
+    <!-- jquery latest version -->
+    <div th:replace="~{web/fragments/script::script}"></div>
+
+</body>
+
+
+<!-- Mirrored from htmldemo.net/subas/subas/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:27 GMT -->
+</html>

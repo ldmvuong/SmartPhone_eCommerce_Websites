@@ -1,0 +1,23 @@
+<div class="shop-list product-item" th:fragment="category-item-list-view">
+
+    <div class="product-info">
+        <div class="clearfix">
+            <h6 class="product-title f-left">
+                <a th:text="${category.categoryName}"> </a>
+            </h6>
+        </div>
+        <h6 class="brand-name mb-30">Description</h6>
+        <p th:text="${category.description}"></p> <!-- Hiển thị mô tả category -->
+
+        <ul class="action-button">
+            <li>
+                <a th:href="@{/admin/edit-category/{id}(id=${category.categoryId})}" title="Edit"><i
+                        class="zmdi zmdi-edit"></i></a>
+            </li>
+            <li>
+                <a href="#" title="Delete"><i
+                        class="zmdi zmdi-delete"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -331,7 +331,12 @@
 	/* ********************************************
 		14. Cart tab menu active
 	******************************************** */  
-    $('.cart-tab li a').on("click", function(){
+    $('.cart-tab li a').on("click", function(e){
+        // Ngăn việc chuyển hướng mặc định
+        e.preventDefault();
+        // Kích hoạt tab hiện tại
+        $(this).tab('show');
+        // Thêm class active cho tab được chọn
         $(this).addClass("active");
         $(this).parent('li').prevAll('li').find('a').addClass("active");
         $(this).parent('li').nextAll('li').find('a').removeClass("active");

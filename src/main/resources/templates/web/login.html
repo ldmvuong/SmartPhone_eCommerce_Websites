@@ -1,0 +1,58 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<!-- Mirrored from htmldemo.net/subas/subas/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:37 GMT -->
+<head th:replace="~{web/fragments/head::head}"></head>
+
+<body>
+
+    <!-- Body main wrapper start -->
+    <div class="wrapper">
+
+        <!-- START HEADER AREA -->
+        <div th:replace="~{web/fragments/header::header}"></div>
+        <!-- END HEADER AREA -->
+
+        <!-- Start page content -->
+        <div id="page-content" class="page-wrapper section">
+
+            <!-- LOGIN SECTION START -->
+            <div class="login-section mb-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="registered-customers">
+                                <h6 class="widget-title border-left mb-50">LOGIN</h6>
+                                <form action="#">
+                                    <div th:replace="~{web/user/login::login}"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- new-customers -->
+                        <div th:replace="~{web/user/register::register}"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- LOGIN SECTION END -->             
+
+        </div>
+        <!-- End page content -->
+
+        <!-- START FOOTER AREA -->
+        <div th:replace="~{web/fragments/footer::footer}"></div>
+        <!-- END FOOTER AREA -->
+
+    </div>
+    <!-- Body main wrapper end -->
+
+
+    <!-- Placed JS at the end of the document so the pages load faster -->
+
+    <!-- jquery latest version -->
+    <div th:replace="~{web/fragments/script::script}"></div>
+
+</body>
+
+
+<!-- Mirrored from htmldemo.net/subas/subas/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:29 GMT -->
+</html>

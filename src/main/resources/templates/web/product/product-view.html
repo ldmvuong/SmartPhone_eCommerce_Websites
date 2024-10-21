@@ -1,0 +1,42 @@
+<div class="tab-content" th:fragment="product-view">
+    <!-- grid-view -->
+    <div id="grid-view" class="tab-pane active show" role="tabpanel">
+        <div class="row">
+            <!-- product-item start -->
+            <div class="col-lg-4 col-md-6">
+                <div th:replace="web/product/product-item::product-item"></div>
+            </div>
+            <!-- product-item end -->
+            <!-- product-item start -->
+            <div class="col-lg-4 col-md-6">
+                <div th:replace="web/product/product-item::product-item"></div>
+            </div>
+            <!-- product-item end -->
+            <!-- product-item start -->
+            <div class="col-lg-4 col-md-6">
+                <div th:replace="web/product/product-item::product-item"></div>
+            </div>
+            <!-- product-item end -->
+        </div>
+    </div>
+    <!-- list-view -->
+    <div id="list-view" class="tab-pane" role="tabpanel">
+        <div class="row">
+            <!-- product-item start -->
+            <div class="col-lg-12">
+                <div th:replace="~{web/product/product-item-list-view::product-item-list-view}"></div>
+            </div>
+            <!-- product-item end -->
+            <!-- product-item start -->
+            <div class="col-lg-12">
+                <div th:replace="~{web/product/product-item-list-view::product-item-list-view}"></div>
+            </div>
+            <!-- product-item end -->
+            <!-- product-item start -->
+            <div class="col-lg-12">
+                <div th:replace="~{web/product/product-item-list-view::product-item-list-view}"></div>
+            </div>
+            <!-- product-item end -->
+        </div>
+    </div>
+</div>
