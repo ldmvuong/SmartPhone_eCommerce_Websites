@@ -48,4 +48,16 @@ public class CategoryServiceImpl implements ICategoryService {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteCategory(int id) {
+        try {
+            this.categoryRepository.deleteById(id);
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

@@ -16,4 +16,5 @@ public interface ICategoryService {
     public boolean update(CategoryEntity category);
     public CategoryEntity findById(int id);
     public boolean addCategory(CategoryEntity category);
+    public boolean deleteCategory(int id);
 }

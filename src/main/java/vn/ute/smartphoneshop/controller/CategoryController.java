@@ -61,4 +61,14 @@ public class CategoryController{
             return "redirect:/add-category";
         }
     }
+
+    @GetMapping(value = "/admin/delete-category/{id}")
+    public String deleteCategory( @PathVariable("id") int id){
+        if(categoryServiceImpl.deleteCategory(id)){
+            return "redirect:/admin/list-category";
+        }
+        else {
+            return "redirect:/add-category";
+        }
+    }
 }

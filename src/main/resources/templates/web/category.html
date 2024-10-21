@@ -50,7 +50,7 @@
                                                                         class="zmdi zmdi-edit"></i></a>
                                                             </li>
                                                             <li>
-                                                                <a href="#" title="Delete"><i
+                                                                <a th:href="@{/admin/delete-category/{id}(id=${category.categoryId})}" th:onclick="return confirm('Bạn có chắc chắn muốn xóa không?')" title="Delete"><i
                                                                         class="zmdi zmdi-delete"></i></a>
                                                             </li>
                                                         </ul>
