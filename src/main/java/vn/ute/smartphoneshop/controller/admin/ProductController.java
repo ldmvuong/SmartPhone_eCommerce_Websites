@@ -22,10 +22,13 @@ public class ProductController {
     @Autowired
     private ProductServiceImpl productServiceImpl;
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(value = "/product-list", method = RequestMethod.GET)
     public ModelAndView productList(HttpServletRequest request ) {
         ModelAndView mav = new ModelAndView("admin/product-list");
-        List<ProductDTO> products = productServiceImpl.findAllProduct();
+        List<ProductDTO> products = productService.findAllProduct();
         mav.addObject("products", products);
         return mav;
     }
@@ -38,7 +41,7 @@ public class ProductController {
     @GetMapping("/add-product/{id}")
     public String showAddProductForm(@PathVariable(value = "id", required = false) Integer id, Model model) {
         if (id != null) {
-            ProductDTO product = productServiceImpl.findProductById(id);
+            ProductDTO product = productService.findProductById(id);
             model.addAttribute("product", product);
         } else {
             model.addAttribute("product", new ProductDTO());
@@ -48,13 +51,13 @@ public class ProductController {
 
     @PostMapping("/add-product")
     public String addProduct(@ModelAttribute("product") ProductDTO product) {
-        productServiceImpl.save(product);
+        productService.save(product);
         return "redirect:/admin/product-list";
     }
 
     @GetMapping("/delete-product/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
-            productServiceImpl.deleteProductById(id);
+        productService.deleteProductById(id);
             return "redirect:/admin/product-list";
     }
 }
