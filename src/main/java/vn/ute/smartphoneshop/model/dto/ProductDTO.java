@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
+    private Integer productId;
     @NotNull(message = "Product's name is required")
     private String name;
     private String brand;

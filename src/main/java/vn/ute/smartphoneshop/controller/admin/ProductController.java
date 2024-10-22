@@ -3,6 +3,7 @@ package vn.ute.smartphoneshop.controller.admin;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +16,9 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
+@Transactional
 public class ProductController {
+
     @Autowired
     private ProductServiceImpl productServiceImpl;
 
@@ -27,8 +30,19 @@ public class ProductController {
         return mav;
     }
     @GetMapping("/add-product")
-    public String showAddProductForm(Model model) {
+    public String showAddNewProductForm(Model model) {
         model.addAttribute("product", new ProductDTO());
+        return "admin/add-product";
+    }
+
+    @GetMapping("/add-product/{id}")
+    public String showAddProductForm(@PathVariable(value = "id", required = false) Integer id, Model model) {
+        if (id != null) {
+            ProductDTO product = productServiceImpl.findProductById(id);
+            model.addAttribute("product", product);
+        } else {
+            model.addAttribute("product", new ProductDTO());
+        }
         return "admin/add-product";
     }
 
@@ -38,15 +52,9 @@ public class ProductController {
         return "redirect:/admin/product-list";
     }
 
-//    @RequestMapping(value ="/admin/add-product", method = RequestMethod.GET )
-//    public String showAddProduct(Model model) {
-//        model.addAttribute("product", new ProductDTO());
-//        return "admin/add-product";
-//    }
-
-//    @PostMapping("/admin/add-product")
-//    public ModelAndView addProduct(@ModelAttribute("product") ProductDTO product) {
-//        productServiceImpl.save(product);
-//        return new ModelAndView("redirect:/admin/product-list");
-//    }
+    @GetMapping("/delete-product/{id}")
+    public String deleteProduct(@PathVariable("id") Integer id) {
+            productServiceImpl.deleteProductById(id);
+            return "redirect:/admin/product-list";
+    }
 }

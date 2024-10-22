@@ -32,8 +32,8 @@ public class ProductEntity {
     @Column(name = "rating")
     private float rating;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "status", nullable = false)
+    private String status = "Còn hàng";
 
     @Column(name = "imagePath")
     private String imagePath;

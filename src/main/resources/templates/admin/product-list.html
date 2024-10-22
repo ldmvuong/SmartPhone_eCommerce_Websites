@@ -148,11 +148,13 @@
                                                     <div class="item eye">
                                                         <i class="icon-eye"></i>
                                                     </div>
-                                                    <div class="item edit">
+                                                    <a th:href="@{/admin/add-product/{id}(id=${product.productId})}" class="item edit">
                                                         <i class="icon-edit-3"></i>
-                                                    </div>
+                                                    </a>
                                                     <div class="item trash">
-                                                        <i class="icon-trash-2"></i>
+                                                        <a th:href="@{/admin/delete-product/{id}(id=${product.productId})}" class="item trash">
+                                                            <i class="icon-trash-2"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>

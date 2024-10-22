@@ -52,7 +52,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void save(ProductDTO product) {
+        if (product.getStockQuantity() > 0) {
+            product.setStatus("Còn hàng");
+        } else {
+            product.setStatus("Hết hàng");
+        }
         ProductEntity productEntity = productDTOConverter.toProductEntity(product);
         productRepository.save(productEntity);
+    }
+
+    @Override
+    public ProductDTO findProductById(int id) {
+        ProductDTO productDTO = productDTOConverter.toProductDTO(productRepository.findById(id).get());
+        return productDTO;
+    }
+
+    @Override
+    public void deleteProductById(int id) {
+        productRepository.deleteById(id);
     }
 }

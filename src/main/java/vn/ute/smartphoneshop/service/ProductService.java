@@ -10,5 +10,6 @@ public interface ProductService {
     List<ProductDTO>findAll(Map<String,Object> params);
     List<ProductDTO> findAllProduct();
     void save(ProductDTO product);
-
+    ProductDTO findProductById(int id);
+    void deleteProductById(int id);
 }
