@@ -4687,9 +4687,6 @@ select.h40 {
 .wg-table.table-product-list .product-item:nth-child(2n+1) {
   background: var(--bg-table);
 }
-.wg-table.table-all-category > * {
-  min-width: 1515px;
-}
 .wg-table.table-all-category ul.table-title {
   padding: 12px;
   border-radius: 12px;
@@ -4863,9 +4860,6 @@ select.h40 {
 }
 .wg-table.table-order-track .cart-totals-item > div:nth-child(4) {
   width: 452px;
-}
-.wg-table.table-all-user > * {
-  min-width: 1515px;
 }
 .wg-table.table-all-user ul.table-title {
   padding: 12px;

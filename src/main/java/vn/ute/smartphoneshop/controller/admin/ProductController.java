@@ -60,4 +60,13 @@ public class ProductController {
         productService.deleteProductById(id);
             return "redirect:/admin/product-list";
     }
+    @GetMapping("/order-list")
+    public String orderList(){
+        return "admin/oder-list";
+    }
+
+    @GetMapping("/order-detail")
+    public String orderList(Model model){
+        return "admin/oder-detail";
+    }
 }
