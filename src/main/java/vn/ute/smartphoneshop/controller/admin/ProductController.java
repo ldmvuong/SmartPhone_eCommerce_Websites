@@ -69,4 +69,9 @@ public class ProductController {
     public String orderList(Model model){
         return "admin/oder-detail";
     }
+
+    @GetMapping(value ="/brand-list")
+    public String brandList(){
+        return "admin/category-list";
+    }
 }
