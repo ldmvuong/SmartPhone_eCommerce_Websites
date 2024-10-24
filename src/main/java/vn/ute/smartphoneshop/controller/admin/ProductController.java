@@ -74,4 +74,9 @@ public class ProductController {
     public String brandList(){
         return "admin/category-list";
     }
+
+    @GetMapping(value = "/add-brand")
+    public String addBrand(Model model){
+        return "admin/new-category";
+    }
 }
