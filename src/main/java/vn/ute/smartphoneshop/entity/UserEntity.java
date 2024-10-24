@@ -15,7 +15,7 @@ public class UserEntity {
     private int userId;
 
     @Column(name = "username", nullable = false)
-    private String username;
+    private String userName;
 
     @Column(name = "firstName")
     private String firstName;

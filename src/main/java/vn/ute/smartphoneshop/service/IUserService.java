@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUserService {
     List<UserDTO> findAll();
     UserDTO findById(int id);
-    boolean add(UserEntity user);
-    boolean update(UserEntity user);
+    boolean add(UserDTO user);
+    boolean update(UserDTO user);
     boolean delete(int id);
 }

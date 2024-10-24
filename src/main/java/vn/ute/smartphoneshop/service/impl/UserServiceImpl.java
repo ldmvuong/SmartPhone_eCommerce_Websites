@@ -41,17 +41,37 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean add(UserEntity user) {
+    public boolean add(UserDTO user) {
+        try{
+            UserEntity userEntity = userDTOConverter.toUserEntity(user);
+            userRepository.save(userEntity);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
-    public boolean update(UserEntity user) {
+    public boolean update(UserDTO user) {
+        try{
+            UserEntity userEntity = userDTOConverter.toUserEntity(user);
+            userRepository.save(userEntity);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public boolean delete(int id) {
+        try{
+            userRepository.deleteById(id);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 }

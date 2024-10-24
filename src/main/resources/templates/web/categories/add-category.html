@@ -23,7 +23,7 @@
                     <div class="col-lg-9 order-lg-1 order-1">
                         <div class="shop-content">
                             <div class="login-account p-30 box-shadow">
-                                <form th:action="@{/admin/add}" method="post" th:object="${category}">
+                                <form th:action="@{/admin/add-category}" method="post" th:object="${category}">
                                     <label class="mb-3">Category Name</label>
                                     <input type="text" id="categoryName" th:field="*{categoryName}">
                                     <label class="mb-3">Description</label>

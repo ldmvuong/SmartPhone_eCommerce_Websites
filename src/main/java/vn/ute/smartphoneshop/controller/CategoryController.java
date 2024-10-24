@@ -51,7 +51,7 @@ public class CategoryController{
         return "web/categories/add-category";
     }
 
-    @PostMapping(value = "/admin/add")
+    @PostMapping(value = "/admin/add-category")
     public String add(@ModelAttribute("category") CategoryEntity category){
         category.setStatus(1);
         if (this.categoryServiceImpl.addCategory(category)){

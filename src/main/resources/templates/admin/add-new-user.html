@@ -90,7 +90,7 @@
                                 </ul>
                             </div>
                             <!-- add-new-user -->
-                            <form class="form-add-new-user form-style-2">
+                            <form class="form-add-new-user form-style-2" action="/admin/add-user" method="post" th:object="${user}">
                                 <div class="wg-box">
                                     <div class="left">
                                         <h5 class="mb-4">Account</h5>
@@ -100,42 +100,42 @@
                                         <fieldset class="username mb-24" style="width: 49%;">
                                             <div class="body-title mb-10">Username <span class="tf-color-1">*</span></div>
                                             <input type="text" placeholder="Enter username" name="username"
-                                                   tabindex="0" value="" aria-required="true" required="">
+                                                   tabindex="0" aria-required="true" required="" th:field="*{userName}">
                                         </fieldset>
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="first-name">
                                                 <div class="body-title mb-10">First Name <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="First Name" name="firstName" required>
+                                                <input type="text" placeholder="First Name" name="firstName" required th:field="*{firstName}">
                                             </fieldset>
                                             <fieldset class="last-name">
                                                 <div class="body-title mb-10">Last Name <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="Last Name" name="lastName" required>
+                                                <input type="text" placeholder="Last Name" name="lastName" required th:field="*{lastName}">
                                             </fieldset>
                                         </div>
 
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="email">
                                                 <div class="body-title mb-10">Email <span class="tf-color-1">*</span></div>
-                                                <input type="email" placeholder="Email" name="email" required>
+                                                <input type="email" placeholder="Email" name="email" required th:field="*{email}">
                                             </fieldset>
                                             <fieldset class="address">
                                                 <div class="body-title mb-10">Address <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="Address" name="address" required>
+                                                <input type="text" placeholder="Address" name="address" required th:field="*{address}">
                                             </fieldset>
                                         </div>
 
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="phone">
                                                 <div class="body-title mb-10">Phone <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="Phone" name="phone" required>
+                                                <input type="text" placeholder="Phone" name="phone" required th:field="*{phone}">
                                             </fieldset>
                                             <fieldset class="role">
                                                 <div class="body-title mb-10">Role <span class="tf-color-1">*</span></div>
                                                 <div class="select">
-                                                    <select name="role" required>
-                                                        <option value="">Choose role</option>
-                                                        <option value="1">Admin</option>
-                                                        <option value="2">User</option>
+                                                    <select name="role" required th:field="*{roleId}">
+                                                        <option th:value="0">Choose role</option>
+                                                        <option th:value="1">Admin</option>
+                                                        <option th:value="2">User</option>
                                                     </select>
                                                 </div>
                                             </fieldset>
@@ -145,7 +145,7 @@
                                             <div class="body-title mb-10">Password</div>
                                             <input class="password-input" type="password" placeholder="Enter password"
                                                    name="password" tabindex="0" value="" aria-required="true"
-                                                   required="">
+                                                   required="" th:field="*{password}">
                                             <span class="show-pass">
                                                     <i class="icon-eye view"></i>
                                                     <i class="icon-eye-off hide"></i>
@@ -155,7 +155,7 @@
                                             <div class="body-title mb-10">Confirm password</div>
                                             <input class="password-input" type="password" placeholder="Confirm password"
                                                    name="password" tabindex="0" value="" aria-required="true"
-                                                   required="">
+                                                   required="" th:field="*{confirmPassword}">
                                             <span class="show-pass">
                                                     <i class="icon-eye view"></i>
                                                     <i class="icon-eye-off hide"></i>
