@@ -47,13 +47,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean add(UserDTO user) {
-        try{
-            if(this.findByEmail(user.getEmail()) == null&&this.findByUsername(user.getUserName()) == null){
+        try {
+            if (this.findByEmail(user.getEmail()) == null && this.findByUsername(user.getUserName()) == null) {
                 UserEntity userEntity = userDTOConverter.toUserEntity(user);
                 userRepository.save(userEntity);
                 return true;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -61,10 +61,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO findByEmail(String email) {
-        if(userRepository.findByEmail(email).isPresent()){
-            return userDTOConverter.toUserDTO(userRepository.findByEmail(email).get());
-        }
-        return null;
+        return userRepository.findByEmail(email)
+                .map(userDTOConverter::toUserDTO)
+                .orElse(null);
     }
 
     @Override
@@ -76,13 +75,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean update(UserDTO user) {
-        try{
-            if(this.findById(user.getUserId()) != null){
+        try {
+            if (this.findById(user.getUserId()) != null) {
                 UserEntity userEntity = userDTOConverter.toUserEntity(user);
                 userRepository.save(userEntity);
                 return true;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -90,10 +89,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean delete(int id) {
-        try{
+        try {
             userRepository.deleteById(id);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

@@ -11,8 +11,8 @@ public interface IUserService extends UserDetailsService {
     List<UserDTO> findAll();
     UserDTO findById(int id);
     boolean add(UserDTO user);
-    boolean findByEmail(String email);
-    boolean findByUsername(String username);
+    UserDTO  findByEmail(String email);
+    UserDTO  findByUsername(String username);
     boolean update(UserDTO user);
     boolean delete(int id);
 }
