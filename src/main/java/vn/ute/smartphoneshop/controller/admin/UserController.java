@@ -1,12 +1,11 @@
 package vn.ute.smartphoneshop.controller.admin;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.service.IRoleService;
 import vn.ute.smartphoneshop.service.IUserService;
@@ -37,9 +36,36 @@ public class UserController {
     }
 
     @PostMapping(value = "/add-user")
-    public String addNewUser(@ModelAttribute("user") UserDTO user) {
-        if(user.getConfirmPassword().equals(user.getPassword())&&roleService.findById(user.getRoleId())&&userService.add(user)) {
+    public String addNewUser(@Valid @ModelAttribute("user") UserDTO user, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            return "admin/add-new-user";
+        }
+        if(user.getUserId() != 0){
+            if(roleService.findById(user.getRoleId())&& userService.update(user)){
+                return "redirect:/admin/user-list";
+            }
+        }
+        else if(user.getConfirmPassword().equals(user.getPassword())&&roleService.findById(user.getRoleId())&&userService.add(user)) {
             return "redirect:/admin/user-list";
+        }
+        return "admin/add-new-user";
+    }
+    @PostMapping(value = "/add-user/{id}")
+    public String addNewUser(@ModelAttribute("user") UserDTO user,@PathVariable(value = "id") Integer id) {
+        if(roleService.findById(user.getRoleId())&&userService.update(user)) {
+            return "redirect:/admin/user-list";
+        }
+        return "redirect:admin/add-new-user/"+user.getUserId();
+    }
+
+    @GetMapping("/add-user/{id}")
+    public String addNewUser(@PathVariable(value = "id", required = false) Integer id, Model model) {
+        if (id != null) {
+            UserDTO user = userService.findById(id);
+            model.addAttribute("user", user);
+        }
+        else {
+            model.addAttribute("user", new UserDTO());
         }
         return "admin/add-new-user";
     }

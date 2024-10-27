@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO findById(int id) {
-        UserEntity user = userRepository.findById(id);
+        UserEntity user = userRepository.findByUserId(id);
         if (user != null) {
             return userDTOConverter.toUserDTO(user);
         }
@@ -43,9 +43,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean add(UserDTO user) {
         try{
-            UserEntity userEntity = userDTOConverter.toUserEntity(user);
-            userRepository.save(userEntity);
-            return true;
+            if(this.findByEmail(user.getEmail()) == null&&this.findByUsername(user.getUserName()) == null){
+                UserEntity userEntity = userDTOConverter.toUserEntity(user);
+                userRepository.save(userEntity);
+                return true;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -53,11 +55,29 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public UserDTO findByEmail(String email) {
+        if(userRepository.findByEmail(email).isPresent()){
+            return userDTOConverter.toUserDTO(userRepository.findByEmail(email).get());
+        }
+        return null;
+    }
+
+    @Override
+    public UserDTO findByUsername(String username) {
+        if(userRepository.findByEmail(username).isPresent()){
+            return userDTOConverter.toUserDTO(userRepository.findByUserName(username).get());
+        }
+        return null;
+    }
+
+    @Override
     public boolean update(UserDTO user) {
         try{
-            UserEntity userEntity = userDTOConverter.toUserEntity(user);
-            userRepository.save(userEntity);
-            return true;
+            if(this.findById(user.getUserId()) != null){
+                UserEntity userEntity = userDTOConverter.toUserEntity(user);
+                userRepository.save(userEntity);
+                return true;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

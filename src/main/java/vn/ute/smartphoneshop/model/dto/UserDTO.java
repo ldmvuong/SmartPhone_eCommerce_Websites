@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 public class UserDTO {
+    private int userId;
     @JsonProperty("username")
     @NotNull(message = "Username can't blank")
     private String userName;

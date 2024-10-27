@@ -31,7 +31,7 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public OrderEntity createOrder(OrderDTO order) {
 //        Kiem tra user co ton tai trong ds khach hang khong
-        UserEntity user = userRepository.findById(order.getUser_id());
+        UserEntity user = userRepository.findByUserId(order.getUser_id());
 //        Kiem tra voucher co ton tai trong ds voucher khong
         VoucherEntity voucher = null;
         if(order.getVoucher_id() > 0){

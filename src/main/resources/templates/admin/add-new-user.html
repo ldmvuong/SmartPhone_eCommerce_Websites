@@ -93,14 +93,19 @@
                             <form class="form-add-new-user form-style-2" action="/admin/add-user" method="post" th:object="${user}">
                                 <div class="wg-box">
                                     <div class="left">
-                                        <h5 class="mb-4">Account</h5>
+                                        <h5 class="mb-4" th:if="${user.userId} != null">Edit Account</h5>
+                                        <h5 class="mb-4" th:unless="${user.userId} != null">New Account</h5>
                                         <div class="body-text">Fill in the information below to add a new account</div>
                                     </div>
+
                                     <div class="right flex-grow">
                                         <fieldset class="username mb-24" style="width: 49%;">
                                             <div class="body-title mb-10">Username <span class="tf-color-1">*</span></div>
                                             <input type="text" placeholder="Enter username" name="username"
                                                    tabindex="0" aria-required="true" required="" th:field="*{userName}">
+                                        </fieldset>
+                                        <fieldset class="username mb-24" style="width: 49%;">
+                                            <input type="hidden"  name="userId" th:field="*{userId}">
                                         </fieldset>
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="first-name">
@@ -140,31 +145,38 @@
                                                 </div>
                                             </fieldset>
                                         </div>
+                                        <div th:if="${user.userId == 0}">
+                                            <fieldset class="password mb-24" style="width: 49%;">
+                                                <div class="body-title mb-10">Password</div>
+                                                <input class="password-input" type="password" placeholder="Enter password"
+                                                       name="password" tabindex="0" value="" aria-required="true"
+                                                       required="" th:field="*{password}">
+                                                <span class="show-pass">
+                                                    <i class="icon-eye view"></i>
+                                                    <i class="icon-eye-off hide"></i>
+                                                </span>
+                                            </fieldset>
+                                            <fieldset class="password" style="width: 49%;">
+                                                <div class="body-title mb-10">Confirm password</div>
+                                                <input class="password-input" type="password" placeholder="Confirm password"
+                                                       name="password" tabindex="0" value="" aria-required="true"
+                                                       required="" th:field="*{confirmPassword}">
+                                                <span class="show-pass">
+                                                    <i class="icon-eye view"></i>
+                                                    <i class="icon-eye-off hide"></i>
+                                                </span>
+                                            </fieldset>
+                                        </div>
 
-                                        <fieldset class="password mb-24" style="width: 49%;">
-                                            <div class="body-title mb-10">Password</div>
-                                            <input class="password-input" type="password" placeholder="Enter password"
-                                                   name="password" tabindex="0" value="" aria-required="true"
-                                                   required="" th:field="*{password}">
-                                            <span class="show-pass">
-                                                    <i class="icon-eye view"></i>
-                                                    <i class="icon-eye-off hide"></i>
-                                                </span>
-                                        </fieldset>
-                                        <fieldset class="password" style="width: 49%;">
-                                            <div class="body-title mb-10">Confirm password</div>
-                                            <input class="password-input" type="password" placeholder="Confirm password"
-                                                   name="password" tabindex="0" value="" aria-required="true"
-                                                   required="" th:field="*{confirmPassword}">
-                                            <span class="show-pass">
-                                                    <i class="icon-eye view"></i>
-                                                    <i class="icon-eye-off hide"></i>
-                                                </span>
-                                        </fieldset>
                                     </div>
                                 </div>
                                 <div class="bot">
-                                    <button class="tf-button w180" type="submit">Save</button>
+                                    <div th:if="${user.userId != 0}">
+                                        <button class="tf-button w180" type="submit">Save</button>
+                                    </div>
+                                    <div th:unless="${user.userId != 0}">
+                                        <button class="tf-button w180" type="submit">Add</button>
+                                    </div>
                                 </div>
                             </form>
                             <!-- /add-new-user -->
