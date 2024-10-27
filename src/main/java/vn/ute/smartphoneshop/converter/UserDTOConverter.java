@@ -12,7 +12,6 @@ import vn.ute.smartphoneshop.repository.RoleRepository;
 
 @Component
 public class UserDTOConverter {
-
     @Autowired
     private ModelMapper modelMapper;
 

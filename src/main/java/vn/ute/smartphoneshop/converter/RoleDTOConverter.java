@@ -11,8 +11,7 @@ public class RoleDTOConverter {
     @Autowired
     private ModelMapper modelMapper;
 
-    public RoleDTO convertRoleEntityToRoleDTO(RoleEntity roleEntity) {
-        RoleDTO roleDTO = modelMapper.map(roleEntity, RoleDTO.class);
-        return roleDTO;
+    public RoleDTO toRoleDTO(RoleEntity roleEntity) {
+        return modelMapper.map(roleEntity, RoleDTO.class);
     }
 }

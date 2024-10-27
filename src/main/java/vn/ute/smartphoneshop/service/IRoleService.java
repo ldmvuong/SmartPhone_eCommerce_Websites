@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface IRoleService {
     public boolean findById(int id);
+    RoleDTO findByRoleName(String name);
 }
