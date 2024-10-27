@@ -43,7 +43,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public boolean add(UserDTO user) {
         try{
-            if(this.findByEmail(user.getEmail()) == null&&this.findByUsername(user.getUserName()) == null){
+            if(!this.findByEmail(user.getEmail())&&!this.findByUsername(user.getUserName())){
                 UserEntity userEntity = userDTOConverter.toUserEntity(user);
                 userRepository.save(userEntity);
                 return true;
@@ -55,19 +55,19 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO findByEmail(String email) {
+    public boolean findByEmail(String email) {
         if(userRepository.findByEmail(email).isPresent()){
-            return userDTOConverter.toUserDTO(userRepository.findByEmail(email).get());
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
-    public UserDTO findByUsername(String username) {
-        if(userRepository.findByEmail(username).isPresent()){
-            return userDTOConverter.toUserDTO(userRepository.findByUserName(username).get());
+    public boolean findByUsername(String username) {
+        if(userRepository.findByUserName(username).isPresent()){
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
