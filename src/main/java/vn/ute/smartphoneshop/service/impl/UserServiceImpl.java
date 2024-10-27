@@ -1,14 +1,20 @@
 package vn.ute.smartphoneshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.converter.UserDTOConverter;
+import vn.ute.smartphoneshop.entity.RoleEntity;
 import vn.ute.smartphoneshop.entity.UserEntity;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.repository.UserRepository;
 import vn.ute.smartphoneshop.service.IUserService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,7 +23,6 @@ public class UserServiceImpl implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private UserDTOConverter userDTOConverter;
-
 
     @Override
     public List<UserDTO> findAll() {
@@ -64,10 +69,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO findByUsername(String username) {
-        if(userRepository.findByEmail(username).isPresent()){
-            return userDTOConverter.toUserDTO(userRepository.findByUserName(username).get());
-        }
-        return null;
+        return userRepository.findByUserName(username)
+                .map(userDTOConverter::toUserDTO)
+                .orElse(null);
     }
 
     @Override
@@ -93,5 +97,23 @@ public class UserServiceImpl implements IUserService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private GrantedAuthority roleToAuthority(RoleEntity role) {
+        return new SimpleGrantedAuthority(role.getRoleName());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByUserName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password."));
+
+        GrantedAuthority authority = roleToAuthority(user.getRole());
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUserName(),
+                user.getPassword(),
+                Collections.singletonList(authority)
+        );
     }
 }

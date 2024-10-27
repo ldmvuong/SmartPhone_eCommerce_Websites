@@ -7,4 +7,5 @@ import vn.ute.smartphoneshop.entity.RoleEntity;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Integer> {
 //    List<RoleEntity> getAllRole();
+    RoleEntity findByRoleName(String name);
 }
