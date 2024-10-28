@@ -39,21 +39,25 @@
                                     <div th:if="${my_error != null}">
                                         <span style="color:red;" th:text="${my_error}"></span>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="text-danger"></div>
+                                        <div class="col-sm-6" style="position: relative;">
+                                            <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" style="position: absolute; top: -20px; font-size: 0.85em; color: red;"></div>
                                             <input type="text" th:field="*{userName}" placeholder="Username">
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></div>
+                                        <div class="col-sm-6" style="position: relative;">
+                                            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="position: absolute; top: -20px; font-size: 0.85em; color: red;"></div>
                                             <input type="text" th:field="*{phone}" placeholder="Phone">
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6" style="position: relative;">
+                                            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="position: absolute; top: -20px; font-size: 0.85em; color: red;"></div>
                                             <input type="text" th:field="*{firstName}" placeholder="First Name">
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></div>
+                                        <div class="col-sm-6" style="position: relative;">
+                                            <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="position: absolute; top: -20px; font-size: 0.85em; color: red;"></div>
                                             <input type="text" th:field="*{lastName}" placeholder="Last Name">
                                         </div>
                                     </div>

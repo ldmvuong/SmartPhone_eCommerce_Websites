@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                 .formLogin(form -> form
                         .loginPage("/showLoginPage")
                         .loginProcessingUrl("/authenticateTheUser")
-                        .successHandler(customSuccessHandler) // Sử dụng CustomSuccessHandler
+                        .successHandler(customSuccessHandler)
                         .failureUrl("/showLoginPage?error=true")
                         .permitAll()
                 )

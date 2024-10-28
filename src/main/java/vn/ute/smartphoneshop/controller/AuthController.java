@@ -51,6 +51,11 @@ public class AuthController {
             return "web/login";
         }
 
+        if (userService.findByEmail(userDTO.getEmail()) != null) {
+            model.addAttribute("my_error", "The email already exists!");
+            return "web/login";
+        }
+
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setRoleId(2);
         userService.add(userDTO);
