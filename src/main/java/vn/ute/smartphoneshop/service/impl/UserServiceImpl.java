@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.converter.UserDTOConverter;
 import vn.ute.smartphoneshop.entity.RoleEntity;
 import vn.ute.smartphoneshop.entity.UserEntity;
+import vn.ute.smartphoneshop.model.dto.MyUserDetail;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.repository.UserRepository;
 import vn.ute.smartphoneshop.service.IUserService;
@@ -109,10 +110,18 @@ public class UserServiceImpl implements IUserService {
 
         GrantedAuthority authority = roleToAuthority(user.getRole());
 
-        return new org.springframework.security.core.userdetails.User(
+        String fullName = user.getLastName() + " " + user.getFirstName();
+
+        return new MyUserDetail(
                 user.getUserName(),
                 user.getPassword(),
-                Collections.singletonList(authority)
+                true,
+                true,
+                true,
+                true,
+                Collections.singletonList(authority),
+                user.getUserId(),
+                fullName
         );
     }
 }

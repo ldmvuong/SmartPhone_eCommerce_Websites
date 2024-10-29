@@ -135,7 +135,7 @@
                                                     <img th:src="@{/admin/images/avatar/user-1.png}" alt="">
                                                 </span>
                                                 <span class="flex flex-column">
-                                                    <span class="body-title mb-2">Kristin Watson</span>
+                                                    <span class="body-title mb-2" th:text="${#authentication.principal.fullName}"></span>
                                                     <span class="text-tiny">Admin</span>
                                                 </span>
                                             </span>
@@ -150,7 +150,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="login.html" class="user-item">
+                            <a href="#" class="user-item" onclick="document.getElementById('logout-form').submit();">
                                 <div class="icon">
                                     <i class="icon-log-out"></i>
                                 </div>
@@ -163,3 +163,4 @@
         </div>
     </div>
 </div>
+<form id="logout-form" th:action="@{/logout}" method="post" style="display: none;"></form>

@@ -48,7 +48,11 @@ public class SecurityConfiguration {
                         .failureUrl("/showLoginPage?error=true")
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/home")
+                        .permitAll()
+                )
                 .exceptionHandling(configurer -> configurer.accessDeniedPage("/showPage403"));
 
         return http.build();
