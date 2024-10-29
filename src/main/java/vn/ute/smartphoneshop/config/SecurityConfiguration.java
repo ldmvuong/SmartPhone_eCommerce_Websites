@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import vn.ute.smartphoneshop.security.CustomSuccessHandler;
@@ -39,13 +40,14 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/authenticateTheUser", "/process").permitAll()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                        .loginPage("/showLoginPage")
+                        .loginPage("/login")
                         .loginProcessingUrl("/authenticateTheUser")
                         .successHandler(customSuccessHandler)
-                        .failureUrl("/showLoginPage?error=true")
+                        .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout

@@ -20,8 +20,15 @@
                                     Wish List (0)
                                 </a>
                             </li>
-                            <li>
-                                <a href="/templates/web/login.html">
+                            <li th:if="${#authorization.expression('isAuthenticated()')}">
+                                <a href="#" onclick="document.getElementById('logout-form').submit();">
+                                    <i class="zmdi zmdi-lock-open"></i>
+                                    Logout
+                                </a>
+                                <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;"></form>
+                            </li>
+                            <li th:if="${#authorization.expression('isAnonymous()')}">
+                                <a th:href="@{/admin}">
                                     <i class="zmdi zmdi-lock"></i>
                                     Login
                                 </a>
@@ -50,7 +57,7 @@
                         <nav id="primary-menu">
                             <ul class="main-menu text-center">
                                 <li>
-                                    <a th:href="@{/user/home}">Home</a>
+                                    <a th:href="@{/home}">Home</a>
                                 </li>
                                 <li class="mega-parent">
                                     <a href="#">elements</a>

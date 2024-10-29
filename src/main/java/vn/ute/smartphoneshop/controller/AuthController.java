@@ -26,7 +26,7 @@ public class AuthController {
         return "web/404";
     }
 
-    @GetMapping("/showLoginPage")
+    @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("registerUser", new UserDTO());
         return "web/login";
@@ -60,6 +60,6 @@ public class AuthController {
         userDTO.setRoleId(2);
         userService.add(userDTO);
 
-        return "redirect:/showLoginPage?registerSuccess=true";
+        return "redirect:/login?registerSuccess=true";
     }
 }
