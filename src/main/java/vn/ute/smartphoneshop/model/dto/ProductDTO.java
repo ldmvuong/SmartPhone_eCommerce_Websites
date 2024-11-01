@@ -1,8 +1,6 @@
 package vn.ute.smartphoneshop.model.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Data
@@ -11,27 +9,53 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
+
     private Integer productId;
+
     @NotNull(message = "Product's name is required")
+    @NotBlank(message = "Product's name cannot be blank")
     private String name;
+
+    @NotNull(message = "Brand is required")
     private String brand;
+
+    @NotNull(message = "Description is required")
+    @Size(min = 10, max = 800, message = "Description must be between 10 and 800 characters")
     private String description;
-    @NotNull(message = "Price of product is required")
-    @Min(value = 0, message = "Price of product must be >= 0")
+
+    @NotNull(message = "Price is required")
+    @Min(value = 0, message = "Price must be greater than or equal to 0")
     private Double price;
-    @Min(value = 0,message = "Stock of quantity must be greater than or equal 0")
+
+    @Min(value = 0, message = "Stock quantity must be greater than or equal to 0")
     private int stockQuantity;
-    @Min(value = 0, message = "Rating must be >=0")
-    @Max(value = 5, message = "Rating must be <=5")
+
     private Double rating;
+
     private String status;
+
     private String imagePath;
+
+    @NotBlank(message = "Battery capacity is required")
     private String batteryCapacity;
+
+    @NotBlank(message = "Processor details are required")
     private String processor;
+
     private String operatingSystem;
+
+    @NotBlank(message = "SIM details are required")
     private String sim;
+
+    @NotBlank(message = "Connectivity details are required")
     private String connectivity;
+
+    @NotBlank(message = "Camera details are required")
     private String camera;
+
+    @NotBlank(message = "Warranty period is required")
     private String warrantyPeriod;
+
+    @Min(value = 1, message = "Category ID is required")
     private int categoryId;
 }

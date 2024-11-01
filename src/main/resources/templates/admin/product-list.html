@@ -132,7 +132,8 @@
                                     <ul class="flex flex-column">
                                         <li class="product-item gap14" th:each="product : ${products}">
                                             <div class="image no-bg">
-                                                <img th:src="@{/admin/images/products/41.png}" alt="">
+                                                <!-- Hiển thị ảnh sản phẩm -->
+                                                <img th:src="${product.imagePath}" alt="Product Image" style="width: 50px; height: 50px;">
                                             </div>
                                             <div class="flex items-center justify-between gap20 flex-grow">
                                                 <div class="name">
