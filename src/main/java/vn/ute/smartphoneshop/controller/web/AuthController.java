@@ -1,4 +1,4 @@
-package vn.ute.smartphoneshop.controller;
+package vn.ute.smartphoneshop.controller.web;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

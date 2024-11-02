@@ -9,4 +9,15 @@ public class HomeController {
     public String index() {
         return "web/index";
     }
+
+    @GetMapping("/product-list")
+    public String productList() {
+        return "web/shop-right-sidebar";
+    }
+
+    @GetMapping("/about-us")
+    public String aboutUs() {
+        return "web/about";
+    }
+
 }

@@ -1,4 +1,4 @@
-package vn.ute.smartphoneshop.controller;
+package vn.ute.smartphoneshop.controller.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
