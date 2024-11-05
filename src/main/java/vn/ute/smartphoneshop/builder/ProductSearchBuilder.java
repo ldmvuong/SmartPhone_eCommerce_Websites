@@ -2,7 +2,6 @@ package vn.ute.smartphoneshop.builder;
 
 public class ProductSearchBuilder {
     private String name;
-    private String brand;
     private String processor;
     private String operatingSystem;
     private String sim;
@@ -11,14 +10,13 @@ public class ProductSearchBuilder {
     private String warrantyPeriod;
     private Integer batteryCapacity;
     private Float rating;
-    private Integer categoryId;
+    private Long brandId;
     private Long minPrice;  // Giá tối thiểu
     private Long maxPrice;  // Giá tối đa
 
 
     private ProductSearchBuilder(Builder builder) {
         this.name = builder.name;
-        this.brand = builder.brand;
         this.processor = builder.processor;
         this.operatingSystem = builder.operatingSystem;
         this.sim = builder.sim;
@@ -27,7 +25,7 @@ public class ProductSearchBuilder {
         this.warrantyPeriod = builder.warrantyPeriod;
         this.batteryCapacity = builder.batteryCapacity;
         this.rating = builder.rating;
-        this.categoryId = builder.categoryId;
+        this.brandId = builder.brandId;
         this.minPrice = builder.minPrice;
         this.maxPrice = builder.maxPrice;
     }
@@ -36,9 +34,6 @@ public class ProductSearchBuilder {
         return name;
     }
 
-    public String getBrand() {
-        return brand;
-    }
 
     public String getProcessor() {
         return processor;
@@ -72,8 +67,8 @@ public class ProductSearchBuilder {
         return rating;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Long getBrandId() {
+        return brandId;
     }
 
     public Long getMinPrice() {
@@ -87,7 +82,6 @@ public class ProductSearchBuilder {
 
     public static class Builder {
         private String name;
-        private String brand;
         private String processor;
         private String operatingSystem;
         private String sim;
@@ -96,17 +90,12 @@ public class ProductSearchBuilder {
         private String warrantyPeriod;
         private Integer batteryCapacity;
         private Float rating;
-        private Integer categoryId;
+        private Long brandId;
         private Long minPrice;
         private Long maxPrice;
 
         public Builder setName(String name) {
             this.name = name;
-            return this;
-        }
-
-        public Builder setBrand(String brand) {
-            this.brand = brand;
             return this;
         }
 
@@ -150,8 +139,8 @@ public class ProductSearchBuilder {
             return this;
         }
 
-        public Builder setCategoryId(Integer categoryId) {
-            this.categoryId = categoryId;
+        public Builder setBrandId(Long brandId) {
+            this.brandId = brandId;
             return this;
         }
 

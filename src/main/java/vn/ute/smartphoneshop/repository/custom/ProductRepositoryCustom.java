@@ -16,9 +16,6 @@ public class ProductRepositoryCustom {
             if (builder.getName() != null && !builder.getName().isEmpty()) {
                 predicates.add(criteriaBuilder.like(root.get("name"), "%" + builder.getName() + "%"));
             }
-            if (builder.getBrand() != null && !builder.getBrand().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("brand"), builder.getBrand()));
-            }
             if (builder.getProcessor() != null && !builder.getProcessor().isEmpty()) {
                 predicates.add(criteriaBuilder.equal(root.get("processor"), builder.getProcessor()));
             }
@@ -43,8 +40,8 @@ public class ProductRepositoryCustom {
             if (builder.getRating() != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), builder.getRating()));
             }
-            if (builder.getCategoryId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("categoryId"), builder.getCategoryId()));
+            if (builder.getBrandId() != null) {
+                predicates.add(criteriaBuilder.equal(root.get("brandId"), builder.getBrandId()));
             }
             if (builder.getMinPrice() != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), builder.getMinPrice()));

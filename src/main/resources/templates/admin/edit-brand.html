@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>Remos eCommerce Admin Dashboard HTML Template</title>
+
+    <meta name="author" content="themesflat.com">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/animate.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/animation.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/style.css}">
+    
+    <!-- Font -->
+    <link rel="stylesheet" th:href="@{/admin/font/fonts.css}">
+
+    <!-- Icon -->
+    <link rel="stylesheet" th:href="@{/admin/icon/style.css}">
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" th:href="@{/admin/images/favicon.png}">
+    <link rel="apple-touch-icon-precomposed" th:href="@{/admin/images/favicon.png}">
+
+</head>
+
+<body class="body">
+
+    <!-- #wrapper -->
+    <div id="wrapper">
+        <!-- #page -->
+        <div id="page" class="">
+            <!-- layout-wrap -->
+           <div class="layout-wrap">
+                <!-- preload -->
+                <div id="preload" class="preload-container">
+                    <div class="preloading">
+                        <span></span>
+                    </div>
+                </div>
+                <!-- /preload -->
+                <!-- section-menu-left -->
+               <div th:replace="~{admin/fragments/menu-left :: menu-left}"></div>
+                <!-- /section-menu-left -->
+                <!-- section-content-right -->
+                <div class="section-content-right">
+                    <!-- header-dashboard -->
+                    <div th:replace="~{admin/fragments/header::header}"></div>
+                    <!-- /header-dashboard -->
+                    <!-- main-content -->
+                    <div class="main-content">
+                        <!-- main-content-wrap -->
+                        <div class="main-content-inner">
+                            <!-- main-content-wrap -->
+                            <div class="main-content-wrap">
+                                <div class="flex items-center flex-wrap justify-between gap20 mb-27">
+                                    <h3>Brand infomation</h3>
+                                    <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
+                                        <li>
+                                            <a href="index.html"><div class="text-tiny">Dashboard</div></a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <a href="#"><div class="text-tiny">Brand</div></a>
+                                        </li>
+                                        <li>
+                                            <i class="icon-chevron-right"></i>
+                                        </li>
+                                        <li>
+                                            <div class="text-tiny">New brand</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- new-brand -->
+
+                                <div class="page-header" th:if="${msg != null}">
+                                    <div class="page-title">
+                                        <h4 th:text="${msg}" style="color: red"></h4>
+                                    </div>
+                                </div>
+
+                                <div class="wg-box">
+                                    <form action="/admin/brands/edit-brand" method="post" enctype="multipart/form-data" th:object="${brand}">
+                                        <fieldset class="name" style="width: 50%">
+                                            <div class="body-title">Brand name <span class="tf-color-1">*</span></div>
+                                            <input class="flex-grow" type="text" placeholder="Brand name" name="name" tabindex="0" aria-required="true" required th:field="*{name}">
+                                        </fieldset>
+                                        <fieldset>
+                                            <input type="hidden" th:field="*{id}">
+                                            <input type="text" name="oldImg" th:value="${brand.img}" hidden="hidden">
+                                            <div class="body-title">Upload images <span class="tf-color-1">*</span></div>
+                                            <div class="upload-image flex-grow">
+                                                <div class="image">
+                                                    <img th:src="@{|/${brand.img}|}" alt="" width="500px">
+                                                </div>
+                                                <br>
+                                                <div class="item up-load">
+
+                                                    <label class="uploadfile">
+                                                        <span class="icon">
+                                                            <i class="icon-upload-cloud"></i>
+                                                        </span>
+                                                        <span class="body-text" th:field="*{img}">Drop your images here or select
+                                                            <span class="tf-color">click to browse</span>
+                                                        </span>
+                                                        <input type="file" name="files" accept="image/*">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="bot">
+                                            <div></div>
+                                            <button class="tf-button w208" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /new-category -->
+                            </div>
+                            <!-- /main-content-wrap -->
+                        </div>
+                        <!-- /main-content-wrap -->
+                        <!-- bottom-page -->
+                        <div th:replace="~{admin/fragments/bottom::bottom-page}"></div>
+                        <!-- /bottom-page -->
+                    </div>
+                    <!-- /main-content -->
+                </div>
+                <!-- /section-content-right -->
+            </div>
+            <!-- /layout-wrap -->
+        </div>
+        <!-- /#page -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Javascript -->
+    <script th:src="@{/admin/js/jquery.min.js}"></script>
+    <script th:src="@{/admin/js/bootstrap.min.js}"></script>
+    <script th:src="@{/admin/js/bootstrap-select.min.js}"></script>
+    <script th:src="@{/admin/js/zoom.js}"></script>
+    <script th:src="@{/admin/js/switcher.js}"></script>
+    <script th:src="@{/admin/js/theme-settings.js}"></script>
+    <script th:src="@{/admin/js/main.js}"></script>
+
+</body>
+</html>

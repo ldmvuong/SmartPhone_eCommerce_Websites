@@ -16,9 +16,6 @@ public class ProductDTO {
     @NotBlank(message = "Product's name cannot be blank")
     private String name;
 
-    @NotNull(message = "Brand is required")
-    private String brand;
-
     @NotNull(message = "Description is required")
     @Size(min = 10, max = 800, message = "Description must be between 10 and 800 characters")
     private String description;
@@ -56,6 +53,6 @@ public class ProductDTO {
     @NotBlank(message = "Warranty period is required")
     private String warrantyPeriod;
 
-    @Min(value = 1, message = "Category ID is required")
-    private int categoryId;
+    @Min(value = 1, message = "Brand ID is required")
+    private int brandId;
 }

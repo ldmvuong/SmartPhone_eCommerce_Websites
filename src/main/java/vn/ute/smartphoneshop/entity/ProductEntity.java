@@ -17,9 +17,6 @@ public class ProductEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "brand")
-    private String brand;
-
     @Column(name = "description")
     private String description;
 
@@ -60,6 +57,6 @@ public class ProductEntity {
     private String warrantyPeriod;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
-    private CategoryEntity category;
+    @JoinColumn(name = "brandId", referencedColumnName = "brandId")
+    private BrandEntity brand;
 }
