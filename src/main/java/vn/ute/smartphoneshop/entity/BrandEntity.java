@@ -17,6 +17,7 @@ import java.util.List;
 public class BrandEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "brandId")
     private Long id;
 
     @Column(nullable = false, length = 100)
