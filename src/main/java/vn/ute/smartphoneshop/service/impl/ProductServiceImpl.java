@@ -1,6 +1,7 @@
 package vn.ute.smartphoneshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import vn.ute.smartphoneshop.builder.ProductSearchBuilder;
@@ -126,6 +127,11 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public List<ProductEntity> findProductByBrandName(String brandName) {
         return productRepository.findByBrandName(brandName);
+    }
+
+    @Override
+    public List<ProductEntity> newArrivalProduct() {
+        return productRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
 }

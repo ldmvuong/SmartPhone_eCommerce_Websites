@@ -11,6 +11,7 @@ import vn.ute.smartphoneshop.entity.ProductEntity;
 import vn.ute.smartphoneshop.service.IBrandService;
 import vn.ute.smartphoneshop.service.IProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller("userProductController")
@@ -26,8 +27,10 @@ public class ProductController {
     public String index(Model model, @RequestParam("brand") String brand) {
         List<BrandEntity> brandEntityList = brandService.findAll();
         List<ProductEntity> list = productService.findProductByBrandName(brand);
+
         model.addAttribute("products", list);
         model.addAttribute("brands", brandEntityList);
         return "web/shop-right-sidebar";
     }
+
 }

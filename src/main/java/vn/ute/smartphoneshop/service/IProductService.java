@@ -14,4 +14,6 @@ public interface IProductService {
     ProductDTO findProductById(int id);
     void deleteProductById(int id);
     List<ProductEntity> findProductByBrandName(String brandName);
+
+    List<ProductEntity> newArrivalProduct();
 }
