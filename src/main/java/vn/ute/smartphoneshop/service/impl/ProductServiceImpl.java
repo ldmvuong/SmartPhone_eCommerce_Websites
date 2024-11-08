@@ -58,6 +58,11 @@ public class ProductServiceImpl implements IProductService {
         return result;
     }
 
+//    @Override
+//    public boolean createProduct(ProductDTO productDTO, MultipartFile file) throws IOException {
+//        BrandEntity brandEntity =
+//    }
+
     @Override
     public void saveProduct(ProductDTO product, MultipartFile file, String existingImagePath) {
         String img = (product.getImagePath() != null && !product.getImagePath().isEmpty()) ? product.getImagePath() : "default-product.jpg";
@@ -117,4 +122,10 @@ public class ProductServiceImpl implements IProductService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<ProductEntity> findProductByBrandName(String brandName) {
+        return productRepository.findByBrandName(brandName);
+    }
+
 }

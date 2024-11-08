@@ -1,6 +1,7 @@
 package vn.ute.smartphoneshop.service;
 
 import org.springframework.web.multipart.MultipartFile;
+import vn.ute.smartphoneshop.entity.ProductEntity;
 import vn.ute.smartphoneshop.model.dto.ProductDTO;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface IProductService {
     void saveProduct(ProductDTO product, MultipartFile file,String existingImagePath);
     ProductDTO findProductById(int id);
     void deleteProductById(int id);
+    List<ProductEntity> findProductByBrandName(String brandName);
 }
