@@ -54,5 +54,5 @@ public class ProductDTO {
     private String warrantyPeriod;
 
     @Min(value = 1, message = "Brand ID is required")
-    private int brandId;
+    private Long brandId;
 }

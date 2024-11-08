@@ -92,7 +92,7 @@
                                 </ul>
                             </div>
                             <!-- form-add-product -->
-                            <form class="tf-section-2 form-add-product" th:action="@{/admin/add-product}" method="post"
+                            <form class="tf-section-2 form-add-product" action="/admin/products/save" method="post"
                                   th:object="${product}" enctype="multipart/form-data">
                                 <input type="hidden" th:field="*{productId}">
 
@@ -100,32 +100,33 @@
                                     <!-- Product Name -->
                                     <fieldset class="name">
                                         <div class="body-title mb-10">Product Name <span class="tf-color-1">*</span></div>
-                                        <input class="mb-10" type="text" th:field="*{name}" placeholder="Enter product name" >
+                                        <input class="mb-10" type="text" th:field="*{name}" placeholder="Enter product name" autocomplete="off">
                                         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></div>
                                     </fieldset>
 
                                     <!-- Category and Brand -->
                                     <div class="gap22 cols">
-                                        <fieldset class="category">
-                                            <div class="body-title mb-10">Category <span class="tf-color-1">*</span></div>
-                                            <select th:field="*{categoryId}">
-                                                <option value="0">Choose category</option>
-                                                <option value="1">Smartphones</option>
-                                                <option value="2">Tablets</option>
-                                                <option value="3">Accessories</option>
-                                            </select>
-                                            <div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" class="error-message"></div>
+                                        <fieldset class="operatingSystem">
+                                            <div class="body-title mb-10">Operating System <span class="tf-color-1">*</span></div>
+                                                <input type="text" id="cbbOperatingSystem" list="osOptions" placeholder="Choose operating system" th:field="*{operatingSystem}">
+                                                <datalist id="osOptions">
+                                                    <option value="Android">
+                                                    <option value="iPhone">
+                                                </datalist>
+                                            <div th:if="${#fields.hasErrors('operatingSystem')}" th:errors="*{operatingSystem}" class="error-message"></div>
                                         </fieldset>
 
                                         <fieldset class="brand">
                                             <div class="body-title mb-10">Brand <span class="tf-color-1">*</span></div>
-                                            <select th:field="*{brand}" >
-                                                <option value="">Choose brand</option>
-                                                <option value="samsung">Samsung</option>
-                                                <option value="apple">Apple</option>
-                                                <option value="xiaomi">Xiaomi</option>
+                                            <select th:field="*{brandId}">
+                                                <option value="0">Choose brand</option> <!-- Option mặc định không cần bao quanh -->
+                                                <option th:each="brand : ${brands}"
+                                                        th:value="${brand.id}"
+                                                        th:text="${brand.name}"
+                                                        th:selected="${brand.id == product.brandId}">
+                                                </option>
                                             </select>
-                                            <div th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="error-message"></div>
+                                            <div th:if="${#fields.hasErrors('brandId')}" th:errors="*{brandId}" class="error-message"></div>
                                         </fieldset>
                                     </div>
 
@@ -133,30 +134,62 @@
                                     <div class="gap22 cols">
                                         <fieldset class="processor">
                                             <div class="body-title mb-10">Processor <span class="tf-color-1">*</span></div>
-                                            <input type="text" th:field="*{processor}" placeholder="Enter processor details" >
+                                                <input type="text" th:field="*{processor}" list="processorOptions" placeholder="Enter or select processor details">
+                                                <datalist id="processorOptions">
+                                                    <option value="Snapdragon 888">
+                                                    <option value="Snapdragon 870">
+                                                    <option value="Apple A15 Bionic">
+                                                    <option value="Exynos 2100">
+                                                    <option value="MediaTek Dimensity 1200">
+                                                </datalist>
                                             <div th:if="${#fields.hasErrors('processor')}" th:errors="*{processor}" class="error-message"></div>
                                         </fieldset>
 
+
                                         <fieldset class="battery">
                                             <div class="body-title mb-10">Battery Capacity <span class="tf-color-1">*</span></div>
-                                            <input type="text" th:field="*{batteryCapacity}" placeholder="Enter battery capacity (e.g., 5000mAh)" >
+                                                <input type="text" th:field="*{batteryCapacity}" list="batteryOptions" placeholder="Enter or select battery capacity (e.g., 5000mAh)">
+                                                <datalist id="batteryOptions">
+                                                    <option value="3000mAh">
+                                                    <option value="4000mAh">
+                                                    <option value="4500mAh">
+                                                    <option value="5000mAh">
+                                                    <option value="6000mAh">
+                                                </datalist>
                                             <div th:if="${#fields.hasErrors('batteryCapacity')}" th:errors="*{batteryCapacity}" class="error-message"></div>
                                         </fieldset>
+
                                     </div>
 
                                     <!-- Camera and Warranty Period -->
                                     <div class="gap22 cols">
                                         <fieldset class="camera">
                                             <div class="body-title mb-10">Camera <span class="tf-color-1">*</span></div>
-                                            <input type="text" th:field="*{camera}" placeholder="Enter camera specifications" >
+                                                <input type="text" th:field="*{camera}" list="cameraOptions" placeholder="Enter or select camera specifications">
+                                                <datalist id="cameraOptions">
+                                                    <option value="12 MP - Single">
+                                                    <option value="12 MP + 12 MP - Dual">
+                                                    <option value="48 MP - Triple">
+                                                    <option value="108 MP - Quad">
+                                                    <option value="Selfie Camera 32 MP">
+                                                </datalist>
                                             <div th:if="${#fields.hasErrors('camera')}" th:errors="*{camera}" class="error-message"></div>
                                         </fieldset>
 
+
                                         <fieldset class="warranty">
                                             <div class="body-title mb-10">Warranty Period <span class="tf-color-1">*</span></div>
-                                            <input type="text" th:field="*{warrantyPeriod}" placeholder="Enter warranty period (e.g., 2 years)" >
+                                                <input type="text" th:field="*{warrantyPeriod}" list="warrantyOptions" placeholder="Enter or select warranty period (e.g., 2 years)">
+                                                <datalist id="warrantyOptions">
+                                                    <option value="1 year">
+                                                    <option value="2 years">
+                                                    <option value="3 years">
+                                                    <option value="6 months">
+                                                    <option value="No warranty">
+                                                </datalist>
                                             <div th:if="${#fields.hasErrors('warrantyPeriod')}" th:errors="*{warrantyPeriod}" class="error-message"></div>
                                         </fieldset>
+
                                     </div>
 
                                     <!-- Quantity and Price -->
@@ -178,15 +211,30 @@
                                     <div class="gap22 cols">
                                         <fieldset class="sim">
                                             <div class="body-title mb-10">SIM <span class="tf-color-1">*</span></div>
-                                            <input type="text" th:field="*{sim}" placeholder="Enter SIM details" >
+                                                <input type="text" th:field="*{sim}" list="simOptions" placeholder="Enter or select SIM type">
+                                                <datalist id="simOptions">
+                                                    <option value="Nano SIM">
+                                                    <option value="Micro SIM">
+                                                    <option value="eSIM">
+                                                    <option value="Dual SIM">
+                                                </datalist>
                                             <div th:if="${#fields.hasErrors('sim')}" th:errors="*{sim}" class="error-message"></div>
                                         </fieldset>
 
+
                                         <fieldset class="connectivity">
                                             <div class="body-title mb-10">Connectivity <span class="tf-color-1">*</span></div>
-                                            <input type="text" th:field="*{connectivity}" placeholder="Enter connectivity details" >
+                                                <input type="text" th:field="*{connectivity}" list="connectivityOptions" placeholder="Enter or select connectivity type">
+                                                <datalist id="connectivityOptions">
+                                                    <option value="WiFi">
+                                                    <option value="Bluetooth">
+                                                    <option value="5G">
+                                                    <option value="4G LTE">
+                                                    <option value="NFC">
+                                                </datalist>
                                             <div th:if="${#fields.hasErrors('connectivity')}" th:errors="*{connectivity}" class="error-message"></div>
                                         </fieldset>
+
                                     </div>
 
                                     <!-- Description -->
@@ -204,8 +252,10 @@
 
                                         <!-- Khu vực hiển thị ảnh preview -->
                                         <div class="preview-container mb-10">
-                                            <img th:src="${product.imagePath != null ? product.imagePath : '#'}" id="imagePreview"
-                                                 alt="Product Image" style="width: 100px; height: 100px; object-fit: cover; display: ${product.imagePath != null ? 'block' : 'none'};">
+                                            <!-- Hiển thị ảnh cũ khi form tải -->
+                                            <img id="imagePreview"
+                                                 th:src="@{|/${product.imagePath}|}" alt="" width="200px">
+
                                         </div>
 
                                         <!-- Khung upload ảnh luôn hiển thị -->
@@ -218,13 +268,16 @@
                                                 </label>
                                             </div>
                                         </div>
-
+                                        <input type="hidden" id="existingImagePath" name="existingImagePath" th:value="${product.imagePath}" />
+                                        <!-- Hiển thị thông báo lỗi nếu có -->
                                         <div th:if="${fileError}" class="error-message" th:text="${fileError}"></div>
+
                                     </fieldset>
+
                                     <!-- Submit Button -->
                                     <div class="cols gap10">
-                                        <button class="tf-button w-full" type="submit" th:if="${product.productId} != null" th:text="'Update Product'"></button>
-                                        <button class="tf-button w-full" type="submit" th:unless="${product.productId} != null" th:text="'Add Product'"></button>
+                                        <button class="tf-button w-full" type="submit" th:if="${product.productId != null}" th:text="'Update Product'"></button>
+                                        <button class="tf-button w-full" type="submit" th:unless="${product.productId != null}" th:text="'Add Product'"></button>
                                     </div>
                                 </div>
 
@@ -252,12 +305,14 @@
 <script>
     function previewImage(event) {
         const file = event.target.files[0];
+        const preview = document.getElementById('imagePreview');
+
         if (file) {
+            // Nếu có ảnh mới được chọn, hiển thị ảnh mới
             const reader = new FileReader();
             reader.onload = function(e) {
-                const imagePreview = document.getElementById('imagePreview');
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block'; // Hiển thị ảnh preview
+                preview.src = e.target.result; // Hiển thị ảnh mới
+                preview.style.display = 'block';
             };
             reader.readAsDataURL(file);
         }

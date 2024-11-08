@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vn.ute.smartphoneshop.model.dto.ProductDTO;
 import vn.ute.smartphoneshop.repository.ProductRepository;
-import vn.ute.smartphoneshop.service.ProductService;
+import vn.ute.smartphoneshop.service.IProductService;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
 public class ProductAPI {
 
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
     @Autowired
     private ProductRepository productRepository;
     @PersistenceContext

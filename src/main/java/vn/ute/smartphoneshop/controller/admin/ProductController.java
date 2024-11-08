@@ -2,7 +2,6 @@ package vn.ute.smartphoneshop.controller.admin;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -10,27 +9,25 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.model.dto.ProductDTO;
-import vn.ute.smartphoneshop.service.ProductService;
+import vn.ute.smartphoneshop.service.IBrandService;
+import vn.ute.smartphoneshop.service.IProductService;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/products")
 @Transactional
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
-    @Value("${upload.path}")
-    private String uploadPath;
+    private IProductService productService;
 
-    @RequestMapping(value = "/product-list", method = RequestMethod.GET)
+    @Autowired
+    private IBrandService brandService;
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView productList() {
         ModelAndView mav = new ModelAndView("admin/product-list");
         List<ProductDTO> products = productService.findAllProduct();
@@ -38,87 +35,57 @@ public class ProductController {
         return mav;
     }
 
-    @GetMapping("/add-product")
+    @GetMapping("/save")
     public String showAddNewProductForm(Model model) {
         model.addAttribute("product", new ProductDTO());
+        List<BrandEntity> brands = brandService.findAll();
+        model.addAttribute("brands", brands);
         return "admin/add-product";
     }
 
-    @GetMapping("/add-product/{id}")
+    @GetMapping("/save/{id}")
     public String showAddProductForm(@PathVariable("id") Integer id, Model model) {
         ProductDTO product = productService.findProductById(id);
         model.addAttribute("product", product != null ? product : new ProductDTO());
+        List<BrandEntity> brands = brandService.findAll();
+        model.addAttribute("brands", brands);
         return "admin/add-product";
     }
 
-    @PostMapping("/add-product")
+    @PostMapping("/save")
     public String addProduct(@Valid @ModelAttribute("product") ProductDTO product,
                              BindingResult result,
                              @RequestParam("file") MultipartFile file,
+                             @RequestParam("existingImagePath") String existingImagePath, // Đọc từ input ẩn
                              Model model) {
 
         if (result.hasErrors()) {
+            List<BrandEntity> brands = brandService.findAll();
+            model.addAttribute("brands", brands);
             return "admin/add-product";
         }
 
-        // Kiểm tra xem file có được chọn hay không
-        if (!file.isEmpty()) {
-            // Xử lý upload file ảnh
-            try {
-                // Tạo tên file duy nhất bằng UUID
-                String originalFileName = file.getOriginalFilename();
-                String fileName = UUID.randomUUID() + "_" + (originalFileName != null ? originalFileName : "image.jpg");
+        // Giữ lại imagePath cũ nếu không có ảnh mới được tải lên
+        if ((file == null || file.isEmpty()) && existingImagePath != null) {
+            product.setImagePath(existingImagePath);
+        }
 
-                // Đảm bảo đường dẫn uploadPath đã được cấu hình và hợp lệ
-                Path path = Paths.get(uploadPath, fileName);
-
-                // Tạo thư mục nếu chưa tồn tại
-                Files.createDirectories(path.getParent());
-
-                // Chuyển file đến thư mục đích
-                file.transferTo(path.toFile());
-
-                // Thiết lập đường dẫn ảnh vào product
-                product.setImagePath("/uploads/products/" + fileName);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("fileError", "Error uploading image: " + e.getMessage());
-                return "admin/add-product";
-            }
-        } else {
-            model.addAttribute("fileError", "Please select an image to upload");
+        try {
+            productService.saveProduct(product, file, existingImagePath); // Truyền `existingImagePath` vào service
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("msg", e.getMessage());
+            return "admin/add-product";
+        } catch (RuntimeException e) {
+            model.addAttribute("msg", "An error occurred while saving the product: " + e.getMessage());
             return "admin/add-product";
         }
 
-        // Lưu thông tin product vào database
-        productService.save(product);
-        return "redirect:/admin/product-list";
+        return "redirect:/admin/products";
     }
 
-    @GetMapping("/delete-product/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         productService.deleteProductById(id);
-        return "redirect:/admin/product-list";
-    }
-
-    @GetMapping("/order-list")
-    public String orderList(){
-        return "admin/oder-list";
-    }
-
-    @GetMapping("/order-detail")
-    public String orderList(Model model){
-        return "admin/oder-detail";
-    }
-
-    @GetMapping(value ="/brand-list")
-    public String brandList(){
-        return "admin/category-list";
-    }
-
-    @GetMapping(value = "/add-brand")
-    public String addBrand(Model model){
-        return "admin/new-category";
+        return "redirect:/admin/products";
     }
 }
