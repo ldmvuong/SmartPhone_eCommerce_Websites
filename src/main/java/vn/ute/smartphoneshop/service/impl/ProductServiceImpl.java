@@ -1,6 +1,7 @@
 package vn.ute.smartphoneshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import vn.ute.smartphoneshop.builder.ProductSearchBuilder;
@@ -57,6 +58,11 @@ public class ProductServiceImpl implements IProductService {
         }
         return result;
     }
+
+//    @Override
+//    public boolean createProduct(ProductDTO productDTO, MultipartFile file) throws IOException {
+//        BrandEntity brandEntity =
+//    }
 
     @Override
     public void saveProduct(ProductDTO product, MultipartFile file, String existingImagePath) {
@@ -117,4 +123,15 @@ public class ProductServiceImpl implements IProductService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<ProductEntity> findProductByBrandName(String brandName) {
+        return productRepository.findByBrandName(brandName);
+    }
+
+    @Override
+    public List<ProductEntity> newArrivalProduct() {
+        return productRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+    }
+
 }
