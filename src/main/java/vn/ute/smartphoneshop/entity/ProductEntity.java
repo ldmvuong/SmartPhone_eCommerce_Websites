@@ -21,7 +21,7 @@ public class ProductEntity extends TrackingDate{
     private String description;
 
     @Column(name = "price", nullable = false)
-    private double price;
+    private Long price;
 
     @Column(name = "stockQuantity")
     private int stockQuantity;
