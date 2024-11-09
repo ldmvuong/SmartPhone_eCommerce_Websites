@@ -1,4 +1,4 @@
-package vn.ute.smartphoneshop.model.dto;
+package vn.ute.smartphoneshop.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
@@ -6,13 +6,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Getter
 @Setter
-public class UserDTO {
+public class ProfileUpdateRequest {
     private int userId;
+
     @JsonProperty("username")
     @NotBlank(message = "Username can't be blank")
     private String userName;
@@ -32,14 +34,6 @@ public class UserDTO {
 
     @NotBlank(message = "Phone number is required")
     private String phone;
-
-
-    @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
-    private String password;
-
-    @NotBlank(message = "Confirm password is required")
-    private String confirmPassword;
 
     private int roleId;
 }

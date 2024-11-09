@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.converter.UserDTOConverter;
 import vn.ute.smartphoneshop.entity.RoleEntity;
@@ -97,6 +98,24 @@ public class UserServiceImpl implements IUserService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public boolean checkPassword(UserDTO user, String rawPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(rawPassword, user.getPassword());
+    }
+
+    @Override
+    public void updatePassword(int userId, String newPassword) {
+        UserDTO user = this.findById(userId);
+        if (user != null) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode(newPassword);
+            user.setPassword(encodedPassword);
+            userRepository.save(userDTOConverter.toUserEntity(user));
+        }
+
     }
 
     private GrantedAuthority roleToAuthority(RoleEntity role) {
