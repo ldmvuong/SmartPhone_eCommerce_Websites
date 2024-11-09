@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
+import vn.ute.smartphoneshop.model.request.ChangePasswordRequest;
 import vn.ute.smartphoneshop.model.request.ProfileUpdateRequest;
 import vn.ute.smartphoneshop.service.IUserService;
 
@@ -24,6 +25,19 @@ public class HomeController {
     @Autowired
     private IUserService userService;
 
+    private UserDTO getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
+        return userService.findByUsername(username);
+    }
+
+    private ProfileUpdateRequest createProfileUpdateRequest(UserDTO user) {
+        ProfileUpdateRequest profileUpdateRequest = new ProfileUpdateRequest();
+        BeanUtils.copyProperties(user, profileUpdateRequest);
+        return profileUpdateRequest;
+    }
+
+
     @GetMapping("/admin/home")
     public String home() {
         return "admin/index";
@@ -31,16 +45,10 @@ public class HomeController {
 
     @GetMapping("/admin/my-profile")
     public String myProfile(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        UserDTO user = userService.findByUsername(username);
-        model.addAttribute("profileUpdateRequest", user);
+        UserDTO user = getCurrentUser();
+        ProfileUpdateRequest profileUpdateRequest = createProfileUpdateRequest(user);
+        model.addAttribute("profileUpdateRequest", profileUpdateRequest);
+        model.addAttribute("changePasswordRequest", new ChangePasswordRequest());
         return "admin/my-profile";
     }
 
@@ -51,6 +59,8 @@ public class HomeController {
             BindingResult bindingResult,
             Model model,
             RedirectAttributes redirectAttributes) {
+
+        model.addAttribute("changePasswordRequest", new ChangePasswordRequest());
 
         if (bindingResult.hasErrors()) {
             return "admin/my-profile";
@@ -73,10 +83,42 @@ public class HomeController {
                 return "admin/my-profile";
             }
         }
-        BeanUtils.copyProperties(profileUpdateRequest, currentUser, "userId");
 
+        BeanUtils.copyProperties(profileUpdateRequest, currentUser, "userId");
         userService.update(currentUser);
         redirectAttributes.addFlashAttribute("success_message", "Profile updated successfully!");
+        return "redirect:/admin/my-profile";
+    }
+
+    @PostMapping("/admin/my-profile/change-password")
+    public String changePassword(
+            @Valid @ModelAttribute("changePasswordRequest") ChangePasswordRequest changePasswordRequest,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        UserDTO user = getCurrentUser();
+        ProfileUpdateRequest profileUpdateRequest = createProfileUpdateRequest(user);
+        model.addAttribute("profileUpdateRequest", profileUpdateRequest);
+
+
+        if (bindingResult.hasErrors()) {
+            return "admin/my-profile";
+        }
+
+        if (!userService.checkPassword(user, changePasswordRequest.getCurrentPassword())) {
+            model.addAttribute("error_message", "Current password is incorrect!");
+            return "admin/my-profile";
+        }
+
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())) {
+            model.addAttribute("error_message", "New passwords do not match!");
+            return "admin/my-profile";
+        }
+
+        userService.updatePassword(user.getUserId(), changePasswordRequest.getNewPassword());
+        redirectAttributes.addFlashAttribute("success_message", "Password updated successfully!");
+
         return "redirect:/admin/my-profile";
     }
 

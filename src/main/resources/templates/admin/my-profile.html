@@ -26,8 +26,8 @@
 
     <style>
         .error-message {
-            color: #ff4d4f; /* Bright red color for high visibility */
-            font-size: 14px; /* Slightly larger text */
+            color: #ff4d4f;
+            font-size: 14px;
             font-weight: bold;
             margin-top: 5px;
         }
@@ -116,7 +116,8 @@
                                 </ul>
                             </div>
                             <!-- add-new-user -->
-                            <form class="form-add-new-user form-style-2" th:object="${profileUpdateRequest}" action="/admin/my-profile/update" method="post">
+                            <form class="form-add-new-user form-style-2" th:object="${profileUpdateRequest}"
+                                  action="/admin/my-profile/update" method="post">
 
                                 <div th:if="${success_message}" class="success-container">
                                     <strong th:text="${success_message}"></strong>
@@ -136,10 +137,13 @@
                                     <div class="right flex-grow">
                                         <!-- Username Field -->
                                         <fieldset class="username mb-24" style="width: 49%;">
-                                            <div class="body-title mb-10">Username <span class="tf-color-1">*</span></div>
-                                            <input type="text" placeholder="Enter username" name="username" th:field="*{userName}" readonly>
+                                            <div class="body-title mb-10">Username <span class="tf-color-1">*</span>
+                                            </div>
+                                            <input type="text" placeholder="Enter username" name="username"
+                                                   th:field="*{userName}" readonly>
                                             <!-- Improved field-specific error message -->
-                                            <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="error-message"></div>
+                                            <div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                                                 class="error-message"></div>
                                         </fieldset>
                                         <fieldset class="username mb-24" style="width: 49%;">
                                             <input type="hidden" name="userId" th:field="*{userId}">
@@ -148,45 +152,64 @@
                                         <!-- First and Last Name Fields -->
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="first-name">
-                                                <div class="body-title mb-10">First Name <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="First Name" name="firstName" th:field="*{firstName}" readonly>
-                                                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message"></div>
+                                                <div class="body-title mb-10">First Name <span
+                                                        class="tf-color-1">*</span></div>
+                                                <input type="text" placeholder="First Name" name="firstName"
+                                                       th:field="*{firstName}" readonly>
+                                                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                                                     class="error-message"></div>
                                             </fieldset>
                                             <fieldset class="last-name">
-                                                <div class="body-title mb-10">Last Name <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="Last Name" name="lastName" th:field="*{lastName}" readonly>
-                                                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></div>
+                                                <div class="body-title mb-10">Last Name <span
+                                                        class="tf-color-1">*</span></div>
+                                                <input type="text" placeholder="Last Name" name="lastName"
+                                                       th:field="*{lastName}" readonly>
+                                                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                                     class="error-message"></div>
                                             </fieldset>
                                         </div>
 
                                         <!-- Email and Address Fields -->
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="email">
-                                                <div class="body-title mb-10">Email <span class="tf-color-1">*</span></div>
-                                                <input type="email" placeholder="Email" name="email" th:field="*{email}" readonly>
-                                                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+                                                <div class="body-title mb-10">Email <span class="tf-color-1">*</span>
+                                                </div>
+                                                <input type="email" placeholder="Email" name="email" th:field="*{email}"
+                                                       readonly>
+                                                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                                     class="error-message"></div>
                                             </fieldset>
                                             <fieldset class="address">
-                                                <div class="body-title mb-10">Address <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="Address" name="address" th:field="*{address}" readonly>
-                                                <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-message"></div>
+                                                <div class="body-title mb-10">Address <span class="tf-color-1">*</span>
+                                                </div>
+                                                <input type="text" placeholder="Address" name="address"
+                                                       th:field="*{address}" readonly>
+                                                <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                                                     class="error-message"></div>
                                             </fieldset>
                                         </div>
 
                                         <!-- Phone and Role Fields -->
                                         <div class="gap22 cols mb-24">
                                             <fieldset class="phone">
-                                                <div class="body-title mb-10">Phone <span class="tf-color-1">*</span></div>
-                                                <input type="text" placeholder="Phone" name="phone" th:field="*{phone}" readonly>
-                                                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message"></div>
+                                                <div class="body-title mb-10">Phone <span class="tf-color-1">*</span>
+                                                </div>
+                                                <input type="text" placeholder="Phone" name="phone" th:field="*{phone}"
+                                                       readonly>
+                                                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                                                     class="error-message"></div>
                                             </fieldset>
                                             <fieldset class="role">
-                                                <div class="body-title mb-10">Role <span class="tf-color-1">*</span></div>
+                                                <div class="body-title mb-10">Role <span class="tf-color-1">*</span>
+                                                </div>
                                                 <div class="select">
                                                     <select name="role" th:field="*{roleId}" disabled>
-                                                        <option th:value="0" th:text="'Choose role'" th:selected="${profileUpdateRequest.roleId == 0}"></option>
-                                                        <option th:value="1" th:text="'Admin'" th:selected="${profileUpdateRequest.roleId == 1}"></option>
-                                                        <option th:value="2" th:text="'User'" th:selected="${profileUpdateRequest.roleId == 2}"></option>
+                                                        <option th:value="0" th:text="'Choose role'"
+                                                                th:selected="${profileUpdateRequest.roleId == 0}"></option>
+                                                        <option th:value="1" th:text="'Admin'"
+                                                                th:selected="${profileUpdateRequest.roleId == 1}"></option>
+                                                        <option th:value="2" th:text="'User'"
+                                                                th:selected="${profileUpdateRequest.roleId == 2}"></option>
                                                     </select>
                                                 </div>
                                             </fieldset>
@@ -197,14 +220,21 @@
                                 <!-- Buttons -->
                                 <div class="bot" style="margin-bottom: 20px;">
                                     <button type="button" id="edit-button" class="tf-button w180">Edit</button>
-                                    <button type="submit" id="save-button" class="tf-button w180" style="display: none;">Save</button>
-                                    <button type="button" id="toggle-password-form" class="tf-button w180">Change Password</button>
+                                    <button type="submit" id="save-button" class="tf-button w180"
+                                            style="display: none;">Save
+                                    </button>
+                                    <button type="button" id="toggle-password-form" class="tf-button w180">Change
+                                        Password
+                                    </button>
                                 </div>
                             </form>
 
                             <!-- Form for Changing Password -->
                             <div id="password-form-container" style="display: none;">
-                                <form class="form-change-password form-style-2">
+                                <form action="/admin/my-profile/change-password" th:object="${changePasswordRequest}" method="post" class="form-change-password form-style-2">
+                                    <div th:if="${error_message}" class="error-container">
+                                        <strong th:text="${error_message}"></strong>
+                                    </div>
                                     <div class="wg-box">
                                         <div class="left">
                                             <h5 class="mb-4">Change Password</h5>
@@ -213,29 +243,32 @@
                                         <div class="right flex-grow">
                                             <fieldset class="password mb-24" style="width: 49%;">
                                                 <div class="body-title mb-10">Current Password</div>
-                                                <input class="password-input" type="password" placeholder="Enter current password" name="currentPassword" required>
+                                                <input class="password-input" type="password" th:field="*{currentPassword}" placeholder="Enter current password" >
                                                 <span class="show-pass">
-                        <i class="icon-eye view"></i>
-                        <i class="icon-eye-off hide"></i>
-                    </span>
+                                                    <i class="icon-eye view"></i>
+                                                    <i class="icon-eye-off hide"></i>
+                                                </span>
+                                                <div th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="error-message"></div>
                                             </fieldset>
 
                                             <fieldset class="password mb-24" style="width: 49%;">
                                                 <div class="body-title mb-10">New Password</div>
-                                                <input class="password-input" type="password" placeholder="Enter new password" name="newPassword" required>
+                                                <input class="password-input" type="password" th:field="*{newPassword}" placeholder="Enter new password" >
                                                 <span class="show-pass">
-                        <i class="icon-eye view"></i>
-                        <i class="icon-eye-off hide"></i>
-                    </span>
+                                                    <i class="icon-eye view"></i>
+                                                    <i class="icon-eye-off hide"></i>
+                                                </span>
+                                                <div th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}" class="error-message"></div>
                                             </fieldset>
 
                                             <fieldset class="password mb-24" style="width: 49%;">
                                                 <div class="body-title mb-10">Confirm New Password</div>
-                                                <input class="password-input" type="password" placeholder="Confirm new password" name="confirmNewPassword" required>
+                                                <input class="password-input" type="password" th:field="*{confirmPassword}" placeholder="Confirm new password" >
                                                 <span class="show-pass">
-                        <i class="icon-eye view"></i>
-                        <i class="icon-eye-off hide"></i>
-                    </span>
+                                                    <i class="icon-eye view"></i>
+                                                    <i class="icon-eye-off hide"></i>
+                                                </span>
+                                                <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message"></div>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -245,6 +278,7 @@
                                         <button type="submit" id="change-password-button" class="tf-button w180">Change Password</button>
                                     </div>
                                 </form>
+
                             </div>
 
                             <!-- /add-new-user -->
@@ -268,44 +302,66 @@
 
 <!-- Javascript -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const togglePasswordChangeButton = document.getElementById('toggle-password-form');
         const passwordFormContainer = document.getElementById('password-form-container');
         const inputs = document.querySelectorAll('.form-add-new-user input, .form-add-new-user select');
         const editButton = document.getElementById('edit-button');
         const saveButton = document.getElementById('save-button');
 
-        // Handle Password Change Form Toggle
         if (togglePasswordChangeButton) {
-            togglePasswordChangeButton.addEventListener('click', () => {
-                if (passwordFormContainer.style.display === 'none' || passwordFormContainer.style.display === '') {
-                    passwordFormContainer.style.display = 'block';
-                    togglePasswordChangeButton.innerText = 'Cancel Password Change';
-                } else {
-                    passwordFormContainer.style.display = 'none';
-                    togglePasswordChangeButton.innerText = 'Change Password';
-                    // Clear password fields when hiding
-                    document.querySelector('input[name="currentPassword"]').value = '';
-                    document.querySelector('input[name="newPassword"]').value = '';
-                    document.querySelector('input[name="confirmNewPassword"]').value = '';
-                }
-            });
+            togglePasswordChangeButton.addEventListener('click', togglePasswordForm);
         }
 
-        // Handle Edit Button
-        if (editButton) {
-            editButton.addEventListener('click', () => {
-                inputs.forEach(input => {
-                    if (input.type !== 'hidden' && input.name !== 'currentPassword' && input.name !== 'newPassword' && input.name !== 'confirmNewPassword') {
-                        input.removeAttribute('readonly');
-                        input.removeAttribute('disabled');
-                    }
-                });
-                editButton.style.display = 'none';
-                saveButton.style.display = 'inline-block';
-            });
+        function togglePasswordForm() {
+            if (passwordFormContainer.style.display === 'none' || passwordFormContainer.style.display === '') {
+                passwordFormContainer.style.display = 'block';
+                togglePasswordChangeButton.innerText = 'Cancel Password Change';
+            } else {
+                passwordFormContainer.style.display = 'none';
+                togglePasswordChangeButton.innerText = 'Change Password';
+                // Clear password fields when hiding
+                document.querySelector('input[name="currentPassword"]').value = '';
+                document.querySelector('input[name="newPassword"]').value = '';
+                document.querySelector('input[name="confirmNewPassword"]').value = '';
+            }
         }
+
+        if (editButton) {
+            editButton.addEventListener('click', enableEditMode);
+        }
+
+        function enableEditMode() {
+            inputs.forEach(input => {
+                if (input.type !== 'hidden' && input.name !== 'currentPassword' && input.name !== 'newPassword' && input.name !== 'confirmNewPassword') {
+                    input.removeAttribute('readonly');
+                    input.removeAttribute('disabled');
+                }
+            });
+            if (editButton) editButton.style.display = 'none';
+            if (saveButton) saveButton.style.display = 'inline-block';
+        }
+
+        function checkForErrors() {
+            const myError = document.querySelector('.error-container');
+            const fieldErrors = document.querySelectorAll('.error-message');
+
+            // Check for errors and enable edit mode if found
+            if (myError || fieldErrors.length > 0) {
+                enableEditMode();
+            }
+
+            const passwordErrors = document.querySelectorAll('.form-change-password .error-message');
+            if (passwordErrors.length > 0) {
+                if (passwordFormContainer.style.display === 'none' || passwordFormContainer.style.display === '') {
+                    togglePasswordForm();
+                }
+            }
+        }
+
+        checkForErrors();
     });
+
 </script>
 <script th:src="@{/admin/js/jquery.min.js}"></script>
 <script th:src="@{/admin/js/bootstrap.min.js}"></script>
