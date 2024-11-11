@@ -13,7 +13,7 @@ import vn.ute.smartphoneshop.service.impl.UserServiceImpl;
 
 import java.util.List;
 
-@Controller
+@Controller("userAdminController")
 @RequestMapping("/admin")
 public class UserController {
     @Autowired

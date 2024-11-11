@@ -13,6 +13,26 @@
         <div th:replace="~{web/fragments/header::header}"></div>
         <!-- END HEADER AREA -->
 
+        <!-- BREADCRUMBS SETCTION START -->
+        <div class="breadcrumbs-section plr-200 mb-80 section">
+            <div class="breadcrumbs overlay-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="breadcrumbs-inner">
+                                <h1 class="breadcrumbs-title">My Account</h1>
+                                <ul class="breadcrumb-list">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li>My Account</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BREADCRUMBS SETCTION END -->
+
         <!-- Start page content -->
         <div id="page-content" class="page-wrapper section">
 
@@ -37,63 +57,20 @@
                                                     <div class="p-30">
                                                         <div class="row">
                                                             <div class="col-sm-6">
+                                                                <input type="text" placeholder="Username">
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <input type="text" placeholder="Phone">
+                                                            </div>
+                                                            <div class="col-sm-6">
                                                                 <input type="text" placeholder="First Name">
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <input type="text" placeholder="last Name">
                                                             </div>
-                                                            <div class="col-sm-6">
-                                                                <select class="custom-select">
-                                                                    <option value="defalt">country</option>
-                                                                    <option value="c-1">Australia</option>
-                                                                    <option value="c-2">Bangladesh</option>
-                                                                    <option value="c-3">Unitd States</option>
-                                                                    <option value="c-4">Unitd Kingdom</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <select class="custom-select">
-                                                                    <option value="defalt">State</option>
-                                                                    <option value="c-1">Melbourne</option>
-                                                                    <option value="c-2">Dhaka</option>
-                                                                    <option value="c-3">New York</option>
-                                                                    <option value="c-4">London</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <select class="custom-select">
-                                                                    <option value="defalt">Town/City</option>
-                                                                    <option value="c-1">Victoria</option>
-                                                                    <option value="c-2">Chittagong</option>
-                                                                    <option value="c-3">Boston</option>
-                                                                    <option value="c-4">Cambridge</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <input type="text" placeholder="Phone here...">
-                                                            </div>
                                                         </div>
-                                                        <input type="text" placeholder="Company neme here...">
-                                                        <input type="text" placeholder="Email address here...">
-                                                        <input type="password" placeholder="Password">
-                                                        <input type="password" placeholder="Confirm Password">
-                                                        <textarea class="custom-textarea"
-                                                                  placeholder="Additional information..."></textarea>
-                                                        <div class="checkbox">
-                                                            <label class="mr-10">
-                                                                <small>
-                                                                    <input type="checkbox" name="signup">I wish to subscribe to the
-                                                                    69 Fashion newsletter.
-                                                                </small>
-                                                            </label>
-                                                            <br>
-                                                            <label>
-                                                                <small>
-                                                                    <input type="checkbox" name="signup">I have read and agree to
-                                                                    the <a href="#">Privacy Policy</a>
-                                                                </small>
-                                                            </label>
-                                                        </div>
+                                                        <input type="text" placeholder="Address">
+                                                        <input type="text" placeholder="Email">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
@@ -101,7 +78,7 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-                                                                        type="reset">Clear</button>
+                                                                        type="reset">Edit</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -110,60 +87,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- My shipping address -->
+                                <!-- My password -->
                                 <div class="card mb-15">
                                     <div class="card-header" id="headingTwo">
                                         <h4 class="card-title">
-                                            <a data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">My shipping
-                                                address</a>
+                                            <a data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">My password
+                                                </a>
                                         </h4>
                                     </div>
                                     <div  id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                         <div class="card-body">
                                             <form action="#">
                                                 <div class="new-customers p-30">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <input type="text" placeholder="First Name">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" placeholder="last Name">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">country</option>
-                                                                <option value="c-1">Australia</option>
-                                                                <option value="c-2">Bangladesh</option>
-                                                                <option value="c-3">Unitd States</option>
-                                                                <option value="c-4">Unitd Kingdom</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">State</option>
-                                                                <option value="c-1">Melbourne</option>
-                                                                <option value="c-2">Dhaka</option>
-                                                                <option value="c-3">New York</option>
-                                                                <option value="c-4">London</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">Town/City</option>
-                                                                <option value="c-1">Victoria</option>
-                                                                <option value="c-2">Chittagong</option>
-                                                                <option value="c-3">Boston</option>
-                                                                <option value="c-4">Cambridge</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" placeholder="Phone here...">
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" placeholder="Company neme here...">
-                                                    <input type="text" placeholder="Email address here...">
-                                                    <textarea class="custom-textarea"
-                                                              placeholder="Additional information..."></textarea>
+                                                    <input type="password" placeholder="Current Password">
+                                                    <input type="password" placeholder="New Password">
+                                                    <input type="password" placeholder="Confirm New Password">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
