@@ -1,18 +1,126 @@
 package vn.ute.smartphoneshop.controller.admin;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.ute.smartphoneshop.model.dto.UserDTO;
+import vn.ute.smartphoneshop.model.request.ChangePasswordRequest;
+import vn.ute.smartphoneshop.model.request.ProfileUpdateRequest;
+import vn.ute.smartphoneshop.service.IUserService;
+
 
 @Controller("adminHomeController")
 public class HomeController {
 
-    @GetMapping("/helloworld")
-    public String helloWorld() {
-        return "helloworld";
+    @Autowired
+    private IUserService userService;
+
+    private UserDTO getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
+        return userService.findByUsername(username);
     }
+
+    private ProfileUpdateRequest createProfileUpdateRequest(UserDTO user) {
+        ProfileUpdateRequest profileUpdateRequest = new ProfileUpdateRequest();
+        BeanUtils.copyProperties(user, profileUpdateRequest);
+        return profileUpdateRequest;
+    }
+
+
     @GetMapping("/admin/home")
     public String home() {
         return "admin/index";
     }
+
+    @GetMapping("/admin/my-profile")
+    public String myProfile(Model model) {
+        UserDTO user = getCurrentUser();
+        ProfileUpdateRequest profileUpdateRequest = createProfileUpdateRequest(user);
+        model.addAttribute("profileUpdateRequest", profileUpdateRequest);
+        model.addAttribute("changePasswordRequest", new ChangePasswordRequest());
+        return "admin/my-profile";
+    }
+
+
+    @PostMapping("/admin/my-profile/update")
+    public String updateProfile(
+            @Valid @ModelAttribute("profileUpdateRequest") ProfileUpdateRequest profileUpdateRequest,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        model.addAttribute("changePasswordRequest", new ChangePasswordRequest());
+
+        if (bindingResult.hasErrors()) {
+            return "admin/my-profile";
+        }
+
+        UserDTO currentUser = userService.findById(profileUpdateRequest.getUserId());
+
+        if (!currentUser.getUserName().equals(profileUpdateRequest.getUserName())) {
+            UserDTO existingUser = userService.findByUsername(profileUpdateRequest.getUserName());
+            if (existingUser != null && existingUser.getUserId() != currentUser.getUserId()) {
+                model.addAttribute("my_error", "Username already exists!");
+                return "admin/my-profile";
+            }
+        }
+
+        if (!currentUser.getEmail().equals(profileUpdateRequest.getEmail())) {
+            UserDTO existingUser = userService.findByEmail(profileUpdateRequest.getEmail());
+            if (existingUser != null && existingUser.getUserId() != currentUser.getUserId()) {
+                model.addAttribute("my_error", "The email already exists!");
+                return "admin/my-profile";
+            }
+        }
+
+        BeanUtils.copyProperties(profileUpdateRequest, currentUser, "userId");
+        userService.update(currentUser);
+        redirectAttributes.addFlashAttribute("success_message", "Profile updated successfully!");
+        return "redirect:/admin/my-profile";
+    }
+
+    @PostMapping("/admin/my-profile/change-password")
+    public String changePassword(
+            @Valid @ModelAttribute("changePasswordRequest") ChangePasswordRequest changePasswordRequest,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
+
+        UserDTO user = getCurrentUser();
+        ProfileUpdateRequest profileUpdateRequest = createProfileUpdateRequest(user);
+        model.addAttribute("profileUpdateRequest", profileUpdateRequest);
+
+
+        if (bindingResult.hasErrors()) {
+            return "admin/my-profile";
+        }
+
+        if (!userService.checkPassword(user, changePasswordRequest.getCurrentPassword())) {
+            model.addAttribute("error_message", "Current password is incorrect!");
+            return "admin/my-profile";
+        }
+
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())) {
+            model.addAttribute("error_message", "New passwords do not match!");
+            return "admin/my-profile";
+        }
+
+        userService.updatePassword(user.getUserId(), changePasswordRequest.getNewPassword());
+        redirectAttributes.addFlashAttribute("success_message", "Password updated successfully!");
+
+        return "redirect:/admin/my-profile";
+    }
+
 
 }
