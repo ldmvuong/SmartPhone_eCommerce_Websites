@@ -24,5 +24,5 @@ public class CartDetailEntity {
     private int quantity;
 
     @Column(name = "cartPrice", nullable = false)
-    private double cartPrice;
+    private Long cartPrice;
 }

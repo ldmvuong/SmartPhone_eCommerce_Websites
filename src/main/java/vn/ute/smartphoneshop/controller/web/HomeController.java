@@ -12,7 +12,7 @@ import vn.ute.smartphoneshop.service.IProductService;
 
 import java.util.List;
 
-@Controller("userHomeController")
+@Controller("webHomeController")
 public class HomeController {
     @Autowired
     IBrandService brandService;

@@ -4,10 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import vn.ute.smartphoneshop.entity.CartDetailEntity;
 
+import java.util.List;
+
 @Repository
 public interface ICartDetailRepository extends JpaRepository<CartDetailEntity, Integer> {
-//    CartDetailEntity findByCartDetailId(int cartDetailId);
-//    void insertCartDetail(CartDetailEntity cartDetailEntity);
-//    void deleteCartDetail(CartDetailEntity cartDetailEntity);
-//    void updateCartDetail(CartDetailEntity cartDetailEntity);
+    List<CartDetailEntity> findByCart_CartId(Integer id);
 }

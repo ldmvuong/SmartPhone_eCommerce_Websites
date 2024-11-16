@@ -43,7 +43,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         if (isAdmin) {
             return "/admin/home";
         } else if (isUser) {
-            return "/home";
+            return "/user/home";
         } else {
             throw new IllegalStateException("Role not found");
         }
