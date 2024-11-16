@@ -17,6 +17,7 @@ import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.ChangePasswordRequest;
 import vn.ute.smartphoneshop.model.request.ProfileUpdateRequest;
 import vn.ute.smartphoneshop.service.IUserService;
+import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 
 @Controller("adminHomeController")
@@ -26,8 +27,7 @@ public class HomeController {
     private IUserService userService;
 
     private UserDTO getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
+        String username = SecurityUtil.getCurrentUsername();
         return userService.findByUsername(username);
     }
 

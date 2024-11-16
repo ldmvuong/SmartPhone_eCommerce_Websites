@@ -1,261 +1,278 @@
 <!doctype html>
 <html xmlns:th="https://www.thymeleaf.org">
 
-<!-- Mirrored from htmldemo.net/subas/subas/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:37 GMT -->
 <head th:replace="~{web/fragments/head::head}"></head>
 
 <body>
 
-    <!-- Body main wrapper start -->
-    <div class="wrapper">
+<!-- Body main wrapper start -->
+<div class="wrapper">
 
-        <!-- START HEADER AREA -->
-        <div th:replace="~{web/fragments/header::header}"></div>
-        <!-- END HEADER AREA -->
+    <!-- START HEADER AREA -->
+    <div th:replace="~{web/fragments/header::header}"></div>
+    <!-- END HEADER AREA -->
 
-        <!-- BREADCRUMBS SETCTION START -->
-        <div class="breadcrumbs-section plr-200 mb-80 section">
-            <div class="breadcrumbs overlay-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="breadcrumbs-inner">
-                                <h1 class="breadcrumbs-title">My Account</h1>
-                                <ul class="breadcrumb-list">
-                                    <li><a href="index.html">Home</a></li>
-                                    <li>My Account</li>
-                                </ul>
-                            </div>
+    <!-- BREADCRUMBS SETCTION START -->
+    <div class="breadcrumbs-section plr-200 mb-80 section">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">My Account</h1>
+                            <ul class="breadcrumb-list">
+                                <li><a href="index.html">Home</a></li>
+                                <li>My Account</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- BREADCRUMBS SETCTION END -->
-
-        <!-- Start page content -->
-        <div id="page-content" class="page-wrapper section">
-
-            <!-- LOGIN SECTION START -->
-            <div class="login-section mb-80">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 offset-lg-2">
-                            <div class="my-account-content" id="accordion">
-                                <!-- My Personal Information -->
-                                <div class="card mb-15">
-                                    <div  class="card-header" id="headingOne">
-                                        <h4 class="card-title">
-                                            <a data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">My Personal
-                                                Information</a>
-                                        </h4>
-                                    </div>
-                                    <div  id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                                        <div class="card-body">
-                                            <form action="#">
-                                                <div class="new-customers">
-                                                    <div class="p-30">
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <input type="text" placeholder="Username">
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <input type="text" placeholder="Phone">
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <input type="text" placeholder="First Name">
-                                                            </div>
-                                                            <div class="col-sm-6">
-                                                                <input type="text" placeholder="last Name">
-                                                            </div>
-                                                        </div>
-                                                        <input type="text" placeholder="Address">
-                                                        <input type="text" placeholder="Email">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                        value="register">Save</button>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-                                                                        type="reset">Edit</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- My password -->
-                                <div class="card mb-15">
-                                    <div class="card-header" id="headingTwo">
-                                        <h4 class="card-title">
-                                            <a data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">My password
-                                                </a>
-                                        </h4>
-                                    </div>
-                                    <div  id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
-                                        <div class="card-body">
-                                            <form action="#">
-                                                <div class="new-customers p-30">
-                                                    <input type="password" placeholder="Current Password">
-                                                    <input type="password" placeholder="New Password">
-                                                    <input type="password" placeholder="Confirm New Password">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                    value="register">Save</button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-                                                                    type="reset">Clear</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- My billing details -->
-                                <div class="card mb-15">
-                                    <div class="card-header">
-                                        <h4 class="card-title">
-                                            <a data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">My billing
-                                                details</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
-                                        <div class="card-body">
-                                            <form action="#">
-                                                <div class="billing-details p-30">
-                                                    <input type="text" placeholder="Your Name Here...">
-                                                    <input type="text" placeholder="Email address here...">
-                                                    <input type="text" placeholder="Phone here...">
-                                                    <input type="text" placeholder="Company neme here...">
-                                                    <select class="custom-select">
-                                                        <option value="defalt">country</option>
-                                                        <option value="c-1">Australia</option>
-                                                        <option value="c-2">Bangladesh</option>
-                                                        <option value="c-3">Unitd States</option>
-                                                        <option value="c-4">Unitd Kingdom</option>
-                                                    </select>
-                                                    <select class="custom-select">
-                                                        <option value="defalt">State</option>
-                                                        <option value="c-1">Melbourne</option>
-                                                        <option value="c-2">Dhaka</option>
-                                                        <option value="c-3">New York</option>
-                                                        <option value="c-4">London</option>
-                                                    </select>
-                                                    <select class="custom-select">
-                                                        <option value="defalt">Town/City</option>
-                                                        <option value="c-1">Victoria</option>
-                                                        <option value="c-2">Chittagong</option>
-                                                        <option value="c-3">Boston</option>
-                                                        <option value="c-4">Cambridge</option>
-                                                    </select>
-                                                    <textarea class="custom-textarea" placeholder="Your address here..."></textarea>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                    value="register">Save</button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-                                                                    type="reset">Clear</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Payment Method -->
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">
-                                            <a data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Payment
-                                                Method</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
-                                        <div class="panel-body">
-                                            <form action="#">
-                                                <div class="new-customers p-30">
-                                                    <select class="custom-select">
-                                                        <option value="defalt">Card Type</option>
-                                                        <option value="c-1">Master Card</option>
-                                                        <option value="c-2">Paypal</option>
-                                                        <option value="c-3">Paypal</option>
-                                                        <option value="c-4">Paypal</option>
-                                                    </select>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <input type="text" placeholder="Card Number">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" placeholder="Card Security Code">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">Month</option>
-                                                                <option value="c-1">January</option>
-                                                                <option value="c-2">February</option>
-                                                                <option value="c-3">March</option>
-                                                                <option value="c-4">April</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select">
-                                                                <option value="defalt">Year</option>
-                                                                <option value="c-4">2022</option>
-                                                                <option value="c-1">2016</option>
-                                                                <option value="c-2">2015</option>
-                                                                <option value="c-3">2014</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                    value="register">pay now</button>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                    value="register">cancel order</button>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <button class="submit-btn-1 mt-20 f-right btn-hover-1" type="submit"
-                                                                    value="register">continue</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- LOGIN SECTION END -->
-        </div>
-        <!-- End page content -->
-
-        <!-- START FOOTER AREA -->
-        <div th:replace="~{web/fragments/footer::footer}"></div>
-        <!-- END FOOTER AREA -->
-
     </div>
-    <!-- Body main wrapper end -->
+    <!-- BREADCRUMBS SETCTION END -->
 
-    <!-- Placed JS at the end of the document so the pages load faster -->
-    <!-- jquery latest version -->
-    <div th:replace="~{web/fragments/script::script}"></div>
+    <!-- Start page content -->
+    <div id="page-content" class="page-wrapper section">
+
+        <!-- LOGIN SECTION START -->
+        <div class="login-section mb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="my-account-content" id="accordion">
+                            <div class="card mb-15">
+                                <div class="card-header" id="headingOne">
+                                    <h4 class="card-title">
+                                        <a data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                           aria-controls="collapseOne">My Personal Information</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                     data-bs-parent="#accordion">
+                                    <div class="card-body">
+                                        <form th:action="@{/user/my-profile/update}" th:object="${profileUpdateRequest}" method="post" id="profileForm">
+                                            <div class="new-customers">
+                                                <div class="p-30">
+                                                    <div class="row">
+                                                        <input type="hidden" name="userId" th:field="*{userId}">
+                                                        <input type="hidden" name="roleId" th:field="*{roleId}">
+                                                        <div class="col-sm-6">
+                                                            <input type="text" th:field="*{userName}" placeholder="Username" required disabled>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" th:field="*{phone}" placeholder="Phone" disabled>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" th:field="*{firstName}" placeholder="First Name" disabled>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" th:field="*{lastName}" placeholder="Last Name" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" th:field="*{address}" placeholder="Address" disabled>
+                                                    <input type="text" th:field="*{email}" placeholder="Email" disabled>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Save</button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="button" id="editButton">Edit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- My password -->
+                            <div class="card mb-15">
+                                <div class="card-header" id="headingTwo">
+                                    <h4 class="card-title">
+                                        <a data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                                           aria-controls="collapseTwo">My password</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                     data-bs-parent="#accordion">
+                                    <div class="card-body">
+                                        <!-- Form bound to the change password endpoint -->
+                                        <form th:action="@{/user/my-profile/change-password}" th:object="${changePasswordRequest}" method="post">
+                                            <div class="new-customers p-30">
+                                                <input type="password" th:field="*{currentPassword}" placeholder="Current Password" required>
+                                                <input type="password" th:field="*{newPassword}" placeholder="New Password" required>
+                                                <input type="password" th:field="*{confirmPassword}" placeholder="Confirm New Password" required>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Save</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- My billing details -->
+                            <div class="card mb-15">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        <a data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                           aria-expanded="false" aria-controls="collapseThree">My billing
+                                            details</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                     data-bs-parent="#accordion">
+                                    <div class="card-body">
+                                        <form action="#">
+                                            <div class="billing-details p-30">
+                                                <input type="text" placeholder="Your Name Here...">
+                                                <input type="text" placeholder="Email address here...">
+                                                <input type="text" placeholder="Phone here...">
+                                                <input type="text" placeholder="Company neme here...">
+                                                <select class="custom-select">
+                                                    <option value="defalt">country</option>
+                                                    <option value="c-1">Australia</option>
+                                                    <option value="c-2">Bangladesh</option>
+                                                    <option value="c-3">Unitd States</option>
+                                                    <option value="c-4">Unitd Kingdom</option>
+                                                </select>
+                                                <select class="custom-select">
+                                                    <option value="defalt">State</option>
+                                                    <option value="c-1">Melbourne</option>
+                                                    <option value="c-2">Dhaka</option>
+                                                    <option value="c-3">New York</option>
+                                                    <option value="c-4">London</option>
+                                                </select>
+                                                <select class="custom-select">
+                                                    <option value="defalt">Town/City</option>
+                                                    <option value="c-1">Victoria</option>
+                                                    <option value="c-2">Chittagong</option>
+                                                    <option value="c-3">Boston</option>
+                                                    <option value="c-4">Cambridge</option>
+                                                </select>
+                                                <textarea class="custom-textarea"
+                                                          placeholder="Your address here..."></textarea>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                                                value="register">Save
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                                                type="reset">Clear
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Payment Method -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        <a data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                           aria-expanded="false" aria-controls="collapseFive">Payment
+                                            Method</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+                                     data-bs-parent="#accordion">
+                                    <div class="panel-body">
+                                        <form action="#">
+                                            <div class="new-customers p-30">
+                                                <select class="custom-select">
+                                                    <option value="defalt">Card Type</option>
+                                                    <option value="c-1">Master Card</option>
+                                                    <option value="c-2">Paypal</option>
+                                                    <option value="c-3">Paypal</option>
+                                                    <option value="c-4">Paypal</option>
+                                                </select>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" placeholder="Card Number">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input type="text" placeholder="Card Security Code">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <select class="custom-select">
+                                                            <option value="defalt">Month</option>
+                                                            <option value="c-1">January</option>
+                                                            <option value="c-2">February</option>
+                                                            <option value="c-3">March</option>
+                                                            <option value="c-4">April</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <select class="custom-select">
+                                                            <option value="defalt">Year</option>
+                                                            <option value="c-4">2022</option>
+                                                            <option value="c-1">2016</option>
+                                                            <option value="c-2">2015</option>
+                                                            <option value="c-3">2014</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                                                value="register">pay now
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                                                value="register">cancel order
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class="submit-btn-1 mt-20 f-right btn-hover-1"
+                                                                type="submit"
+                                                                value="register">continue
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LOGIN SECTION END -->
+    </div>
+    <!-- End page content -->
+
+    <!-- START FOOTER AREA -->
+    <div th:replace="~{web/fragments/footer::footer}"></div>
+    <!-- END FOOTER AREA -->
+
+</div>
+<!-- Body main wrapper end -->
+
+<!-- Placed JS at the end of the document so the pages load faster -->
+<!-- jquery latest version -->
+<div th:replace="~{web/fragments/script::script}"></div>
+<script>
+    document.getElementById('editButton').addEventListener('click', function() {
+        var formElements = document.querySelectorAll('#profileForm input[type="text"]');
+        formElements.forEach(function(input) {
+            input.disabled = !input.disabled; // Toggle the disabled state
+        });
+    });
+</script>
 
 </body>
-
-
-<!-- Mirrored from htmldemo.net/subas/subas/my-account.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:27 GMT -->
 </html>

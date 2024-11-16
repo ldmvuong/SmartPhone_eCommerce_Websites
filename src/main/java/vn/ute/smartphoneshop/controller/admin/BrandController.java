@@ -49,6 +49,7 @@ public class BrandController {
             model.addAttribute("msg", msg);
             return "/admin/new-brand";
         }
+
         try {
             if(brandService.addBrand(brand,files)){
                 return "redirect:/admin/brands";
