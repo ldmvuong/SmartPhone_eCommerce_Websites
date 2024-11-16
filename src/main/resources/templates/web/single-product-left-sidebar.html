@@ -10,7 +10,298 @@
     <div class="wrapper">
 
         <!-- START HEADER AREA -->
-        <div th:replace="~{web/fragments/header::header}"></div>
+        <header class="header-area header-wrapper">
+            <!-- header-top-bar -->
+            <div class="header-top-bar plr-185">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="top-link clearfix">
+                                <ul class="link f-right">
+                                    <li>
+                                        <a href="/templates/web/my-account.html">
+                                            <i class="zmdi zmdi-account"></i>
+                                            My Account
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/templates/web/wishlist.html">
+                                            <i class="zmdi zmdi-favorite"></i>
+                                            Wish List (0)
+                                        </a>
+                                    </li>
+                                    <li th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a href="#" onclick="document.getElementById('logout-form').submit();">
+                                            <i class="zmdi zmdi-lock-open"></i>
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" th:action="@{/logout}" method="post" style="display: none;"></form>
+                                    </li>
+                                    <li th:if="${#authorization.expression('isAnonymous()')}">
+                                        <a th:href="@{/admin}">
+                                            <i class="zmdi zmdi-lock"></i>
+                                            Login
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- header-middle-area -->
+            <div id="sticky-header" class="header-middle-area plr-185">
+                <div class="container-fluid">
+                    <div class="full-width-mega-dropdown">
+                        <div class="row">
+                            <!-- logo -->
+                            <div class="col-lg-2 col-md-4">
+                                <div class="logo">
+                                    <a th:href="@{/home}">
+                                        <img th:src="@{/web/img/logo/logo.png}" alt="main logo" />
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- primary-menu -->
+                            <div class="col-lg-8 d-none d-lg-block">
+                                <nav id="primary-menu">
+                                    <ul class="main-menu text-center">
+                                        <li>
+                                            <a th:href="@{/home}">Home</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Products</a>
+                                            <ul class="dropdwn">
+                                                <li th:each="brand : ${brands}">
+                                                    <a th:href="@{/products(brand=${brand.name})}" th:text="${brand.name}"></a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="mega-parent">
+                                            <a href="#">Pages</a>
+                                            <div class="mega-menu-area mega-menu-area-2 clearfix">
+                                                <div class="mega-menu-link mega-menu-link-2 f-left">
+                                                    <ul class="single-mega-item">
+                                                        <li class="menu-title">page list</li>
+                                                        <li>
+                                                            <a href="/templates/web/shop.html">Shop</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/shop-left-sidebar.html"
+                                                            >Shop Left Sidebar</a
+                                                            >
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/shop-right-sidebar.html"
+                                                            >Shop Right Sidebar</a
+                                                            >
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/shop-list.html">Shop List</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/shop-list-right-sidebar.html"
+                                                            >Shop List Right Sidebar</a
+                                                            >
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/single-product.html"
+                                                            >Single Product</a
+                                                            >
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/single-product-left-sidebar.html"
+                                                            >Single Product Left Sidebar</a
+                                                            >
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/single-product-no-sidebar.html"
+                                                            >Single Product No Sidebar</a
+                                                            >
+                                                        </li>
+                                                    </ul>
+                                                    <ul class="single-mega-item">
+                                                        <li class="menu-title">page list</li>
+                                                        <li>
+                                                            <a href="/templates/web/cart.html">Shopping Cart</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/wishlist.html">Wishlist</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/checkout.html">Checkout</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/order.html">Order</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/login.html">Login</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/my-account.html">My Account</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/about.html">About us</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="/templates/web/404.html">404</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <a href="/templates/web/about.html">About us</a>
+                                        </li>
+                                        <li>
+                                            <a href="/templates/web/contact.html">Contact</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- header-search & total-cart -->
+                            <div class="col-lg-2 col-md-8">
+                                <div class="search-top-cart f-right">
+                                    <!-- header-search -->
+                                    <div class="header-search f-left">
+                                        <div class="header-search-inner">
+                                            <button class="search-toggle">
+                                                <i class="zmdi zmdi-search"></i>
+                                            </button>
+                                            <form action="#">
+                                                <div class="top-search-box">
+                                                    <input
+                                                            type="text"
+                                                            placeholder="Search here your product..."
+                                                    />
+                                                    <button type="submit">
+                                                        <i class="zmdi zmdi-search"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- total-cart -->
+                                    <div class="total-cart f-left">
+                                        <div class="total-cart-in">
+                                            <div class="cart-toggler">
+                                                <a href="#">
+                                                    <span class="cart-quantity">02</span><br />
+                                                    <span class="cart-icon">
+                              <i class="zmdi zmdi-shopping-cart-plus"></i>
+                            </span>
+                                                </a>
+                                            </div>
+                                            <ul>
+                                                <li>
+                                                    <div class="top-cart-inner your-cart">
+                                                        <h5 class="text-capitalize">Your Cart</h5>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="total-cart-pro">
+                                                        <!-- single-cart -->
+                                                        <div class="single-cart clearfix">
+                                                            <div class="cart-img f-left">
+                                                                <a href="#">
+                                                                    <img
+                                                                            th:src="@{/web/img/cart/1.jpg}"
+                                                                            alt="Cart Product"
+                                                                    />
+                                                                </a>
+                                                                <div class="del-icon">
+                                                                    <a href="#">
+                                                                        <i class="zmdi zmdi-close"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cart-info f-left">
+                                                                <h6 class="text-capitalize">
+                                                                    <a href="#">Dummy Product Name</a>
+                                                                </h6>
+                                                                <p>
+                                    <span>Brand <strong>:</strong></span
+                                    >Brand Name
+                                                                </p>
+                                                                <p>
+                                    <span>Model <strong>:</strong></span
+                                    >Grand s2
+                                                                </p>
+                                                                <p>
+                                    <span>Color <strong>:</strong></span
+                                    >Black, White
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <!-- single-cart -->
+                                                        <div class="single-cart clearfix">
+                                                            <div class="cart-img f-left">
+                                                                <a href="#">
+                                                                    <img
+                                                                            th:src="@{/web/img/cart/1.jpg}"
+                                                                            alt="Cart Product"
+                                                                    />
+                                                                </a>
+                                                                <div class="del-icon">
+                                                                    <a href="#">
+                                                                        <i class="zmdi zmdi-close"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="cart-info f-left">
+                                                                <h6 class="text-capitalize">
+                                                                    <a href="#">Dummy Product Name</a>
+                                                                </h6>
+                                                                <p>
+                                    <span>Brand <strong>:</strong></span
+                                    >Brand Name
+                                                                </p>
+                                                                <p>
+                                    <span>Model <strong>:</strong></span
+                                    >Grand s2
+                                                                </p>
+                                                                <p>
+                                    <span>Color <strong>:</strong></span
+                                    >Black, White
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="top-cart-inner subtotal">
+                                                        <h4 class="text-uppercase g-font-2">
+                                                            Total =
+                                                            <span>$ 500.00</span>
+                                                        </h4>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="top-cart-inner view-cart">
+                                                        <h4 class="text-uppercase">
+                                                            <a href="#">View cart</a>
+                                                        </h4>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="top-cart-inner check-out">
+                                                        <h4 class="text-uppercase">
+                                                            <a href="#">Check out</a>
+                                                        </h4>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
         <!-- END HEADER AREA -->
 
         <!-- Start page content -->
@@ -22,16 +313,17 @@
                     <div class="row">
                         <div class="col-lg-9 order-lg-2 order-1">
                             <!-- single-product-area start -->
-                            <div class="single-product-area mb-80">
+                            <div class="single-product-area mb-80 product-item">
                                 <div class="row">
                                     <!-- imgs-zoom-area start -->
                                     <div class="col-lg-5">
                                         <div class="imgs-zoom-area">
-                                            <img id="zoom_03" th:src="@{/web/img/product/6.jpg}" th:data-zoom-image="@{/web/img/product/6.jpg}"
+                                            <img id="zoom_03" th:src="@{|/${product.imagePath}|}" th:data-zoom-image="@{|/${product.imagePath}|}"
                                                  alt="">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div id="gallery_01" class="carousel-btn slick-arrow-3 mt-30">
+                                                        <!-- Ảnh zoom-->
                                                         <div class="p-c">
                                                             <a href="#" th:data-image="@{/web/img/product/2.jpg}"
                                                                th:data-zoom-image="@{/web/img/product/2.jpg}">
@@ -68,6 +360,7 @@
                                                                 <img class="zoom_03" th:src="@{/web/img/product/7.jpg}" alt="">
                                                             </a>
                                                         </div>
+                                                        <!-- Ảnh zoom-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,8 +370,8 @@
                                     <!-- single-product-info start -->
                                     <div class="col-lg-7">
                                         <div class="single-product-info">
-                                            <h3 class="text-black-1">Dummy Product Name </h3>
-                                            <h6 class="brand-name-2">brand name</h6>
+                                            <h3 class="text-black-1" th:text="${product.name}"></h3>
+                                            <h6 class="brand-name-2" th:each="brand : ${brands}" th:if="${product.brandId} != null and ${product.brandId} == ${brand.id}" th:text="${brand.name}"></h6>
                                             <!--  hr -->
                                             <hr>
                                             <!-- single-pro-color-rating -->
@@ -94,14 +387,8 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <div class="pro-rating sin-pro-rating f-right">
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#" tabindex="0"><i class="zmdi zmdi-star-outline"></i></a>
-                                                    <span class="text-black-5">( 27 Rating )</span>
-                                                </div>
+                                                <input type="hidden" class="rating" th:value="${product.rating}">
+                                                <div class="pro-rating sin-pro-rating f-right"></div>
                                             </div>
                                             <!-- hr -->
                                             <hr>
@@ -110,25 +397,17 @@
                                                 <div class="sin-plus-minus f-left clearfix">
                                                     <p class="color-title f-left">Qty</p>
                                                     <div class="cart-plus-minus f-left">
-                                                        <input type="text" value="02" name="qtybutton"
+                                                        <input type="text" value="01" name="qtybutton"
                                                                class="cart-plus-minus-box">
                                                     </div>
                                                 </div>
                                                 <div class="sin-pro-action f-right">
                                                     <ul class="action-button">
-                                                        <li>
-                                                            <a href="#" title="Wishlist" tabindex="0"><i
-                                                                    class="zmdi zmdi-favorite"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"
-                                                               title="Quickview" tabindex="0"><i
-                                                                    class="zmdi zmdi-zoom-in"></i></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" title="Compare" tabindex="0"><i
-                                                                    class="zmdi zmdi-refresh"></i></a>
-                                                        </li>
+<!--                                                        <li>-->
+<!--                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#productModal"-->
+<!--                                                               title="Quickview" tabindex="0"><i-->
+<!--                                                                    class="zmdi zmdi-zoom-in"></i></a>-->
+<!--                                                        </li>-->
                                                         <li>
                                                             <a href="#" title="Add to cart" tabindex="0"><i
                                                                     class="zmdi zmdi-shopping-cart-plus"></i></a>
@@ -140,7 +419,7 @@
                                             <!-- hr -->
                                             <hr>
                                             <!-- single-product-price -->
-                                            <h3 class="pro-price">Price: $ 869.00</h3>
+                                            <h3 class="pro-price">Price: <span th:text="${product.price}"></span></h3>
                                             <!--  hr -->
                                             <hr>
                                             <div>
@@ -160,26 +439,10 @@
                                         <div class="single-product-tab reviews-tab">
                                             <ul class="nav mb-20">
                                                 <li><a class="active" href="#description" data-bs-toggle="tab">description</a></li>
-                                                <li><a href="#information" data-bs-toggle="tab">information</a></li>
                                                 <li><a href="#reviews" data-bs-toggle="tab">reviews</a></li>
                                             </ul>
                                             <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active show" id="description">
-                                                    <p>There are many variations of passages of Lorem Ipsum available, but the
-                                                        majo Rity have be suffered alteration in some form, by injected humou or
-                                                        randomis Rity have be suffered alteration in some form, by injected
-                                                        humou or randomis words which donot look even slightly believable. If
-                                                        you are going to use a passage Lorem Ipsum.</p>
-                                                    <p>rerum blanditiis dolore dignissimos expedita consequatur deleniti
-                                                        consectetur non exercitationem. rerum blanditiis dolore dignissimos
-                                                        expedita consequatur deleniti consectetur non exercitationem.</p>
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane" id="information">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, neque
-                                                        fugit inventore quo dignissimos est iure natus quis nam illo officiis,
-                                                        deleniti consectetur non ,aspernatur.</p>
-                                                    <p>rerum blanditiis dolore dignissimos expedita consequatur deleniti
-                                                        consectetur non exercitationem.</p>
+                                                <div role="tabpanel" class="tab-pane active show" id="description" th:text="${product.description}">
                                                 </div>
                                                 <div role="tabpanel" class="tab-pane" id="reviews">
                                                     <!-- reviews-tab-desc -->
@@ -258,7 +521,70 @@
                             </div>
                         </div>
 <!--                        START SIDEBAR-->
-                        <div th:replace="web/blog/sidebar::sidebar"></div>
+                        <div class="col-lg-3">
+                            <!-- widget-search -->
+                            <aside class="widget-search mb-30">
+                                <form action="#">
+                                    <input type="text" placeholder="Search here...">
+                                    <button type="submit"><i class="zmdi zmdi-search"></i></button>
+                                </form>
+                            </aside>
+                            <!-- widget-categories -->
+                            <aside class="widget widget-categories box-shadow mb-30">
+                                <h6 class="widget-title border-left mb-20">Brands</h6>
+                                <div id="cat-treeview-2" class="brand-title">
+                                    <ul th:each="brand : ${brands}" class="closed">
+                                        <li>
+                                            <a th:href="@{/products(brand=${brand.name})}" th:text="${brand.name}"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </aside>                        <!-- widget-color -->
+                            <aside class="widget widget-color box-shadow mb-30">
+                                <h6 class="widget-title border-left mb-20">color</h6>
+                                <ul>
+                                    <li class="color-1"><a href="#">LightSalmon</a></li>
+                                    <li class="color-2"><a href="#">Dark Salmon</a></li>
+                                    <li class="color-3"><a href="#">Tomato</a></li>
+                                    <li class="color-4"><a href="#">Deep Sky Blue</a></li>
+                                    <li class="color-5"><a href="#">Electric Purple</a></li>
+                                    <li class="color-6"><a href="#">Atlantis</a></li>
+                                </ul>
+                            </aside>
+                            <!-- operating-system -->
+                            <aside class="widget operating-system box-shadow mb-30">
+                                <h6 class="widget-title border-left mb-20">operating system</h6>
+                                <form action="https://htmldemo.net/subas/subas/action_page.php">
+                                    <label><input type="checkbox" name="operating-1" value="phone-1">Windows Phone</label><br>
+                                    <label><input type="checkbox" name="operating-1" value="phone-1">Bleckgerry ios</label><br>
+                                    <label><input type="checkbox" name="operating-1" value="phone-1">Android</label><br>
+                                    <label><input type="checkbox" name="operating-1" value="phone-1">ios</label><br>
+                                    <label><input type="checkbox" name="operating-1" value="phone-1">Windows Phone</label><br>
+                                    <label><input type="checkbox" name="operating-1" value="phone-1">Symban</label><br>
+                                    <label class="mb-0"><input type="checkbox" name="operating-1" value="phone-1">Bleckgerry
+                                        os</label><br>
+                                </form>
+                            </aside>
+                            <!-- widget-product -->
+                            <aside class="widget widget-product box-shadow">
+                                <h6 class="widget-title border-left mb-20">recent products</h6>
+                                <!-- product-item start -->
+                                <div class="product-item">
+                                    <div class="product-img">
+                                        <a href="single-product.html">
+                                            <img th:src="@{/web/img/product/4.jpg}" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="product-info">
+                                        <h6 class="product-title">
+                                            <a href="single-product.html">Product Name</a>
+                                        </h6>
+                                        <h3 class="pro-price">$ 869.00</h3>
+                                    </div>
+                                </div>
+                                <!-- product-item end -->
+                            </aside>
+                        </div>
 <!--                        END SIDEBAR-->
                     </div>
                 </div>
@@ -273,7 +599,7 @@
         <!-- END FOOTER AREA -->
 
         <!-- START QUICKVIEW PRODUCT -->
-        <div th:replace="~{web/product/quickviewProduct::quickview}"></div>
+<!--        <div th:replace="~{web/product/quickviewProduct::quickview}"></div>-->
         <!-- END QUICKVIEW PRODUCT --> 
 
     </div>
@@ -283,6 +609,42 @@
     <!-- Placed JS at the end of the document so the pages load faster -->
 
     <!-- jquery latest version -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Chỉ lấy một sản phẩm (giả sử đây là sản phẩm đầu tiên hoặc duy nhất)
+            const product = document.querySelector(".product-item");
+
+            if (product) {
+                // Lấy giá trị rating từ input ẩn
+                const ratingInput = product.querySelector(".rating");
+                if (ratingInput) {
+                    const rating = parseFloat(ratingInput.value);
+                    console.log("Rating:", rating); // Kiểm tra giá trị rating trong console
+                    const ratingContainer = product.querySelector(".pro-rating");
+
+                    // Xóa nội dung trong `pro-rating` nếu có
+                    ratingContainer.innerHTML = '';
+
+                    // Tạo các icon sao dựa trên giá trị rating
+                    for (let i = 1; i <= 5; i++) {
+                        const star = document.createElement("a");
+                        star.href = "#";
+
+                        if (i <= Math.floor(rating)) {
+                            star.innerHTML = '<i class="zmdi zmdi-star"></i>'; // Sao đầy
+                        } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+                            star.innerHTML = '<i class="zmdi zmdi-star-half"></i>'; // Sao nửa
+                        } else {
+                            star.innerHTML = '<i class="zmdi zmdi-star-outline"></i>'; // Sao rỗng
+                        }
+
+                        // Thêm sao vào container
+                        ratingContainer.appendChild(star);
+                    }
+                }
+            }
+        });
+    </script>
     <div th:replace="~{web/fragments/script::script}"></div>
 
 </body>

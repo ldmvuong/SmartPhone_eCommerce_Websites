@@ -355,7 +355,7 @@
                         </div>
                         <div class="featured-product">
                             <div class="active-featured-product slick-arrow-2">
-                                <div th:replace="web/product/product-item::product-item"></div>
+                                <div th:replace="~{web/product/product-item::product-item}"></div>
                             </div>
                         </div>
                     </div>
@@ -387,33 +387,27 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <!-- new-arrival start -->
-                            <div id="new-arrival" class="tab-pane" role="tabpanel">
+                            <div id="new-arrival" class="tab-pane active show">
                                 <div class="row">
                                     <!-- product-item start -->
                                     <div class="col-lg-3 col-md-4" th:each="product : ${newArrivalProducts}">
                                         <div class="product-item">
                                             <div class="product-img">
-                                                <!--                                Duong dan toi single-product-->
-                                                <a href="single-product.html">
-                                                    <img th:src="@{|/${product.imagePath}|}" alt=""/>
+                                                <a th:href="@{/products/{id}(id=${product.productId})}">
+                                                    <img th:src="@{|/${product.imagePath}|}" alt="" style="width: 250px; height: 300px; object-fit: cover;" />
                                                 </a>
                                             </div>
                                             <div class="product-info">
                                                 <h6 class="product-title">
-                                                    <a href="single-product.html" th:text="${product.name}"></a>
+                                                    <a th:href="@{/products/{id}(id=${product.productId})}" th:text="${product.name}"></a>
                                                 </h6>
-                                                <div class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                                </div>
-                                                <h3 class="pro-price" th:text="product.price"></h3>
+                                                <input type="hidden" class="rating" th:value="${product.rating}">
+                                                <div class="pro-rating"></div>
+                                                <h3 class="pro-price" th:text="${product.price}"></h3>
                                                 <ul class="action-button">
-                                                    <li>
-                                                        <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                    </li>
+<!--                                                    <li>-->
+<!--                                                        <a th:href="@{/products/quick-view/{id}(id=${product.productId})}" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>-->
+<!--                                                    </li>-->
                                                     <li>
                                                         <a href="#" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                     </li>
@@ -449,17 +443,63 @@
     <div th:replace="~{web/fragments/footer::footer}"></div>
     <!-- END FOOTER AREA -->
 
-    <!-- START QUICKVIEW PRODUCT -->
-    <div th:replace="~{web/product/quickviewProduct::quickview}"></div>
-    <!-- END QUICKVIEW PRODUCT -->
+<!--    &lt;!&ndash; START QUICKVIEW PRODUCT &ndash;&gt;-->
+<!--    <div th:replace="~{web/product/quickviewProduct::quickview}"></div>-->
+<!--    &lt;!&ndash; END QUICKVIEW PRODUCT &ndash;&gt;-->
 
 </div>
 <!-- Body main wrapper end -->
 
 <!-- Placed JS at the end of the document so the pages load faster -->
 <!-- jquery latest version -->
-<div th:replace="~{web/fragments/script::script}"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy tất cả các phần tử sản phẩm
+        const products = document.querySelectorAll(".product-item");
 
+        products.forEach(product => {
+            // Lấy giá trị rating từ input ẩn
+            const ratingInput = product.querySelector(".rating");
+            if (ratingInput) {
+                const rating = parseFloat(ratingInput.value);
+                console.log("Rating:", rating); // Kiểm tra giá trị rating trong console
+                const ratingContainer = product.querySelector(".pro-rating");
+
+                // Xóa nội dung trong `pro-rating` nếu có
+                ratingContainer.innerHTML = '';
+
+                // Tạo các icon sao dựa trên giá trị rating
+                for (let i = 1; i <= 5; i++) {
+                    const star = document.createElement("a");
+                    star.href = "#";
+
+                    if (i <= Math.floor(rating)) {
+                        star.innerHTML = '<i class="zmdi zmdi-star"></i>'; // Sao đầy
+                    } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+                        star.innerHTML = '<i class="zmdi zmdi-star-half"></i>'; // Sao nửa
+                    } else {
+                        star.innerHTML = '<i class="zmdi zmdi-star-outline"></i>'; // Sao rỗng
+                    }
+
+                    // Thêm sao vào container
+                    ratingContainer.appendChild(star);
+                }
+            }
+        });
+    });
+</script>
+<!--<script>-->
+<!--    $(document).on('click', 'a[data-bs-toggle="modal"]', function (event) {-->
+<!--        event.preventDefault();-->
+<!--        var href = $(this).attr('href'); // Lấy URL từ th:href-->
+
+<!--        $.get(href, function (data) {-->
+<!--            $('#productModalContent').html(data); // Đổ dữ liệu vào modal content-->
+<!--            $('#productModal').modal('show');     // Hiển thị modal-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<div th:replace="~{web/fragments/script::script}"></div>
 </body>
 
 <!-- Mirrored from htmldemo.net/subas/subas/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 15 Oct 2024 02:16:20 GMT -->

@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
+import vn.ute.smartphoneshop.model.dto.ProductDTO;
 import vn.ute.smartphoneshop.service.IBrandService;
 import vn.ute.smartphoneshop.service.IProductService;
 
@@ -33,4 +35,12 @@ public class ProductController {
         return "web/shop-right-sidebar";
     }
 
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") Integer id, Model model) {
+        List<BrandEntity> brandEntityList = brandService.findAll();
+        ProductDTO productDTO = productService.findProductById(id);
+        model.addAttribute("product", productDTO);
+        model.addAttribute("brands", brandEntityList);
+        return "web/single-product-left-sidebar";
+    }
 }
