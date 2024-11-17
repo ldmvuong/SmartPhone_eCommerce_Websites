@@ -55,4 +55,6 @@ public class ProductDTO {
 
     @Min(value = 1, message = "Brand ID is required")
     private Long brandId;
+
+    private String brandName;
 }

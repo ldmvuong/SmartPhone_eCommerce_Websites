@@ -5,10 +5,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
@@ -20,6 +18,7 @@ import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller("userProductController")
 @RequestMapping("/products")
@@ -44,30 +43,65 @@ public class ProductController {
         return userService.findByUsername(username);
     }
 
-
     @GetMapping("")
-    public String index(Model model, @RequestParam("brand") String brand) {
-        List<BrandEntity> brandEntityList = brandService.findAll();
-        List<ProductEntity> list = productService.findProductByBrandName(brand);
+    public String index(@RequestParam Map<String, Object> params, Model model) {
+        List<ProductDTO> productList;
 
+        // Check if there are any search parameters
+        if (params == null || params.isEmpty()) {
+            // If no search parameters, fetch all products
+            productList = productService.findAllProduct();
+        } else {
+            // If there are search parameters, filter products using the params map
+            productList = productService.findAll(params);
+        }
+
+        List<BrandEntity> brandEntityList = brandService.findAll();
+
+        // Handle cart retrieval logic
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
-
         if (getCurrentUser() != null) {
             cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
-            if(cartEntity != null){
+            if (cartEntity != null) {
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
             }
         }
 
+        // Add attributes to the model
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
-
-        model.addAttribute("products", list);
+        model.addAttribute("products", productList);
         model.addAttribute("brands", brandEntityList);
         return "web/shop-left-sidebar";
     }
 
+
+
+
+//    @GetMapping("")
+//    public String index(Model model, @RequestParam("brand") String brand) {
+//        List<BrandEntity> brandEntityList = brandService.findAll();
+//        List<ProductEntity> list = productService.findProductByBrandName(brand);
+//
+//        CartEntity cartEntity = new CartEntity();
+//        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+//
+//        if (getCurrentUser() != null) {
+//            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+//            if(cartEntity != null){
+//                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+//            }
+//        }
+//
+//        model.addAttribute("cart", cartEntity);
+//        model.addAttribute("cartDetailList", cartDetailRequestList);
+//
+//        model.addAttribute("products", list);
+//        model.addAttribute("brands", brandEntityList);
+//        return "web/shop-left-sidebar";
+//    }
+//
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         List<BrandEntity> brandEntityList = brandService.findAll();

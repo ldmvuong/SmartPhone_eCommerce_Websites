@@ -1,8 +1,10 @@
 package vn.ute.smartphoneshop.repository.custom;
 
+import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import vn.ute.smartphoneshop.builder.ProductSearchBuilder;
+import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
 
 import java.util.ArrayList;
@@ -40,8 +42,9 @@ public class ProductRepositoryCustom {
             if (builder.getRating() != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), builder.getRating()));
             }
-            if (builder.getBrandId() != null) {
-                predicates.add(criteriaBuilder.equal(root.get("brandId"), builder.getBrandId()));
+            if (builder.getbrandName() != null && !builder.getbrandName().isEmpty()) {
+                Join<ProductEntity, BrandEntity> brandJoin = root.join("brand"); // Create a join with the brand
+                predicates.add(criteriaBuilder.equal(brandJoin.get("name"), builder.getbrandName()));
             }
             if (builder.getMinPrice() != null) {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), builder.getMinPrice()));

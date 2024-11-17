@@ -10,7 +10,7 @@ public class ProductSearchBuilder {
     private String warrantyPeriod;
     private Integer batteryCapacity;
     private Float rating;
-    private Long brandId;
+    private String brandName ;
     private Long minPrice;  // Giá tối thiểu
     private Long maxPrice;  // Giá tối đa
 
@@ -25,7 +25,7 @@ public class ProductSearchBuilder {
         this.warrantyPeriod = builder.warrantyPeriod;
         this.batteryCapacity = builder.batteryCapacity;
         this.rating = builder.rating;
-        this.brandId = builder.brandId;
+        this.brandName  = builder.brandName ;
         this.minPrice = builder.minPrice;
         this.maxPrice = builder.maxPrice;
     }
@@ -67,8 +67,8 @@ public class ProductSearchBuilder {
         return rating;
     }
 
-    public Long getBrandId() {
-        return brandId;
+    public String getbrandName () {
+        return brandName ;
     }
 
     public Long getMinPrice() {
@@ -90,7 +90,7 @@ public class ProductSearchBuilder {
         private String warrantyPeriod;
         private Integer batteryCapacity;
         private Float rating;
-        private Long brandId;
+        private String brandName ;
         private Long minPrice;
         private Long maxPrice;
 
@@ -139,8 +139,8 @@ public class ProductSearchBuilder {
             return this;
         }
 
-        public Builder setBrandId(Long brandId) {
-            this.brandId = brandId;
+        public Builder setbrandName (String brandName ) {
+            this.brandName  = brandName ;
             return this;
         }
 

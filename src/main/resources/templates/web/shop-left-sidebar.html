@@ -106,7 +106,7 @@
                                                         <input type="hidden" name="id" th:value="${product.productId}">
                                                         <div class="pro-rating f-right"></div>
                                                     </div>
-                                                    <h6 class="brand-name mb-30" th:text="${product.brand.name}"></h6>
+                                                    <h6 class="brand-name mb-30" th:text="${product.brandName}"></h6>
                                                     <h3 class="pro-price" th:text="${product.price}"></h3>
                                                     <p th:text="${product.description}"></p>
                                                     <ul class="action-button">
@@ -135,8 +135,8 @@
                     <div class="col-lg-3">
                         <!-- widget-search -->
                         <aside class="widget-search mb-30">
-                            <form action="#">
-                                <input type="text" placeholder="Search here...">
+                            <form action="/products" method="GET">
+                                <input type="text" name="name" placeholder="Search here..." th:value="${param.name}">
                                 <button type="submit"><i class="zmdi zmdi-search"></i></button>
                             </form>
                         </aside>
@@ -146,7 +146,7 @@
                             <div id="cat-treeview-2" class="brand-title">
                                 <ul th:each="brand : ${brands}" class="closed">
                                     <li>
-                                        <a th:href="@{/products(brand=${brand.name})}" th:text="${brand.name}"></a>
+                                        <a th:href="@{/products(brandName=${brand.name})}" th:text="${brand.name}"></a>
                                     </li>
                                 </ul>
                             </div>
