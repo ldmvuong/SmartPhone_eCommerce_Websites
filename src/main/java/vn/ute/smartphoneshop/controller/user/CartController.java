@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import vn.ute.smartphoneshop.entity.CartDetailEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.UserEntity;
 import vn.ute.smartphoneshop.model.dto.CartDTO;
@@ -50,7 +51,7 @@ public class CartController {
     }
 
     @GetMapping("/add-cart")
-    public String addProduct(@Valid@RequestParam("id") int productId, Model model) {
+    public String addProduct(@Valid@RequestParam("id") int productId, @RequestParam("quantity") int quantity, Model model) {
         CartEntity cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
         if (cartEntity == null) {
             CartDTO cartDTO = new CartDTO();
@@ -60,15 +61,42 @@ public class CartController {
             cartService.createCart(cartDTO);
         }
         if (cartEntity != null) {
-            CartDetailDTO cartDetailDTO = new CartDetailDTO();
+            CartDetailEntity cartDetailEntity = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(), productId);
             ProductDTO productDTO = productService.findProductById(productId);
-            cartDetailDTO.setCartId(cartEntity.getCartId());
-            cartDetailDTO.setProductId(productId);
-            cartDetailDTO.setQuantity(1);
-            cartDetailDTO.setCartPrice(productDTO.getPrice());
-            if (cartDetailService.insert(cartDetailDTO)) {
-                Long price = cartDetailDTO.getCartPrice();
-                cartEntity.setTotalPrice(price+productDTO.getPrice());
+            if (cartDetailEntity != null) {
+                cartDetailEntity.setQuantity(quantity+cartDetailEntity.getQuantity());
+                Long price = cartEntity.getTotalPrice() - cartDetailEntity.getCartPrice() + productDTO.getPrice()*cartDetailEntity.getQuantity();
+                cartDetailEntity.setCartPrice(productDTO.getPrice()*cartDetailEntity.getQuantity());
+                cartEntity.setTotalPrice(price);
+                cartService.updateCart(cartEntity);
+                cartDetailService.update(cartDetailEntity);
+            }
+            else {
+                CartDetailDTO cartDetailDTO = new CartDetailDTO();
+                productDTO = productService.findProductById(productId);
+                cartDetailDTO.setCartId(cartEntity.getCartId());
+                cartDetailDTO.setProductId(productId);
+                cartDetailDTO.setQuantity(quantity);
+                cartDetailDTO.setCartPrice(productDTO.getPrice()*quantity);
+                if (cartDetailService.insert(cartDetailDTO)) {
+                    Long price = cartEntity.getTotalPrice();
+                    cartEntity.setTotalPrice(price+cartDetailDTO.getCartPrice());
+                    cartService.updateCart(cartEntity);
+                    return "redirect:/home";
+                }
+            }
+        }
+        return "redirect:/home";
+    }
+
+    @GetMapping("/delete-cart")
+    public String deleteProduct(@Valid@RequestParam("cartId") int cartId,@RequestParam("productId") int productId, Model model) {
+        CartEntity cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+        CartDetailEntity cartDetailEntity = cartDetailService.findByCartIdAndProductId(cartId,productId);
+        if (cartEntity != null) {
+            if(cartDetailService.delete(cartDetailEntity.getCartDetailId())){
+                Long price = cartEntity.getTotalPrice();
+                cartEntity.setTotalPrice(price-cartDetailEntity.getCartPrice());
                 cartService.updateCart(cartEntity);
                 return "redirect:/home";
             }

@@ -54,14 +54,20 @@ public class HomeController {
 
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = cartDetailRequestList.size();
 
         if (getCurrentUser() != null) {
             cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
             if(cartEntity != null){
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                numberProducts= cartDetailRequestList.size();
+                if(cartDetailRequestList.size() > 2){
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
             }
         }
 
+        model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("newArrivalProducts", newArrivalProductList);

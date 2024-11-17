@@ -176,7 +176,7 @@
                                 <div class="total-cart-in">
                                     <div class="cart-toggler">
                                         <a href="#">
-                                            <span class="cart-quantity" th:text="${cartDetailList.size()}"></span><br />
+                                            <span class="cart-quantity" th:text="${numberProducts}"></span><br />
                                             <span class="cart-icon">
                                                     <i class="zmdi zmdi-shopping-cart-plus"></i>
                                                 </span>
@@ -200,7 +200,7 @@
                                                                     style="width: 50px; height: 50px; object-fit: cover;" />
                                                         </a>
                                                         <div class="del-icon">
-                                                            <a href="#">
+                                                            <a th:href="@{/user/carts/delete-cart(cartId=${cartDetail.cartId},productId=${cartDetail.productId.productId})}">
                                                                 <i class="zmdi zmdi-close"></i>
                                                             </a>
                                                         </div>

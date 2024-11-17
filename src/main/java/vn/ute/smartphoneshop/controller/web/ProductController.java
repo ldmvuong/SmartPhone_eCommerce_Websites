@@ -61,10 +61,16 @@ public class ProductController {
         // Handle cart retrieval logic
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = cartDetailRequestList.size();
+
         if (getCurrentUser() != null) {
             cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
             if (cartEntity != null) {
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                numberProducts= cartDetailRequestList.size();
+                if(cartDetailRequestList.size() > 2){
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
             }
         }
 
@@ -76,36 +82,30 @@ public class ProductController {
         return "web/shop-left-sidebar";
     }
 
-
-
-
-//    @GetMapping("")
-//    public String index(Model model, @RequestParam("brand") String brand) {
-//        List<BrandEntity> brandEntityList = brandService.findAll();
-//        List<ProductEntity> list = productService.findProductByBrandName(brand);
-//
-//        CartEntity cartEntity = new CartEntity();
-//        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
-//
-//        if (getCurrentUser() != null) {
-//            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
-//            if(cartEntity != null){
-//                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
-//            }
-//        }
-//
-//        model.addAttribute("cart", cartEntity);
-//        model.addAttribute("cartDetailList", cartDetailRequestList);
-//
-//        model.addAttribute("products", list);
-//        model.addAttribute("brands", brandEntityList);
-//        return "web/shop-left-sidebar";
-//    }
-//
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         List<BrandEntity> brandEntityList = brandService.findAll();
         ProductDTO productDTO = productService.findProductById(id);
+
+        CartEntity cartEntity = new CartEntity();
+        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = cartDetailRequestList.size();
+
+        if (getCurrentUser() != null) {
+            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+            if(cartEntity != null){
+                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                numberProducts= cartDetailRequestList.size();
+                if(cartDetailRequestList.size() > 2){
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
+            }
+        }
+
+        model.addAttribute("numberProducts", numberProducts);
+        model.addAttribute("cart", cartEntity);
+        model.addAttribute("cartDetailList", cartDetailRequestList);
+
         model.addAttribute("product", productDTO);
         model.addAttribute("brands", brandEntityList);
         return "web/single-product-left-sidebar";
