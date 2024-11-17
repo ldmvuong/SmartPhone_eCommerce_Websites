@@ -6,16 +6,12 @@ import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.entity.CartDetailEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
-import vn.ute.smartphoneshop.entity.UserEntity;
 import vn.ute.smartphoneshop.model.dto.CartDetailDTO;
-import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.repository.CartRepository;
 import vn.ute.smartphoneshop.repository.ICartDetailRepository;
 import vn.ute.smartphoneshop.repository.ProductRepository;
 import vn.ute.smartphoneshop.service.ICartDetailService;
-import vn.ute.smartphoneshop.service.ICartService;
-import vn.ute.smartphoneshop.service.IProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,4 +63,36 @@ public class CartDetailServiceImpl implements ICartDetailService {
         }
         return false;
     }
+
+    @Override
+    public boolean update(CartDetailEntity cartDetailEntity){
+        try {
+            cartDetailRepository.save(cartDetailEntity);
+            return true;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(int cartId) {
+        try {
+            CartDetailEntity cartDetailEntity = cartDetailRepository.findById(cartId).orElse(null);
+            if (cartDetailEntity != null) {
+                cartDetailRepository.delete(cartDetailEntity);
+                return true;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public CartDetailEntity findByCartIdAndProductId(int cartId, int productId) {
+        return cartDetailRepository.findByCart_CartIdAndAndProduct_ProductId(cartId,productId).orElse(null);
+    }
+
+
 }

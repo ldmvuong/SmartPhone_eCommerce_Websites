@@ -114,12 +114,13 @@
                                                 <input type="hidden" name="id" th:value="${product.productId}">
                                                 <div class="pro-rating"></div>
                                                 <h3 class="pro-price" th:text="${product.price}"></h3>
+                                                <input type="hidden" name="quantity" th:value="1">
                                                 <ul class="action-button">
 <!--                                                    <li>-->
 <!--                                                        <a th:href="@{/products/quick-view/{id}(id=${product.productId})}" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>-->
 <!--                                                    </li>-->
                                                     <li>
-                                                        <a th:href="@{/user/carts/add-cart(id=${product.productId})}" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                        <a th:href="@{/user/carts/add-cart(id=${product.productId},quantity=${1})}" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>

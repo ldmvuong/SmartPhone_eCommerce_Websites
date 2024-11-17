@@ -52,14 +52,20 @@ public class ProductController {
 
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = cartDetailRequestList.size();
 
         if (getCurrentUser() != null) {
             cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
             if(cartEntity != null){
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                numberProducts= cartDetailRequestList.size();
+                if(cartDetailRequestList.size() > 2){
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
             }
         }
 
+        model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
 
@@ -72,6 +78,26 @@ public class ProductController {
     public String show(@PathVariable("id") Integer id, Model model) {
         List<BrandEntity> brandEntityList = brandService.findAll();
         ProductDTO productDTO = productService.findProductById(id);
+
+        CartEntity cartEntity = new CartEntity();
+        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = cartDetailRequestList.size();
+
+        if (getCurrentUser() != null) {
+            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+            if(cartEntity != null){
+                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                numberProducts= cartDetailRequestList.size();
+                if(cartDetailRequestList.size() > 2){
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
+            }
+        }
+
+        model.addAttribute("numberProducts", numberProducts);
+        model.addAttribute("cart", cartEntity);
+        model.addAttribute("cartDetailList", cartDetailRequestList);
+
         model.addAttribute("product", productDTO);
         model.addAttribute("brands", brandEntityList);
         return "web/single-product-left-sidebar";
