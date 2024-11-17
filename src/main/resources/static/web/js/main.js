@@ -226,21 +226,41 @@
 	/* ********************************************
 		8. Price Slider
 	******************************************** */
-    $( "#slider-range" ).slider({
-        range: true,
-        min: 50,
-        max: 2000,
-        values: [ 50, 999 ],
-        slide: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+    $(document).ready(function() {
+        // Get initial min and max values from hidden inputs or default values
+        const initialMin = parseInt($("#minPrice").val()) || 1000000;
+        const initialMax = parseInt($("#maxPrice").val()) || 50000000;
+
+        $("#slider-range").slider({
+            range: true,
+            min: 1000000, // Minimum value (1 million VND)
+            max: 50000000, // Maximum value (50 million VND)
+            values: [initialMin, initialMax], // Initial values based on input values
+            slide: function(event, ui) {
+                // Display formatted values
+                $("#amount").val(formatCurrency(ui.values[0]) + " - " + formatCurrency(ui.values[1]));
+                // Update hidden input fields
+                $("#minPrice").val(ui.values[0]);
+                $("#maxPrice").val(ui.values[1]);
+            }
+        });
+
+        // Set initial displayed values
+        $("#amount").val(formatCurrency($("#slider-range").slider("values", 0)) +
+            " - " + formatCurrency($("#slider-range").slider("values", 1)));
+
+        // Function to format currency as VND
+        function formatCurrency(value) {
+            value = value / 1000000; // Convert to millions
+            return value.toLocaleString('vi-VN', { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 1 }) + ' triệu';
         }
     });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - $" + $( "#slider-range" ).slider( "values", 1 ) ); 
 
-	/* ********************************************
-		9. Fancybox active
-	******************************************** */
+
+
+    /* ********************************************
+        9. Fancybox active
+    ******************************************** */
     $(document).ready(function() {
         $('.fancybox').fancybox();
     });

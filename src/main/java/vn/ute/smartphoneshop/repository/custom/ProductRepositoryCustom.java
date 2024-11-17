@@ -19,10 +19,10 @@ public class ProductRepositoryCustom {
                 predicates.add(criteriaBuilder.like(root.get("name"), "%" + builder.getName() + "%"));
             }
             if (builder.getProcessor() != null && !builder.getProcessor().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("processor"), builder.getProcessor()));
+                predicates.add(criteriaBuilder.like(root.get("processor"), "%" + builder.getProcessor() + "%"));
             }
             if (builder.getOperatingSystem() != null && !builder.getOperatingSystem().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("operatingSystem"), builder.getOperatingSystem()));
+                predicates.add(criteriaBuilder.like(root.get("operatingSystem"), "%" + builder.getOperatingSystem() + "%"));
             }
             if (builder.getSim() != null && !builder.getSim().isEmpty()) {
                 predicates.add(criteriaBuilder.equal(root.get("sim"), builder.getSim()));
@@ -43,7 +43,7 @@ public class ProductRepositoryCustom {
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), builder.getRating()));
             }
             if (builder.getbrandName() != null && !builder.getbrandName().isEmpty()) {
-                Join<ProductEntity, BrandEntity> brandJoin = root.join("brand"); // Create a join with the brand
+                Join<ProductEntity, BrandEntity> brandJoin = root.join("brand");
                 predicates.add(criteriaBuilder.equal(brandJoin.get("name"), builder.getbrandName()));
             }
             if (builder.getMinPrice() != null) {

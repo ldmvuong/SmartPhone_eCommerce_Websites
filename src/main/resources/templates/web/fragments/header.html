@@ -62,6 +62,9 @@
                                 <li>
                                     <a href="#">Products</a>
                                     <ul class="dropdwn">
+                                        <li>
+                                            <a th:href="@{/products}">All Mobile Phones</a>
+                                        </li>
                                         <li th:each="brand : ${brands}">
                                             <a th:href="@{/products(brandName=${brand.name})}" th:text="${brand.name}"></a>
                                         </li>
