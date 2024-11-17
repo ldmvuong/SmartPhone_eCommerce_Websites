@@ -9,14 +9,32 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import vn.ute.smartphoneshop.entity.BrandEntity;
+import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
+import vn.ute.smartphoneshop.model.request.CartDetailRequest;
+import vn.ute.smartphoneshop.service.IBrandService;
+import vn.ute.smartphoneshop.service.ICartDetailService;
+import vn.ute.smartphoneshop.service.ICartService;
 import vn.ute.smartphoneshop.service.IUserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AuthController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    IBrandService brandService;
+
+    @Autowired
+    ICartDetailService cartDetailService;
+
+    @Autowired
+    ICartService cartService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -29,6 +47,14 @@ public class AuthController {
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("registerUser", new UserDTO());
+        List<BrandEntity> brandEntities = brandService.findAll();
+        CartEntity cartEntity = new CartEntity();
+        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+
+        model.addAttribute("cart", cartEntity);
+        model.addAttribute("cartDetailList", cartDetailRequestList);
+        model.addAttribute("brands", brandEntities);
+
         return "web/login";
     }
 

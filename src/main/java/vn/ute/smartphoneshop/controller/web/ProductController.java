@@ -44,6 +44,7 @@ public class ProductController {
         return userService.findByUsername(username);
     }
 
+
     @GetMapping("")
     public String index(Model model, @RequestParam("brand") String brand) {
         List<BrandEntity> brandEntityList = brandService.findAll();
