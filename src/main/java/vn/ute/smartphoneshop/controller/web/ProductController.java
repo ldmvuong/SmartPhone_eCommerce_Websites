@@ -75,6 +75,7 @@ public class ProductController {
         }
 
         // Add attributes to the model
+        model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("products", productList);
