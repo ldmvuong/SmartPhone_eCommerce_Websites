@@ -70,9 +70,9 @@ public class CartController {
                 Long price = cartDetailDTO.getCartPrice();
                 cartEntity.setTotalPrice(price+productDTO.getPrice());
                 cartService.updateCart(cartEntity);
-                return "redirect:/user/home";
+                return "redirect:/home";
             }
         }
-        return "redirect:/user/home";
+        return "redirect:/home";
     }
 }
