@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller("userHomeController")
-@RequestMapping("/user")
 public class HomeController {
     @Autowired
     IBrandService brandService;
