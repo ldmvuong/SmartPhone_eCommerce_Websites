@@ -17,6 +17,7 @@ import vn.ute.smartphoneshop.model.dto.ProductDTO;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.service.IOrderService;
 import vn.ute.smartphoneshop.service.IUserService;
+import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.util.List;
 
@@ -30,15 +31,14 @@ public class OrderController{
     private IUserService userService;
 
     private UserDTO getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
+        String username = SecurityUtil.getCurrentUsername();
         return userService.findByUsername(username);
     }
 
     @GetMapping("")
     public String orders(Model model) {
         UserDTO currentUser = getCurrentUser();
-        OrderDTO orderDTO = orderService.getOrderDTOByUserId(currentUser.getUserId());
+//        OrderDTO orderDTO = orderService.getOrderDTOByUserId(currentUser.getUserId());
 //        List<ProductDTO> productDTOS = orderService.getOrder()
         return "user/orders";
     }

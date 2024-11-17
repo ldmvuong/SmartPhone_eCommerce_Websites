@@ -22,6 +22,7 @@ import vn.ute.smartphoneshop.service.ICartDetailService;
 import vn.ute.smartphoneshop.service.ICartService;
 import vn.ute.smartphoneshop.service.IProductService;
 import vn.ute.smartphoneshop.service.IUserService;
+import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.math.BigDecimal;
 
@@ -44,8 +45,7 @@ public class CartController {
     IProductService productService;
 
     private UserDTO getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
+        String username = SecurityUtil.getCurrentUsername();
         return userService.findByUsername(username);
     }
 

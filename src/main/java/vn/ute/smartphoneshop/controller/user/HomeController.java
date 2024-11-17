@@ -16,6 +16,7 @@ import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.repository.CartRepository;
 import vn.ute.smartphoneshop.service.*;
+import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,7 @@ public class HomeController {
     ICartService cartService;
 
     private UserDTO getCurrentUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
+        String username = SecurityUtil.getCurrentUsername();
         return userService.findByUsername(username);
     }
 
