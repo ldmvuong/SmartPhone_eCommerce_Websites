@@ -41,6 +41,7 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable) // Tắt CSRF nếu không cần
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
