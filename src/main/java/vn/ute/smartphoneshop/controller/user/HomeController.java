@@ -52,10 +52,14 @@ public class HomeController {
             newArrivalProductList = newArrivalProductList.subList(0, 12);
         }
 
-        CartEntity cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+        CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
-        if(cartEntity != null){
-            cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+
+        if (getCurrentUser() != null) {
+            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+            if(cartEntity != null){
+                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+            }
         }
 
         model.addAttribute("cart", cartEntity);
