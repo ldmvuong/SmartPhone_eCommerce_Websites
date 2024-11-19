@@ -1,6 +1,8 @@
 package vn.ute.smartphoneshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,36 +35,51 @@ public class ProductServiceImpl implements IProductService {
     private ProductSearchBuilderConverter productSearchBuilderConverter;
 
 
+//    @Override
+//    public List<ProductDTO> findAll(Map<String, Object> params) {
+//        // chuyển đổi Map params thành ProductSearchBuilder
+//        ProductSearchBuilder builder = productSearchBuilderConverter.toProductSearchBuilder(params);
+//        List<ProductEntity> productEntities = productRepository.findAll(ProductRepositoryCustom.search(builder));
+//
+//        List<ProductDTO> result = new ArrayList<ProductDTO>();
+//        for (ProductEntity item : productEntities) {
+//            ProductDTO building = productDTOConverter.toProductDTO(item);
+//            result.add(building);
+//        }
+//        return result;
+//    }
+
     @Override
-    public List<ProductDTO> findAll(Map<String, Object> params) {
-        // chuyển đổi Map params thành ProductSearchBuilder
+    public Page<ProductDTO> findAll(Map<String, Object> params, Pageable pageable) {
+        // Chuyển đổi Map params thành ProductSearchBuilder
         ProductSearchBuilder builder = productSearchBuilderConverter.toProductSearchBuilder(params);
-        List<ProductEntity> productEntities = productRepository.findAll(ProductRepositoryCustom.search(builder));
 
-        List<ProductDTO> result = new ArrayList<ProductDTO>();
-        for (ProductEntity item : productEntities) {
-            ProductDTO building = productDTOConverter.toProductDTO(item);
-            result.add(building);
-        }
-        return result;
-    }
+        Page<ProductEntity> productEntities = productRepository.findAll(
+                ProductRepositoryCustom.search(builder), pageable
+        );
 
-    @Override
-    public List<ProductDTO> findAllProduct() {
-        List<ProductEntity> productEntities =productRepository.findAll();
-
-        List<ProductDTO> result = new ArrayList<ProductDTO>();
-        for (ProductEntity item : productEntities) {
-            ProductDTO building = productDTOConverter.toProductDTO(item);
-            result.add(building);
-        }
-        return result;
+        return productEntities.map(productDTOConverter::toProductDTO);
     }
 
 //    @Override
-//    public boolean createProduct(ProductDTO productDTO, MultipartFile file) throws IOException {
-//        BrandEntity brandEntity =
+//    public List<ProductDTO> findAllProduct() {
+//        List<ProductEntity> productEntities =productRepository.findAll();
+//
+//        List<ProductDTO> result = new ArrayList<ProductDTO>();
+//        for (ProductEntity item : productEntities) {
+//            ProductDTO building = productDTOConverter.toProductDTO(item);
+//            result.add(building);
+//        }
+//        return result;
 //    }
+
+    @Override
+    public Page<ProductDTO> findAllProduct(Pageable pageable) {
+        Page<ProductEntity> productEntities = productRepository.findAll(pageable);
+
+        return productEntities.map(productDTOConverter::toProductDTO);
+    }
+
 
     @Override
     public void saveProduct(ProductDTO product, MultipartFile file, String existingImagePath) {

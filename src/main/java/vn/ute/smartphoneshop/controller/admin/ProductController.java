@@ -2,6 +2,9 @@ package vn.ute.smartphoneshop.controller.admin;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,11 +30,29 @@ public class ProductController {
     @Autowired
     private IBrandService brandService;
 
+//    @RequestMapping(value = "", method = RequestMethod.GET)
+//    public ModelAndView productList() {
+//        ModelAndView mav = new ModelAndView("admin/product-list");
+//        List<ProductDTO> products = productService.findAllProduct();
+//        mav.addObject("products", products);
+//        return mav;
+//    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView productList() {
+    public ModelAndView productList(
+            @RequestParam(defaultValue = "0") int page, // Trang hiện tại
+            @RequestParam(defaultValue = "10") int size // Số sản phẩm mỗi trang
+    ) {
         ModelAndView mav = new ModelAndView("admin/product-list");
-        List<ProductDTO> products = productService.findAllProduct();
-        mav.addObject("products", products);
+
+        Pageable pageable = PageRequest.of(page, size); // Tạo Pageable
+        Page<ProductDTO> productPage = productService.findAllProduct(pageable); // Gọi Service với Pageable
+
+        mav.addObject("products", productPage.getContent()); // Sản phẩm của trang hiện tại
+        mav.addObject("currentPage", page); // Trang hiện tại
+        mav.addObject("totalPages", productPage.getTotalPages()); // Tổng số trang
+        mav.addObject("totalItems", productPage.getTotalElements()); // Tổng số sản phẩm
+        mav.addObject("size", size); // Số sản phẩm mỗi trang (để hiển thị trong giao diện)
         return mav;
     }
 
