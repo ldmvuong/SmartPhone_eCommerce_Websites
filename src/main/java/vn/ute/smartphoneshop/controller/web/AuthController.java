@@ -40,8 +40,8 @@ public class AuthController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/showPage403")
-    public String showPage403() {
-        return "web/404";
+    public String showPage403(Model model) {
+        return "web/403";
     }
 
     @GetMapping("/login")
