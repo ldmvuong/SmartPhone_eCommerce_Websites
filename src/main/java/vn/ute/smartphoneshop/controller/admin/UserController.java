@@ -2,6 +2,9 @@ package vn.ute.smartphoneshop.controller.admin;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,12 +25,31 @@ public class UserController {
     @Autowired
     private IRoleService roleService;
 
+//    @GetMapping("/user-list")
+//    public String userList(Model model) {
+//        List<UserDTO> users = userService.findAll();
+//        model.addAttribute("users", users);
+//        return "admin/all-user";
+//    }
+
     @GetMapping("/user-list")
-    public String userList(Model model) {
-        List<UserDTO> users = userService.findAll();
-        model.addAttribute("users", users);
+    public String userList(@RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "10") int size,
+                           Model model) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<UserDTO> userPage = userService.findAll(pageable);
+
+        model.addAttribute("users", userPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("totalItems", userPage.getTotalElements());
+
         return "admin/all-user";
     }
+
 
     @GetMapping("/add-new-user")
     public String addNewUser(Model model) {

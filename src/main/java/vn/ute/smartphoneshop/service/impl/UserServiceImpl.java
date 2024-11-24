@@ -1,6 +1,8 @@
 package vn.ute.smartphoneshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +28,8 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserDTOConverter userDTOConverter;
 
+
+
     @Override
     public List<UserDTO> findAll() {
         List<UserEntity> list = userRepository.findAll();
@@ -36,6 +40,16 @@ public class UserServiceImpl implements IUserService {
             userDTOList.add(convert);
         }
         return userDTOList;
+    }
+
+    @Override
+    public Page<UserDTO> findAll(Pageable pageable) {
+        Page<UserEntity> userEntityPage = userRepository.findAll(pageable);
+
+        Page<UserDTO> userDTOPage = userEntityPage.map(userEntity ->
+                userDTOConverter.toUserDTO(userEntity)
+        );
+        return userDTOPage;
     }
 
     @Override
@@ -52,6 +66,10 @@ public class UserServiceImpl implements IUserService {
         try {
             if (this.findByEmail(user.getEmail()) == null && this.findByUsername(user.getUserName()) == null) {
                 UserEntity userEntity = userDTOConverter.toUserEntity(user);
+
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                String encodedPassword = encoder.encode(user.getPassword());
+                userEntity.setPassword(encodedPassword);
                 userRepository.save(userEntity);
                 return true;
             }
@@ -115,7 +133,6 @@ public class UserServiceImpl implements IUserService {
             user.setPassword(encodedPassword);
             userRepository.save(userDTOConverter.toUserEntity(user));
         }
-
     }
 
     private GrantedAuthority roleToAuthority(RoleEntity role) {
