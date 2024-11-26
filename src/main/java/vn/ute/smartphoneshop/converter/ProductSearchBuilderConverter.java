@@ -12,7 +12,7 @@ public class ProductSearchBuilderConverter {
     public ProductSearchBuilder toProductSearchBuilder(Map<String, Object> params) {
         ProductSearchBuilder productSearchBuilder = new ProductSearchBuilder.Builder()
                 .setName(MapUtil.getObject(params, "name", String.class))                      // Tên sản phẩm
-                .setBrandId(MapUtil.getObject(params, "brandId", Long.class))                    // Thương hiệu
+                .setbrandName(MapUtil.getObject(params, "brandName", String.class))                    // Thương hiệu
                 .setProcessor(MapUtil.getObject(params, "processor", String.class))            // Loại chip
                 .setOperatingSystem(MapUtil.getObject(params, "operatingSystem", String.class))// Hệ điều hành
                 .setSim(MapUtil.getObject(params, "sim", String.class))                        // Loại SIM
@@ -24,7 +24,6 @@ public class ProductSearchBuilderConverter {
                 .setMinPrice(MapUtil.getObject(params, "minPrice", Long.class))                // Giá tối thiểu
                 .setMaxPrice(MapUtil.getObject(params, "maxPrice", Long.class))                // Giá tối đa
                 .build();
-
         return productSearchBuilder;
     }
 }

@@ -6,7 +6,7 @@
             var mapOptions = {
                 zoom: 15,
                 scrollwheel: false,
-                center: new google.maps.LatLng(34.0313519, -118.2154304)
+                center: new google.maps.LatLng(10.850745, 106.771431)
             };
 
             var map = new google.maps.Map(document.getElementById('googleMap'),

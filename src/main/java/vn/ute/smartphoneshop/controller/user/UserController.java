@@ -65,6 +65,8 @@ public class UserController {
 
         List<BrandEntity> brandEntities = brandService.findAll();
 
+
+
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
 
@@ -74,6 +76,7 @@ public class UserController {
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
             }
         }
+
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("brands", brandEntities);
