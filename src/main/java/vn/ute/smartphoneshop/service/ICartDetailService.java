@@ -11,7 +11,7 @@ public interface ICartDetailService {
     List<CartDetailRequest> findByCartId(int cartId);
     boolean insert(CartDetailDTO cartDetailDTO);
 
-    boolean update(CartDetailEntity cartDetailEntity);
+    boolean update(CartDetailDTO cartDetailDTO);
 
     //    boolean update(CartDetailRequest cartDetailRequest);
     boolean delete(int cartId);

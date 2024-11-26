@@ -25,8 +25,6 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private ICartDetailRepository productDetailRepository;
 
     @Autowired
     private CartRepository cartRepository;
@@ -41,7 +39,7 @@ public class CartDetailServiceImpl implements ICartDetailService {
             cartDetailRequest.setCartPrice(cartDetailEntity.getCartPrice());
             cartDetailRequest.setCartId(cartId);
             cartDetailRequest.setProductId(cartDetailEntity.getProduct());
-            cartDetailEntity.setQuantity(cartDetailEntity.getQuantity());
+            cartDetailRequest.setQuantity(cartDetailEntity.getQuantity());
             cartDetailRequestList.add(cartDetailRequest);
         }
         return cartDetailRequestList;
@@ -53,10 +51,15 @@ public class CartDetailServiceImpl implements ICartDetailService {
             CartDetailEntity cartDetailEntity = new CartDetailEntity();
             CartEntity cartEntity = cartRepository.findById(cartDetailDTO.getCartId()).orElse(null);
             ProductEntity productEntity = productRepository.findById(cartDetailDTO.getProductId()).orElse(null);
+
             cartDetailEntity.setCart(cartEntity);
             cartDetailEntity.setProduct(productEntity);
             BeanUtils.copyProperties(cartDetailDTO, cartDetailEntity);
+
+            cartEntity.setTotalPrice(cartEntity.getTotalPrice()+cartDetailDTO.getCartPrice());
+
             cartDetailRepository.save(cartDetailEntity);
+            cartRepository.save(cartEntity);
             return true;
         }catch (Exception e) {
             e.printStackTrace();
@@ -65,9 +68,18 @@ public class CartDetailServiceImpl implements ICartDetailService {
     }
 
     @Override
-    public boolean update(CartDetailEntity cartDetailEntity){
+    public boolean update(CartDetailDTO cartDetailDTO){
         try {
+            CartEntity cartEntity = cartRepository.findById(cartDetailDTO.getCartId()).orElse(null);
+            CartDetailEntity cartDetailEntity = cartDetailRepository.findByCart_CartIdAndAndProduct_ProductId(cartDetailDTO.getCartId(), cartDetailDTO.getProductId()).orElse(null);
+
+            cartEntity.setTotalPrice(cartEntity.getTotalPrice()-cartDetailEntity.getCartPrice()+cartDetailDTO.getCartPrice());
+
+            cartDetailEntity.setQuantity(cartDetailDTO.getQuantity());
+            cartDetailEntity.setCartPrice(cartDetailDTO.getCartPrice());
+
             cartDetailRepository.save(cartDetailEntity);
+            cartRepository.save(cartEntity);
             return true;
         }catch (Exception e) {
             e.printStackTrace();
@@ -76,11 +88,15 @@ public class CartDetailServiceImpl implements ICartDetailService {
     }
 
     @Override
-    public boolean delete(int cartId) {
+    public boolean delete(int cartDetailId) {
         try {
-            CartDetailEntity cartDetailEntity = cartDetailRepository.findById(cartId).orElse(null);
+            CartDetailEntity cartDetailEntity = cartDetailRepository.findById(cartDetailId).orElse(null);
+            CartEntity cartEntity = cartDetailEntity.getCart();
+
             if (cartDetailEntity != null) {
+                cartEntity.setTotalPrice(cartEntity.getTotalPrice()-cartDetailEntity.getCartPrice());
                 cartDetailRepository.delete(cartDetailEntity);
+                cartRepository.save(cartEntity);
                 return true;
             }
         }catch (Exception e) {

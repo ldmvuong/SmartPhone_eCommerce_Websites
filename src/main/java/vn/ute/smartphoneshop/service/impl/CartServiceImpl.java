@@ -38,10 +38,12 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public boolean updateCart(CartEntity cart) {
+    public boolean updateCart(CartDTO cart) {
         try {
-            if(userRepository.findByUserId(cart.getUser().getUserId()) != null){
-                cartRepository.save(cart);
+            CartEntity cartEntity = cartRepository.findById(cart.getUserId()).get();
+            if(cartEntity != null){
+                cartEntity.setTotalPrice(cart.getTotalPrice());
+                cartRepository.save(cartEntity);
                 return true;
             }
         }
@@ -52,11 +54,10 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
-    public boolean deleteCart(CartDTO cart) {
+    public boolean deleteCart(int cartId) {
         try {
-            if(userRepository.findByUserId(cart.getUserId()) != null){
-                CartEntity cartEntity = cartRepository.findByUser_UserId(cart.getUserId()).orElse(null);
-                BeanUtils.copyProperties(cart, cartEntity);
+            CartEntity cartEntity = cartRepository.findById(cartId).get();
+            if(cartEntity != null){
                 cartRepository.delete(cartEntity);
                 return true;
             }

@@ -69,4 +69,9 @@ public class OrderServiceImpl implements IOrderService {
     public List<OrderEntity> getAllOrders() {
         return List.of();
     }
+
+    @Override
+    public OrderDTO getOrderDTOByUserId(int userId) {
+        return null;
+    }
 }

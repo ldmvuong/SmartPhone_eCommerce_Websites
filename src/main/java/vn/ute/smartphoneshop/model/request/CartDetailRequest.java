@@ -11,13 +11,19 @@ import vn.ute.smartphoneshop.entity.ProductEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartDetailRequest {
+
+//    private int cartDetailId;
+
     @Min(value = 1,message = "Cart's ID must be > 0")
     private int cartId;
+
     @Min(value = 1, message = "Product's ID must be > 0")
     private ProductEntity productId;
+
     @Min(value = 1,message = "Quantity must be > 0")
     @NotNull(message = "Quantity is required")
     private int quantity;
+
     @Min(value = 0, message = "Cart's price must be >= 0")
     @NotNull(message = "Cart's price is required")
     private Long cartPrice;

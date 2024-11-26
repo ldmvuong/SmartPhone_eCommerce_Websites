@@ -11,4 +11,5 @@ public interface IOrderService {
     OrderEntity deleteOrder(int orderId);
     OrderEntity getOrder(int orderId);
     List<OrderEntity> getAllOrders();
+    OrderDTO getOrderDTOByUserId(int userId);
 }
