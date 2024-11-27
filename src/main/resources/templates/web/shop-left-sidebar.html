@@ -36,14 +36,26 @@
                                 </ul>
                                 <!-- short-by -->
                                 <div class="short-by f-left text-center">
-                                    <span>Sort by :</span>
-                                    <select>
-                                        <option value="volvo">Newest items</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
+                                    <span>Sort by:</span>
+                                    <select onchange="window.location.href=this.value;">
+                                        <!-- Sắp xếp theo "Price" -->
+                                        <option value="#" th:selected="${sortBy == 'price' && sortOrder == 'asc'}"
+                                                th:value="@{${baseUrl} + 'sortBy=price&sortOrder=asc'}"
+                                                th:text="'Price: Low to High'"></option>
+                                        <option value="#" th:selected="${sortBy == 'price' && sortOrder == 'desc'}"
+                                                th:value="@{${baseUrl} + 'sortBy=price&sortOrder=desc'}"
+                                                th:text="'Price: High to Low'"></option>
+
+                                        <!-- Sắp xếp theo "Rating" -->
+                                        <option value="#" th:selected="${sortBy == 'rating' && sortOrder == 'asc'}"
+                                                th:value="@{${baseUrl} + 'sortBy=rating&sortOrder=asc'}"
+                                                th:text="'Rating: Low to High'"></option>
+                                        <option value="#" th:selected="${sortBy == 'rating' && sortOrder == 'desc'}"
+                                                th:value="@{${baseUrl} + 'sortBy=rating&sortOrder=desc'}"
+                                                th:text="'Rating: High to Low'"></option>
                                     </select>
                                 </div>
+
                                 <!-- showing -->
                                 <div class="showing f-right text-end">
                                     <span th:text="${showingInfo}"></span>
@@ -326,7 +338,6 @@
             }
         });
     })
-
 </script>
 <div th:replace="~{web/fragments/script::script}"></div>
 

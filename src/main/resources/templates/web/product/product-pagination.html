@@ -1,22 +1,47 @@
-    <ul class="shop-pagination box-shadow text-center ptblr-10-30" th:fragment="pagination">
-        <!-- Nút "Trang Trước" -->
-        <li th:classappend="${currentPage == 0} ? 'disabled'">
-            <a th:href="${baseUrl + 'page=' + (currentPage - 1) + '&size=' + size}" th:if="${currentPage > 0}">
-                <i class="zmdi zmdi-chevron-left"></i>
-            </a>
-        </li>
+<!--    <ul class="shop-pagination box-shadow text-center ptblr-10-30" th:fragment="pagination">-->
+<!--        &lt;!&ndash; Nút "Trang Trước" &ndash;&gt;-->
+<!--        <li th:classappend="${currentPage == 0} ? 'disabled'">-->
+<!--            <a th:href="${baseUrl + 'page=' + (currentPage - 1) + '&size=' + size}" th:if="${currentPage > 0}">-->
+<!--                <i class="zmdi zmdi-chevron-left"></i>-->
+<!--            </a>-->
+<!--        </li>-->
 
-        <!-- Hiển thị số trang -->
-        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-            th:classappend="${i == currentPage} ? 'active'">
-            <a th:href="${baseUrl + 'page=' + i + '&size=' + size}" th:text="${i + 1}"></a>
-        </li>
+<!--        &lt;!&ndash; Hiển thị số trang &ndash;&gt;-->
+<!--        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"-->
+<!--            th:classappend="${i == currentPage} ? 'active'">-->
+<!--            <a th:href="${baseUrl + 'page=' + i + '&size=' + size}" th:text="${i + 1}"></a>-->
+<!--        </li>-->
 
-        <!-- Nút "Trang Sau" -->
-        <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-            <a th:href="${baseUrl + 'page=' + (currentPage + 1) + '&size=' + size}"
-               th:if="${currentPage < totalPages - 1}">
-                <i class="zmdi zmdi-chevron-right"></i>
-            </a>
-        </li>
-    </ul>
+<!--        &lt;!&ndash; Nút "Trang Sau" &ndash;&gt;-->
+<!--        <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">-->
+<!--            <a th:href="${baseUrl + 'page=' + (currentPage + 1) + '&size=' + size}"-->
+<!--               th:if="${currentPage < totalPages - 1}">-->
+<!--                <i class="zmdi zmdi-chevron-right"></i>-->
+<!--            </a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<ul class="shop-pagination box-shadow text-center ptblr-10-30" th:fragment="pagination">
+    <!-- Nút "Trang Trước" -->
+    <li th:classappend="${currentPage == 0} ? 'disabled'">
+        <a th:href="@{${baseUrl} + 'page=' + (${currentPage - 1}) + '&size=' + ${size} + '&sortBy=' + ${sortBy} + '&sortOrder=' + ${sortOrder}}"
+           th:if="${currentPage > 0}">
+            <i class="zmdi zmdi-chevron-left"></i>
+        </a>
+    </li>
+
+    <!-- Hiển thị số trang -->
+    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+        th:classappend="${i == currentPage} ? 'active'">
+        <a th:href="@{${baseUrl} + 'page=' + ${i} + '&size=' + ${size} + '&sortBy=' + ${sortBy} + '&sortOrder=' + ${sortOrder}}"
+           th:text="${i + 1}"></a>
+    </li>
+
+    <!-- Nút "Trang Sau" -->
+    <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+        <a th:href="@{${baseUrl} + 'page=' + (${currentPage + 1}) + '&size=' + ${size} + '&sortBy=' + ${sortBy} + '&sortOrder=' + ${sortOrder}}"
+           th:if="${currentPage < totalPages - 1}">
+            <i class="zmdi zmdi-chevron-right"></i>
+        </a>
+    </li>
+</ul>
+

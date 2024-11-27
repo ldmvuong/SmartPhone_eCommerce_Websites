@@ -28,7 +28,7 @@ public class ProductRepositoryCustom {
                 predicates.add(criteriaBuilder.equal(root.get("sim"), builder.getSim()));
             }
             if (builder.getConnectivity() != null && !builder.getConnectivity().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("connectivity"), builder.getConnectivity()));
+                predicates.add(criteriaBuilder.like(root.get("connectivity"), "%" + builder.getConnectivity() + "%"));
             }
             if (builder.getCamera() != null && !builder.getCamera().isEmpty()) {
                 predicates.add(criteriaBuilder.equal(root.get("camera"), builder.getCamera()));
