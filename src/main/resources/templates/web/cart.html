@@ -24,8 +24,7 @@
                                 <!-- shopping-cart start -->
                                 <div class="tab-pane active" id="shopping-cart">
                                     <div class="shopping-cart-content">
-                                        <form action="/user/carts/update-cart" method="post">
-                                            <div class="table-content table-responsive mb-50">
+                                        <div class="table-content table-responsive mb-50">
                                                 <table class="text-center">
                                                     <thead>
                                                     <tr>
@@ -55,17 +54,16 @@
                                                                 <p>Operating system: <span th:text="${cartDetail.productId.operatingSystem}"></span></p>
                                                                 <p> Processor: <span th:text="${cartDetail.productId.processor}"></span></p>
                                                             </div>
-                                                            <input type="hidden" th:text="${cartDetail.productId}" name="productId">
                                                         </td>
                                                         <td class="product-price" th:text="${cartDetail.productId.price}"></td>
                                                         <td class="product-quantity">
                                                             <div class="cart-plus-minus f-left">
-                                                                <form th:action="@{/user/carts/dec-cart}" method="post">
+                                                                <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">
                                                                     <input type="hidden" name="productId" th:value="${cartDetail.productId.productId}"/>
                                                                     <button type="submit" class="dec qtybutton">-</button>
                                                                 </form>
                                                                 <input type="number" class="cart-plus-minus-box" name="qtybutton" th:value="${cartDetail.quantity}" readonly>
-                                                                <form th:action="@{/user/carts/inc-cart}" method="post">
+                                                                <form th:action="@{/user/carts/inc-cart}" method="post" style="display: inline;">
                                                                     <input type="hidden" name="productId" th:value="${cartDetail.productId.productId}" />
                                                                     <button type="submit" class="inc qtybutton">+</button>
                                                                 </form>
@@ -85,7 +83,6 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </form>
                                     </div>
                                 </div>
                                 <!-- shopping-cart end -->
