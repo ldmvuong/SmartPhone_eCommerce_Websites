@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface RatingRepository extends JpaRepository<RatingEntity, Integer> {
-    List<RatingEntity> findByProductId(Long productId);
+    List<RatingEntity> findByProduct_ProductId(Long productId);
 
 }

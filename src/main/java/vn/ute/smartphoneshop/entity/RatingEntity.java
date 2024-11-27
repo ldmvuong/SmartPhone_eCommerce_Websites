@@ -13,8 +13,9 @@ import lombok.*;
 @Table(name = "ratings")
 public class RatingEntity {
     @Id
+    @Column(name = "ratingId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ratingId;
+    private int id;
 
     @Column(nullable = false, length = 65535)
     private String content;
@@ -23,13 +24,11 @@ public class RatingEntity {
     private int star;
 
     @ManyToOne
-    @MapsId("userId")
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "userId", nullable = false)
     private UserEntity user;
 
     @ManyToOne
-    @MapsId("productId")
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "productId", nullable = false)
     private ProductEntity product;
 
 }
