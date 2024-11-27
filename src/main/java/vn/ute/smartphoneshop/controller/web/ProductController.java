@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -90,32 +91,40 @@ public class ProductController {
 
     @GetMapping("")
     public String index(@RequestParam Map<String, Object> params,
-                        @RequestParam(defaultValue = "0") int page, // Trang hiện tại (bắt đầu từ 0)
-                        @RequestParam(defaultValue = "9") int size,
+                        @RequestParam(defaultValue = "0") int page,  // Trang hiện tại (bắt đầu từ 0)
+                        @RequestParam(defaultValue = "9") int size,  // Số lượng sản phẩm mỗi trang
+                        @RequestParam(defaultValue = "asc") String sortOrder,  // Sắp xếp theo thứ tự (asc/desc)
+                        @RequestParam(defaultValue = "price") String sortBy,  // Sắp xếp theo thuộc tính
                         Model model) {
-        Pageable pageable = PageRequest.of(page, size);
 
+        // Tạo Sort (asc/desc) cho Pageable
+        Sort sort = sortOrder.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+        // Tạo Pageable từ page, size và sort
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // Kiểm tra xem có tham số lọc không, nếu có thì lọc theo các tham số trong params
         Page<ProductDTO> productPage = params != null && !params.isEmpty()
                 ? productService.findAll(params, pageable)
                 : productService.findAllProduct(pageable);
 
         // Tính toán vị trí sản phẩm hiển thị
-        int totalItems = (int) productPage.getTotalElements(); // Tổng số sản phẩm
-        int startItem = page * size + 1; // Sản phẩm đầu tiên
-        int endItem = Math.min(startItem + size - 1, totalItems); // Sản phẩm cuối cùng
+        int totalItems = (int) productPage.getTotalElements();  // Tổng số sản phẩm
+        int startItem = page * size + 1;  // Sản phẩm đầu tiên
+        int endItem = Math.min(startItem + size - 1, totalItems);  // Sản phẩm cuối cùng
 
-        String showingInfo = String.format("Showing : %02d-%02d of %d", startItem, endItem, totalItems);
+        // Chuỗi hiển thị thông tin về trang
+        String showingInfo = String.format("Showing: %02d-%02d of %d", startItem, endItem, totalItems);
 
-        // Xử lý queryParams
+        // Xử lý queryParams: Giữ lại các tham số lọc (như name, price, brandName...) khi chuyển trang hoặc sắp xếp
         String queryParams = params.entrySet().stream()
-                .filter(entry -> !"page".equals(entry.getKey()) && !"size".equals(entry.getKey())) // Loại bỏ page và size
+                .filter(entry -> !"page".equals(entry.getKey()) && !"size".equals(entry.getKey()) && !"sortBy".equals(entry.getKey()) && !"sortOrder".equals(entry.getKey()))  // Loại bỏ page, size, sortBy, sortOrder
                 .map(entry -> entry.getKey() + "=" + entry.getValue())
                 .collect(Collectors.joining("&"));
 
+        // Base URL cho phân trang và sắp xếp
         String baseUrl = "/products" + (queryParams.isEmpty() ? "?" : "?" + queryParams + "&");
         model.addAttribute("baseUrl", baseUrl);
-
-        List<BrandEntity> brandEntityList = brandService.findAll();
 
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
@@ -132,18 +141,24 @@ public class ProductController {
             }
         }
 
+
+        // Các thuộc tính khác cần truyền vào view
+        List<BrandEntity> brandEntityList = brandService.findAll();
         model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("products", productPage.getContent());
         model.addAttribute("brands", brandEntityList);
+        model.addAttribute("showingInfo", showingInfo);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
-        model.addAttribute("showingInfo", showingInfo);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortOrder", sortOrder);
         model.addAttribute("size", size);
 
-        return "web/shop-left-sidebar";
+        return "web/shop-left-sidebar";  // View tương ứng
     }
+
 
 
 
