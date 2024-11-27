@@ -142,13 +142,25 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<ProductEntity> findProductByBrandName(String brandName) {
-        return productRepository.findByBrandName(brandName);
+    public List<ProductDTO> findProductByBrandName(String brandName) {
+        List<ProductEntity> productEntities = productRepository.findByBrandName(brandName);
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductEntity productEntity : productEntities) {
+            ProductDTO productDTO = productDTOConverter.toProductDTO(productEntity);
+            productDTOList.add(productDTO);
+        }
+        return productDTOList;
     }
 
     @Override
-    public List<ProductEntity> newArrivalProduct() {
-        return productRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+    public List<ProductDTO> newArrivalProduct() {
+        List<ProductEntity> productEntities = productRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductEntity productEntity : productEntities){
+            ProductDTO productDTO = productDTOConverter.toProductDTO(productEntity);
+            productDTOList.add(productDTO);
+        }
+        return productDTOList;
     }
 
 }

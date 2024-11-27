@@ -13,6 +13,7 @@ import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
 import vn.ute.smartphoneshop.model.dto.CartDTO;
 import vn.ute.smartphoneshop.model.dto.CartDetailDTO;
+import vn.ute.smartphoneshop.model.dto.ProductDTO;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.repository.CartRepository;
@@ -49,7 +50,7 @@ public class HomeController {
         List<BrandEntity> brandEntities = brandService.findAll();
         UserDTO user = getCurrentUser();
 
-        List<ProductEntity> newArrivalProductList = productService.newArrivalProduct();
+        List<ProductDTO> newArrivalProductList = productService.newArrivalProduct();
         if (newArrivalProductList.size() > 12){
             newArrivalProductList = newArrivalProductList.subList(0, 12);
         }

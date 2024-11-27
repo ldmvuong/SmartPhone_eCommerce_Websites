@@ -138,11 +138,25 @@
                                             <hr>
                                             <!-- plus-minus-pro-action -->
                                             <div class="plus-minus-pro-action clearfix">
-                                                <div class="sin-plus-minus f-left clearfix">
+                                                <div th:if="${amountOfProduct != 0}" class="sin-plus-minus f-left clearfix">
                                                     <p class="color-title f-left">Qty</p>
                                                     <div class="cart-plus-minus f-left">
-                                                        <input type="text" value="1" name="quantity"
-                                                               class="cart-plus-minus-box" id="quantity-input">
+                                                        <div class="cart-plus-minus f-left">
+                                                            <!-- Form to decrease quantity -->
+                                                            <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">
+                                                                <input type="hidden" name="productId" th:value="${product.productId}"/>
+                                                                <button type="submit" class="dec qtybutton">-</button>
+                                                            </form>
+
+                                                            <!-- Quantity input -->
+                                                            <input type="number" class="cart-plus-minus-box" name="qtybutton" th:value="${amountOfProduct}" readonly />
+
+                                                            <!-- Form to increase quantity -->
+                                                            <form th:action="@{/user/carts/inc-cart}" method="post" style="display: inline;">
+                                                                <input type="hidden" name="productId" th:value="${product.productId}" />
+                                                                <button type="submit" class="inc qtybutton">+</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="sin-pro-action f-right">
@@ -153,13 +167,7 @@
 <!--                                                                    class="zmdi zmdi-zoom-in"></i></a>-->
 <!--                                                        </li>-->
                                                         <li>
-                                                            <a href="#"
-                                                               class="add-to-cart-link"
-                                                               th:attr="data-id=${product.productId}"
-                                                               title="Add to cart"
-                                                               tabindex="0">
-                                                                <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                            </a>
+                                                            <a th:href="@{/user/carts/add-cart(id=${product.productId},quantity=${1})}" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -256,14 +264,39 @@
                                 </div>
                             </div>                            <!-- single-product-area end -->
                             <div class="related-product-area">
+                                <div class="col-lg-12">
+                                    <div class="section-title text-start mb-40">
+                                        <h2 class="uppercase">related product</h2>
+                                        <h6>There are many variations of passages of brands available,</h6>
+                                    </div>
+                                </div>
+
                                 <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="section-title text-start mb-40">
-                                            <h2 class="uppercase">related product</h2>
-                                            <h6>There are many variations of passages of brands available,</h6>
-                                        </div>
-                                        <div class="active-related-product">
-                                            <div th:replace="~{web/product/product-item::product-item}"></div>
+                                    <div class="col-lg-4 col-md-5" th:each="product : ${products}">
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                <a th:href="@{/products/{id}(id=${product.productId})}">
+                                                    <img th:src="@{|/${product.imagePath}|}" alt="" style="width: 265px; height: 250px; object-fit: cover;" />
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h6 class="product-title">
+                                                    <a th:href="@{/products/{id}(id=${product.productId})}" th:text="${product.name}"></a>
+                                                </h6>
+                                                <input type="hidden" class="rating" th:value="${product.rating}">
+                                                <input type="hidden" name="id" th:value="${product.productId}">
+                                                <input type="hidden" class="rating" th:value="${product.rating}">
+                                                <div class="pro-rating"></div>
+                                                <input type="hidden" name="quantity" th:value="1">
+                                                <ul class="action-button">
+                                                    <!--                                                    <li>-->
+                                                    <!--                                                        <a th:href="@{/products/quick-view/{id}(id=${product.productId})}" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>-->
+                                                    <!--                                                    </li>-->
+                                                    <li>
+                                                        <a th:href="@{/user/carts/add-cart(id=${product.productId},quantity=${1})}" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -412,6 +445,44 @@
                     // Chuyển hướng người dùng đến URL
                     window.location.href = url;
                 });
+            });
+        });
+    </script>
+
+<!--    Cập nhật số sao đánh giá trong related product-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy tất cả các phần tử sản phẩm
+            const products = document.querySelectorAll(".product-item");
+
+            products.forEach(product => {
+                // Lấy giá trị rating từ input ẩn
+                const ratingInput = product.querySelector(".rating");
+                if (ratingInput) {
+                    const rating = parseFloat(ratingInput.value);
+                    console.log("Rating:", rating); // Kiểm tra giá trị rating trong console
+                    const ratingContainer = product.querySelector(".pro-rating");
+
+                    // Xóa nội dung trong `pro-rating` nếu có
+                    ratingContainer.innerHTML = '';
+
+                    // Tạo các icon sao dựa trên giá trị rating
+                    for (let i = 1; i <= 5; i++) {
+                        const star = document.createElement("a");
+                        star.href = "#";
+
+                        if (i <= Math.floor(rating)) {
+                            star.innerHTML = '<i class="zmdi zmdi-star"></i>'; // Sao đầy
+                        } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+                            star.innerHTML = '<i class="zmdi zmdi-star-half"></i>'; // Sao nửa
+                        } else {
+                            star.innerHTML = '<i class="zmdi zmdi-star-outline"></i>'; // Sao rỗng
+                        }
+
+                        // Thêm sao vào container
+                        ratingContainer.appendChild(star);
+                    }
+                }
             });
         });
     </script>

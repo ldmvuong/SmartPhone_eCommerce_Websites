@@ -12,12 +12,12 @@ import java.util.Map;
 public interface IProductService {
 //    List<ProductDTO>findAll(Map<String,Object> params);
 //    List<ProductDTO> findAllProduct();
-Page<ProductDTO> findAll(Map<String, Object> params, Pageable pageable);
+    Page<ProductDTO> findAll(Map<String, Object> params, Pageable pageable);
     Page<ProductDTO> findAllProduct(Pageable pageable);
     void saveProduct(ProductDTO product, MultipartFile file,String existingImagePath);
     ProductDTO findProductById(int id);
     void deleteProductById(int id);
-    List<ProductEntity> findProductByBrandName(String brandName);
+    List<ProductDTO> findProductByBrandName(String brandName);
 
-    List<ProductEntity> newArrivalProduct();
+    List<ProductDTO> newArrivalProduct();
 }
