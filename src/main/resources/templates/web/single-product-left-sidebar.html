@@ -139,9 +139,8 @@
                                             <!-- plus-minus-pro-action -->
                                             <div class="plus-minus-pro-action clearfix">
                                                 <div th:if="${amountOfProduct != 0}" class="sin-plus-minus f-left clearfix">
-                                                    <p class="color-title f-left">Qty</p>
-                                                    <div class="cart-plus-minus f-left">
-                                                        <div class="cart-plus-minus f-left">
+                                                    <p class="color-title f-left">Quantity</p>
+                                                    <div class="cart-plus-minus f-left" style="margin-left: 20px">
                                                             <!-- Form to decrease quantity -->
                                                             <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">
                                                                 <input type="hidden" name="productId" th:value="${product.productId}"/>
@@ -156,7 +155,6 @@
                                                                 <input type="hidden" name="productId" th:value="${product.productId}" />
                                                                 <button type="submit" class="inc qtybutton">+</button>
                                                             </form>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="sin-pro-action f-right">
@@ -166,7 +164,7 @@
 <!--                                                               title="Quickview" tabindex="0"><i-->
 <!--                                                                    class="zmdi zmdi-zoom-in"></i></a>-->
 <!--                                                        </li>-->
-                                                        <li>
+                                                        <li style="margin-right: 150px">
                                                             <a th:href="@{/user/carts/add-cart(id=${product.productId},quantity=${1})}" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                         </li>
                                                     </ul>
@@ -229,31 +227,20 @@
                                                                     adipiscing elit. Integer accumsan egestas .</p>
                                                             </div>
                                                         </div>
-                                                        <!-- single comments -->
-                                                        <div class="media mt-30">
-                                                            <div class="media-left">
-                                                                <a href="#"><img class="media-object" th:src="@{/web/img/author/2.jpg}"
-                                                                                 alt="#"></a>
+                                                        <!-- submit comments -->
+                                                        <form th:action="@{/products/review}">
+                                                            <div class="media mt-30">
+                                                                <textarea style="width: 580px; margin-left: 20px; margin-right: 30px"
+                                                                          class="height-50"
+                                                                          name="message"
+                                                                          placeholder="Your review here...">
+                                                                </textarea>
+                                                                <button
+                                                                        class="submit-btn-1 mt-20 btn-hover-1"
+                                                                        type="submit">submit review
+                                                                </button>
                                                             </div>
-                                                            <div class="media-body">
-                                                                <div class="clearfix">
-                                                                    <div class="name-commenter pull-left">
-                                                                        <h6 class="media-heading"><a href="#">Gerald Barnes</a>
-                                                                        </h6>
-                                                                        <p class="mb-10">27 Jun, 2019 at 2:30pm</p>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <ul class="reply-delate">
-                                                                            <li><a href="#">Reply</a></li>
-                                                                            <li>/</li>
-                                                                            <li><a href="#">Delate</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                                    adipiscing elit. Integer accumsan egestas .</p>
-                                                            </div>
-                                                        </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,68 +291,133 @@
                         </div>
 <!--                        START SIDEBAR-->
                         <div class="col-lg-3">
-                            <!-- widget-search -->
-                            <aside class="widget-search mb-30">
-                                <form action="#">
-                                    <input type="text" placeholder="Search here...">
+                            <!-- Filter Form -->
+                            <form action="/products" method="GET">
+                                <!-- widget-search -->
+                                <aside class="widget-search mb-30">
+                                    <input type="text" name="name" placeholder="Search here..." th:value="${param.name}">
                                     <button type="submit"><i class="zmdi zmdi-search"></i></button>
-                                </form>
-                            </aside>
-                            <!-- widget-categories -->
-                            <aside class="widget widget-categories box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">Brands</h6>
-                                <div id="cat-treeview-2" class="brand-title">
-                                    <ul th:each="brand : ${brands}" class="closed">
-                                        <li>
-                                            <a th:href="@{/products(brand=${brand.name})}" th:text="${brand.name}"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </aside>                        <!-- widget-color -->
-                            <aside class="widget widget-color box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">color</h6>
-                                <ul>
-                                    <li class="color-1"><a href="#">LightSalmon</a></li>
-                                    <li class="color-2"><a href="#">Dark Salmon</a></li>
-                                    <li class="color-3"><a href="#">Tomato</a></li>
-                                    <li class="color-4"><a href="#">Deep Sky Blue</a></li>
-                                    <li class="color-5"><a href="#">Electric Purple</a></li>
-                                    <li class="color-6"><a href="#">Atlantis</a></li>
-                                </ul>
-                            </aside>
-                            <!-- operating-system -->
-                            <aside class="widget operating-system box-shadow mb-30">
-                                <h6 class="widget-title border-left mb-20">operating system</h6>
-                                <form action="https://htmldemo.net/subas/subas/action_page.php">
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Windows Phone</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Bleckgerry ios</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Android</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">ios</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Windows Phone</label><br>
-                                    <label><input type="checkbox" name="operating-1" value="phone-1">Symban</label><br>
-                                    <label class="mb-0"><input type="checkbox" name="operating-1" value="phone-1">Bleckgerry
-                                        os</label><br>
-                                </form>
-                            </aside>
-                            <!-- widget-product -->
-                            <aside class="widget widget-product box-shadow">
-                                <h6 class="widget-title border-left mb-20">recent products</h6>
-                                <!-- product-item start -->
-                                <div class="product-item">
-                                    <div class="product-img">
-                                        <a href="single-product.html">
-                                            <img th:src="@{/web/img/product/4.jpg}" alt="" />
-                                        </a>
+                                </aside>
+
+                                <!-- widget-categories (Brands) -->
+                                <aside class="widget widget-categories box-shadow mb-30">
+                                    <h6 class="widget-title border-left mb-20">Brands</h6>
+                                    <div id="cat-treeview-2" class="brand-title">
+                                        <div th:each="brand : ${brands}">
+                                            <label>
+                                                <input type="radio" name="brandName" th:value="${brand.name}"
+                                                       th:checked="${param.brandName != null ? #strings.equals(param.brandName, brand.name) : false}">
+                                                <span th:text="${brand.name}"></span>
+                                            </label><br>
+                                        </div>
                                     </div>
-                                    <div class="product-info">
-                                        <h6 class="product-title">
-                                            <a href="single-product.html">Product Name</a>
-                                        </h6>
-                                        <h3 class="pro-price">$ 869.00</h3>
+                                </aside>
+
+                                <!-- shop-filter (Price) -->
+                                <!--                            <aside class="widget shop-filter box-shadow mb-30">-->
+                                <!--                                <h6 class="widget-title border-left mb-20">Price</h6>-->
+                                <!--                                <label for="minPrice">Min Price:</label>-->
+                                <!--                                <input type="number" id="minPrice" name="minPrice" th:value="${param.minPrice}">-->
+                                <!--                                <br>-->
+                                <!--                                <label for="maxPrice">Max Price:</label>-->
+                                <!--                                <input type="number" id="maxPrice" name="maxPrice" th:value="${param.maxPrice}">-->
+                                <!--                            </aside>-->
+                                <aside class="widget shop-filter box-shadow mb-30">
+                                    <h6 class="widget-title border-left mb-20">Price</h6>
+                                    <div class="price_filter">
+                                        <div class="price_slider_amount">
+                                            <input type="hidden" id="minPrice" name="minPrice"
+                                                   th:value="${param.minPrice != null ? param.minPrice : 1000000}"/>
+                                            <input type="hidden" id="maxPrice" name="maxPrice"
+                                                   th:value="${param.maxPrice != null ? param.maxPrice : 50000000}"/>
+                                            <input type="text" id="amount" readonly/>
+                                        </div>
+                                        <div id="slider-range"></div>
                                     </div>
-                                </div>
-                                <!-- product-item end -->
-                            </aside>
+                                </aside>
+
+                                <!-- Operating System -->
+                                <aside class="widget operating-system box-shadow mb-30">
+                                    <h6 class="widget-title border-left mb-20">Operating System</h6>
+                                    <div>
+                                        <label><input type="radio" name="operatingSystem" value="iOS"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'iOS') : false}">
+                                            iOS</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="MIUI"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'MIUI') : false}">
+                                            MIUI</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="ColorOS"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'ColorOS') : false}">
+                                            ColorOS</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="Funtouch OS"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'Funtouch OS') : false}">
+                                            Funtouch OS</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="Realme UI"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'Realme UI') : false}">
+                                            Realme UI</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="HarmonyOS"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'HarmonyOS') : false}">
+                                            HarmonyOS</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="EMUI"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'EMUI') : false}">
+                                            EMUI</label><br>
+                                        <label><input type="radio" name="operatingSystem" value="Android"
+                                                      th:checked="${param.operatingSystem != null ? #strings.equals(param.operatingSystem, 'Android') : false}">
+                                            Android</label><br>
+                                    </div>
+                                </aside>
+
+                                <!-- SIM -->
+                                <aside class="widget operating-system box-shadow mb-30">
+                                    <h6 class="widget-title border-left mb-20">Sim</h6>
+                                    <div>
+                                        <label><input type="radio" name="sim" value="Nano SIM"
+                                                      th:checked="${param.sim != null ? #strings.equals(param.sim, 'Nano SIM') : false}">
+                                            Nano SIM</label><br>
+                                        <label><input type="radio" name="sim" value="Micro SIM"
+                                                      th:checked="${param.sim != null ? #strings.equals(param.sim, 'Micro SIM') : false}">
+                                            Micro SIM</label><br>
+                                        <label><input type="radio" name="sim" value="Mini SIM (Standard SIM)"
+                                                      th:checked="${param.sim != null ? #strings.equals(param.sim, 'Mini SIM (Standard SIM)') : false}">
+                                            Mini SIM (Standard SIM)</label><br>
+                                        <label><input type="radio" name="sim" value="eSIM"
+                                                      th:checked="${param.sim != null ? #strings.equals(param.sim, 'eSIM') : false}">
+                                            eSIM</label><br>
+                                        <label><input type="radio" name="sim" value="Dual SIM"
+                                                      th:checked="${param.sim != null ? #strings.equals(param.sim, 'Dual SIM') : false}">
+                                            Dual SIM</label><br>
+                                        <label><input type="radio" name="sim" value="Hybrid SIM"
+                                                      th:checked="${param.sim != null ? #strings.equals(param.sim, 'Hybrid SIM') : false}">
+                                            Hybrid SIM</label><br>
+                                    </div>
+                                </aside>
+
+
+                                <!-- Connectivity -->
+                                <aside class="widget operating-system box-shadow mb-30">
+                                    <h6 class="widget-title border-left mb-20">Connectivity</h6>
+                                    <div>
+                                        <label><input type="radio" name="connectivity" value="WiFi"
+                                                      th:checked="${param.connectivity != null ? #strings.equals(param.connectivity, 'WiFi') : false}">
+                                            WiFi</label><br>
+                                        <label><input type="radio" name="connectivity" value="Bluetooth"
+                                                      th:checked="${param.connectivity != null ? #strings.equals(param.connectivity, 'Bluetooth') : false}">
+                                            Bluetooth</label><br>
+                                        <label><input type="radio" name="connectivity" value="5G"
+                                                      th:checked="${param.connectivity != null ? #strings.equals(param.connectivity, '5G') : false}">
+                                            5G</label><br>
+                                        <label><input type="radio" name="connectivity" value="4G LTE"
+                                                      th:checked="${param.connectivity != null ? #strings.equals(param.connectivity, '4G LTE') : false}">
+                                            4G LTE</label><br>
+                                        <label><input type="radio" name="connectivity" value="NFC"
+                                                      th:checked="${param.connectivity != null ? #strings.equals(param.connectivity, 'NFC') : false}">
+                                            NFC</label><br>
+                                    </div>
+                                </aside>
+
+                                <!-- Clear Button -->
+                                <a href="/products" class="btn btn-secondary">Clear</a>
+                            </form>
                         </div>
 <!--                        END SIDEBAR-->
                     </div>

@@ -153,8 +153,8 @@ public class ProductController {
         ProductDTO productDTO = productService.findProductById(id);
 
         List<ProductDTO> productDTOList = productService.findProductByBrandName(productDTO.getBrandName());
-        if (productDTOList.size() > 4){
-            productDTOList = productDTOList.subList(0, 4);
+        if (productDTOList.size() > 3){
+            productDTOList = productDTOList.subList(0, 3);
         }
 
         int amountOfProduct = 0;
