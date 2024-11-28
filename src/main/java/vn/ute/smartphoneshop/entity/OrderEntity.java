@@ -6,6 +6,7 @@ import vn.ute.smartphoneshop.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -24,6 +25,8 @@ public class OrderEntity{
         this.orderDate = LocalDateTime.now();
         this.orderStatus = OrderStatus.PENDING;
     }
+    @Column(name ="address")
+    private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "orderStatus", nullable = false)
@@ -43,5 +46,8 @@ public class OrderEntity{
     @ManyToOne
     @JoinColumn(name = "paymentId", referencedColumnName = "paymentId")
     private PaymentEntity payment;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetailEntity> orderDetails;
 
 }

@@ -3,6 +3,7 @@ package vn.ute.smartphoneshop.service.impl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import vn.ute.smartphoneshop.entity.CartDetailEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
@@ -110,5 +111,14 @@ public class CartDetailServiceImpl implements ICartDetailService {
         return cartDetailRepository.findByCart_CartIdAndAndProduct_ProductId(cartId,productId).orElse(null);
     }
 
+    @Transactional
+    @Override
+    public void deleteAllByCartId(int cartId) {
+        cartDetailRepository.deleteByCart_CartId(cartId);
+        CartEntity cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+        cart.setTotalPrice(0L);
+        cartRepository.save(cart);
+
+    }
 
 }

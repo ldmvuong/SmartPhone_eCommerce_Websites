@@ -6,4 +6,5 @@ import vn.ute.smartphoneshop.entity.PaymentEntity;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<PaymentEntity, Integer> {
+    PaymentEntity findByName(String name);
 }

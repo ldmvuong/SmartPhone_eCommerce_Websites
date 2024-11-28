@@ -4,74 +4,70 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vn.ute.smartphoneshop.entity.*;
 import vn.ute.smartphoneshop.model.dto.OrderDTO;
-import vn.ute.smartphoneshop.entity.OrderEntity;
-import vn.ute.smartphoneshop.entity.UserEntity;
-import vn.ute.smartphoneshop.entity.VoucherEntity;
 import vn.ute.smartphoneshop.exception.DataNotFoundException;
+import vn.ute.smartphoneshop.model.dto.UserDTO;
+import vn.ute.smartphoneshop.model.request.CartDetailRequest;
+import vn.ute.smartphoneshop.repository.OrderDetailRepository;
 import vn.ute.smartphoneshop.repository.OrderRepository;
 import vn.ute.smartphoneshop.repository.UserRepository;
 import vn.ute.smartphoneshop.repository.VoucherRepository;
-import vn.ute.smartphoneshop.service.IOrderService;
+import vn.ute.smartphoneshop.service.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements IOrderService {
+
     @Autowired
-    private final UserRepository userRepository;
+    private OrderRepository orderRepository; // Assuming you have a repository to handle OrderEntity
+
     @Autowired
-    private final OrderRepository orderRepository;
+    private OrderDetailRepository orderDetailRepository; // Repository for handling OrderDetailEntity
+
     @Autowired
-    private final VoucherRepository voucherRepository;
+    private ICartDetailService cartDetailService; // Service to get cart details
+
     @Autowired
-    private final ModelMapper modelMapper;
+    private IPaymentService paymentService; // Service for payment methods
+
+    @Autowired
+    private IUserService userService;
+
     @Override
-    public OrderEntity createOrder(OrderDTO order) {
-//        Kiem tra user co ton tai trong ds khach hang khong
-        UserEntity user = userRepository.findByUserId(order.getUser_id());
-//        Kiem tra voucher co ton tai trong ds voucher khong
-        VoucherEntity voucher = null;
-        if(order.getVoucher_id() > 0){
-            voucher = voucherRepository.findById(order.getVoucher_id()).orElseThrow(()->new DataNotFoundException("Voucher not found"));
+    public OrderEntity createOrder(int id, BigDecimal totalPrice, VoucherEntity voucher,
+                                   PaymentEntity payment, Integer cartId,
+                                   List<CartDetailRequest> cartDetailList) {
+
+        // Create a new OrderEntity and set its basic attributes
+        OrderEntity order = new OrderEntity();
+        UserEntity user = userService.getUserById(id);
+        order.setUser(user);
+        order.setTotalPrice(totalPrice);
+        order.setAddress(user.getAddress()); // Set shipping address
+        order.setVoucher(voucher); // Attach voucher if provided
+        order.setPayment(payment); // Attach the selected payment method
+
+        // Save the order to the database
+        orderRepository.save(order);
+
+        // Create OrderDetailEntity objects from the cart details
+        for (CartDetailRequest cartDetail : cartDetailList) {
+            OrderDetailEntity orderDetail = new OrderDetailEntity();
+            orderDetail.setOrder(order); // Set the order for this detail
+            orderDetail.setProduct(cartDetail.getProductId()); // Set the product
+            orderDetail.setQuantity(cartDetail.getQuantity()); // Set quantity
+            orderDetail.setUnitPrice(BigDecimal.valueOf(cartDetail.getProductId().getPrice())); // Set unit price of product
+
+            // Save each order detail in the database
+            orderDetailRepository.save(orderDetail);
+            // After saving, you can update the cart to reflect that it's been ordered (optional)
         }
-//        Anh xa OrderDTO sang OrderEntity
-        OrderEntity orderEntity = new OrderEntity();
-
-        modelMapper.typeMap(OrderDTO.class, OrderEntity.class).addMappings(mapper -> mapper.skip(OrderEntity::setOrderId));
-        modelMapper.map(order, orderEntity);
-        orderEntity.setUser(user);
-        if(voucher != null){
-            orderEntity.setVoucher(voucher);
-        }
-        orderRepository.save(orderEntity);
-        return orderEntity;
-    }
-
-    @Override
-    public OrderEntity updateOrder(OrderDTO order) {
-        return null;
-    }
-
-    @Override
-    public OrderEntity deleteOrder(int orderId) {
-        return null;
-    }
-
-    @Override
-    public OrderEntity getOrder(int orderId) {
-        return null;
-    }
-
-    @Override
-    public List<OrderEntity> getAllOrders() {
-        return List.of();
-    }
-
-    @Override
-    public OrderDTO getOrderDTOByUserId(int userId) {
-        return null;
+        cartDetailService.deleteAllByCartId(cartId);
+        return order;
     }
 }

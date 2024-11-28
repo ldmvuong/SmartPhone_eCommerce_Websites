@@ -16,4 +16,6 @@ public interface ICartDetailService {
     //    boolean update(CartDetailRequest cartDetailRequest);
     boolean delete(int cartId);
     CartDetailEntity findByCartIdAndProductId(int cartId,int productId);
+
+    void deleteAllByCartId(int cartId);
 }

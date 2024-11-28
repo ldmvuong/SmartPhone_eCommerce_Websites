@@ -6,4 +6,5 @@ import vn.ute.smartphoneshop.entity.VoucherEntity;
 
 @Repository
 public interface VoucherRepository extends JpaRepository<VoucherEntity, Integer> {
+    VoucherEntity findByCode(String code);
 }

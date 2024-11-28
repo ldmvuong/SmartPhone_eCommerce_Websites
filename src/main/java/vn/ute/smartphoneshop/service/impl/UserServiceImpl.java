@@ -135,6 +135,11 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public UserEntity getUserById(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     private GrantedAuthority roleToAuthority(RoleEntity role) {
         return new SimpleGrantedAuthority(role.getRoleName());
     }
