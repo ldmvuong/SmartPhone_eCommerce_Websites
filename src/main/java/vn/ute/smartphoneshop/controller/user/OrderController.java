@@ -1,34 +1,37 @@
 package vn.ute.smartphoneshop.controller.user;
 
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import vn.ute.smartphoneshop.model.dto.OrderDTO;
-import vn.ute.smartphoneshop.entity.OrderEntity;
-import vn.ute.smartphoneshop.model.dto.ProductDTO;
+import vn.ute.smartphoneshop.entity.BrandEntity;
+import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
-import vn.ute.smartphoneshop.service.IOrderService;
-import vn.ute.smartphoneshop.service.IUserService;
+import vn.ute.smartphoneshop.model.request.CartDetailRequest;
+import vn.ute.smartphoneshop.service.*;
 import vn.ute.smartphoneshop.utils.SecurityUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller("orderUserController")
-@RequestMapping("/user/orders")
-public class OrderController{
+@RequestMapping("/user/checkout")
+public class OrderController {
+
+    @Autowired
+    IBrandService brandService;
+
     @Autowired
     IOrderService orderService;
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    ICartService cartService;
+
+    @Autowired
+    ICartDetailService cartDetailService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -37,26 +40,29 @@ public class OrderController{
 
     @GetMapping("")
     public String orders(Model model) {
-        UserDTO currentUser = getCurrentUser();
-//        OrderDTO orderDTO = orderService.getOrderDTOByUserId(currentUser.getUserId());
-//        List<ProductDTO> productDTOS = orderService.getOrder()
-        return "user/orders";
+
+        CartEntity cartEntity = new CartEntity();
+        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = 0;
+
+        if (getCurrentUser() != null) {
+            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+            if (cartEntity != null) {
+                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                numberProducts = cartDetailRequestList.size();
+                if (cartDetailRequestList.size() > 2) {
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
+            }
+        }
+
+        List<BrandEntity> brandEntityList = brandService.findAll();
+        model.addAttribute("numberProducts", numberProducts);
+        model.addAttribute("cart", cartEntity);
+        model.addAttribute("cartDetailList", cartDetailRequestList);
+        model.addAttribute("brands", brandEntityList);
+        return "web/checkout";
     }
-//    private final IOrderService orderService ;
-//    @PostMapping("")
-//    public ResponseEntity<?> createOrder(@RequestBody @Valid OrderDTO orderDTO,
-//                                         BindingResult bindingResult){
-//        try {
-//            if(bindingResult.hasErrors()){
-//                List<String> errors = bindingResult.getFieldErrors()
-//                        .stream().map(FieldError::getDefaultMessage)
-//                        .toList();
-//                return ResponseEntity.badRequest().body(errors);
-//            }
-//            OrderEntity orderEntity = orderService.createOrder(orderDTO);
-//            return ResponseEntity.ok(orderEntity);
-//        }catch (Exception e){
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
 }
+
+

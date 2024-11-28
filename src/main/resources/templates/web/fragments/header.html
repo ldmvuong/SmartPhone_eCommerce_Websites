@@ -70,78 +70,32 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="mega-parent">
+                                <li>
                                     <a href="#">Pages</a>
-                                    <div class="mega-menu-area mega-menu-area-2 clearfix">
-                                        <div class="mega-menu-link mega-menu-link-2 f-left">
-                                            <ul class="single-mega-item">
-                                                <li class="menu-title">page list</li>
-                                                <li>
-                                                    <a href="/templates/web/shop.html">Shop</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/shop-left-sidebar.html"
-                                                    >Shop Left Sidebar</a
-                                                    >
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/shop-left-sidebar.html"
-                                                    >Shop Right Sidebar</a
-                                                    >
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/shop-list.html">Shop List</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/shop-list-right-sidebar.html"
-                                                    >Shop List Right Sidebar</a
-                                                    >
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/single-product.html"
-                                                    >Single Product</a
-                                                    >
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/single-product-left-sidebar.html"
-                                                    >Single Product Left Sidebar</a
-                                                    >
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/single-product-no-sidebar.html"
-                                                    >Single Product No Sidebar</a
-                                                    >
-                                                </li>
-                                            </ul>
-                                            <ul class="single-mega-item">
-                                                <li class="menu-title">page list</li>
-                                                <li>
-                                                    <a href="/templates/web/cart.html">Shopping Cart</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/wishlist.html">Wishlist</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/checkout.html">Checkout</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/order.html">Order</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/login.html">Login</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/my-account.html">My Account</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/about.html">About us</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/templates/web/403.html">404</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <ul class="dropdwn">
+                                        <li>
+                                            <a th:href="@{/products}">All Mobile Phones</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/products}">Shopping Cart</a>
+                                        </li>
+                                        <li>
+                                            <a href="/templates/web/wishlist.html">Wishlist</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/user/checkout}">Checkout</a>
+                                        </li>
+                                        <li>
+                                            <a href="/templates/web/order.html">Order</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/user/my-profile}">My Account</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/about-us}">About us</a>
+                                        </li>
+
+                                    </ul>
                                 </li>
                                 <li>
                                     <a th:href="@{/about-us}">About us</a>

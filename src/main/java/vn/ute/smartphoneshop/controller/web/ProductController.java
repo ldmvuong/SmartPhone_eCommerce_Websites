@@ -49,45 +49,6 @@ public class ProductController {
         return userService.findByUsername(username);
     }
 
-//    @GetMapping("")
-//    public String index(@RequestParam Map<String, Object> params, Model model) {
-//        List<ProductDTO> productList;
-//
-//        // Check if there are any search parameters
-//        if (params == null || params.isEmpty()) {
-//            // If no search parameters, fetch all products
-//            productList = productService.findAllProduct();
-//        } else {
-//            // If there are search parameters, filter products using the params map
-//            productList = productService.findAll(params);
-//        }
-//
-//        List<BrandEntity> brandEntityList = brandService.findAll();
-//
-//        // Handle cart retrieval logic
-//        CartEntity cartEntity = new CartEntity();
-//        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
-//        int numberProducts = cartDetailRequestList.size();
-//
-//        if (getCurrentUser() != null) {
-//            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
-//            if (cartEntity != null) {
-//                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
-//                numberProducts= cartDetailRequestList.size();
-//                if(cartDetailRequestList.size() > 2){
-//                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
-//                }
-//            }
-//        }
-//
-//        // Add attributes to the model
-//        model.addAttribute("numberProducts", numberProducts);
-//        model.addAttribute("cart", cartEntity);
-//        model.addAttribute("cartDetailList", cartDetailRequestList);
-////        model.addAttribute("products", productList);
-//        model.addAttribute("brands", brandEntityList);
-//        return "web/shop-left-sidebar";
-//    }
 
     @GetMapping("")
     public String index(@RequestParam Map<String, Object> params,
@@ -141,7 +102,6 @@ public class ProductController {
             }
         }
 
-
         // Các thuộc tính khác cần truyền vào view
         List<BrandEntity> brandEntityList = brandService.findAll();
         model.addAttribute("numberProducts", numberProducts);
@@ -166,7 +126,7 @@ public class ProductController {
         ProductDTO productDTO = productService.findProductById(id);
 
         List<ProductDTO> productDTOList = productService.findProductByBrandName(productDTO.getBrandName());
-        if (productDTOList.size() > 3){
+        if (productDTOList.size() > 3) {
             productDTOList = productDTOList.subList(0, 3);
         }
 
@@ -178,14 +138,14 @@ public class ProductController {
 
         if (getCurrentUser() != null) {
             cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
-            if(cartEntity != null){
+            if (cartEntity != null) {
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
-                CartDetailEntity cartDetail = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(),id);
+                CartDetailEntity cartDetail = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(), id);
                 if (cartDetail != null) {
                     amountOfProduct = cartDetail.getQuantity();
                 }
-                numberProducts= cartDetailRequestList.size();
-                if(cartDetailRequestList.size() > 2){
+                numberProducts = cartDetailRequestList.size();
+                if (cartDetailRequestList.size() > 2) {
                     cartDetailRequestList = cartDetailRequestList.subList(0, 2);
                 }
             }
