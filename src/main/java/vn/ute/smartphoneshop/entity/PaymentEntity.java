@@ -1,8 +1,11 @@
 package vn.ute.smartphoneshop.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -13,16 +16,10 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int paymentId;
 
-    @ManyToOne
-    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
-    private OrderEntity order;
+    @Column(name = "paymentName", nullable = false, length = 255)
+    private String name;
 
-    @Column(name = "paymentMethod", nullable = false)
-    private String paymentMethod;
+    @OneToMany(mappedBy = "payment")
+    private List<OrderEntity> orders;
 
-    @Column(name = "paymentDate", nullable = false)
-    private String paymentDate;
-
-    @Column(name = "amountPaid", nullable = false)
-    private double amountPaid;
 }

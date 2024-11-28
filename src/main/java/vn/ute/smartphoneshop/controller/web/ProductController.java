@@ -160,8 +160,6 @@ public class ProductController {
     }
 
 
-
-
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
         List<BrandEntity> brandEntityList = brandService.findAll();
