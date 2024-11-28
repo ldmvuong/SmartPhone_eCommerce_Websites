@@ -1,39 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Subas || About</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/web/img/icon/favicon.png}">
-
-    <!-- All CSS Files -->
-    <!-- Bootstrap fremwork main css -->
-    <link rel="stylesheet" th:href="@{/web/css/bootstrap.min.css}">
-    <!-- Nivo-slider css -->
-    <link rel="stylesheet" th:href="@{/web/lib/css/nivo-slider.css}">
-    <!-- This core.css} file contents all plugings css file. -->
-    <link rel="stylesheet" th:href="@{/web/css/core.css}">
-    <!-- Theme shortcodes/elements style -->
-    <link rel="stylesheet" th:href="@{/web/css/shortcode/shortcodes.css}">
-    <!-- Theme main style -->
-    <link rel="stylesheet" th:href="@{/web/css/style.css}">
-    <!-- Responsive css -->
-    <link rel="stylesheet" th:href="@{/web/css/responsive.css}">
-    <!-- User style -->
-    <link rel="stylesheet" th:href="@{/web/css/custom.css}">
-
-    <!-- Style customizer (Remove these two lines please) -->
-    <link rel="stylesheet" th:href="@{/web/css/style-customizer.css}">
-    <link href="#" data-style="styles" rel="stylesheet">
-
-    <!-- Modernizr JS -->
-    <script th:src="@{/web/js/vendor/modernizr-3.11.2.min.js}"></script>
-</head>
+<head th:replace="~{web/fragments/head::head}"></head>
 
 <body>
 <!--[if lt IE 8]>
@@ -47,26 +15,6 @@
     <header th:insert="~{web/fragments/header::header}"></header>
     <!-- END HEADER AREA -->
 
-    <!-- BREADCRUMBS SETCTION START -->
-    <div class="breadcrumbs-section plr-200 mb-80 section">
-        <div class="breadcrumbs overlay-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">About</h1>
-                            <ul class="breadcrumb-list">
-                                <li><a th:href="@{/home}">Home</a></li>
-                                <li>About</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BREADCRUMBS SETCTION END -->
-
     <!-- Start page content -->
     <section id="page-content" class="page-wrapper section">
 
@@ -77,7 +25,7 @@
                     <div class="col-lg-12">
                         <div class="section-title text-start ">
                             <h2 class="uppercase">about subas</h2>
-                            <h6 class="mb-40">There are many variations of passages of brands available,</h6>
+                            <h6 class="mb-40">Created by Le Duc Minh Vuong and Do Thi Hoang Duyen</h6>
                         </div>
                     </div>
                 </div>
@@ -89,12 +37,11 @@
                     </div>
                     <div class="col-lg-7">
                         <div class="about-description mt-50">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labo
-                                et dolore magn aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequa. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                            <p style="font-size: 15px">Welcome to Subas, the premier destination for technology enthusiasts who wish to own top-notch smartphones!</p>
 
-                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia is be deserunt mollit anim est laborum. Sed ut perspiciatis unde omnis iste natus error sit. voluptatem accusantium doloremque laudantium,</p>
+                            <p style="font-size: 15px"> We take pride in offering a diverse collection of phones from renowned brands such as Apple, Samsung, Xiaomi, Oppo, and many others. With our commitment to providing genuine products, competitive prices, and attractive promotions, Subas not only meets all your needs but also delivers a convenient and easy shopping experience. Our professional support team is always ready to assist you in choosing the most suitable products. </p>
 
-                            <p>totam remes aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam.</p>
+                            <p style="font-size: 15px">Explore today and enjoy technology at your fingertips!</p>
                         </div>
                     </div>
                 </div>
@@ -109,7 +56,7 @@
                     <div class="col-lg-12">
                         <div class="section-title text-start ">
                             <h2 class="uppercase">team member</h2>
-                            <h6 class="mb-40">There are many variations of passages of brands available,</h6>
+                            <h6 class="mb-40">There are two members</h6>
                         </div>
                         <div class="active-team-member section">
                             <!-- team-member start -->
@@ -121,7 +68,7 @@
                                     <div class="team-member-info pt-20">
                                         <h5 class="member-name"><a href="#">Lê Đức Minh Vương</a></h5>
                                         <p class="member-position">22110271</p>
-                                        <p class="mb-20">There are many variations of passage of Lorem Ipsum available, but the in majority have suffered.</p>
+                                        <p class="mb-20">He is a hardworking young man and an excellent leader.</p>
                                         <ul class="footer-social">
                                             <li>
                                                 <a class="facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
@@ -149,7 +96,7 @@
                                     <div class="team-member-info pt-20">
                                         <h5 class="member-name"><a href="#">Đỗ Thị Hoàng Duyên</a></h5>
                                         <p class="member-position">22110121</p>
-                                        <p class="mb-20">There are many variations of passage of Lorem Ipsum available, but the in majority have suffered.</p>
+                                        <p class="mb-20">A member in team</p>
                                         <ul class="footer-social">
                                             <li>
                                                 <a class="facebook" href="#" title="Facebook"><i class="zmdi zmdi-facebook"></i></a>
@@ -187,214 +134,9 @@
     <!-- End page content -->
 
     <!-- START FOOTER AREA -->
-    <footer id="footer" class="footer-area section">
-        <div class="footer-top">
-            <div class="container-fluid">
-                <div class="plr-185">
-                    <div class="footer-top-inner gray-bg">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-5 col-md-5">
-                                <div class="single-footer footer-about">
-                                    <div class="footer-logo">
-                                        <img th:src="@{/web/img/logo/logo.png}" alt="">
-                                    </div>
-                                    <div class="footer-brief">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                            Ipsum has been the subas industry's standard dummy text ever since the 1500s,
-                                        </p>
-                                        <p>When an unknown printer took a galley of type and If you are going to use a
-                                            passage of Lorem Ipsum scrambled it to make.</p>
-                                    </div>
-                                    <ul class="footer-social">
-                                        <li>
-                                            <a class="facebook" href="#" title="Facebook"><i
-                                                    class="zmdi zmdi-facebook"></i></a>
-                                        </li>
-                                        <li>
-                                            <a class="google-plus" href="#" title="Google Plus"><i
-                                                    class="zmdi zmdi-google-plus"></i></a>
-                                        </li>
-                                        <li>
-                                            <a class="twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a class="rss" href="#" title="RSS"><i class="zmdi zmdi-rss"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 d-block d-xl-block d-lg-none d-md-none">
-                                <div class="single-footer">
-                                    <h4 class="footer-title border-left">Shipping</h4>
-                                    <ul class="footer-menu">
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>New Products</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>Discount Products</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>Best Sell Products</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>Popular Products</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>Manufactirers</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>Suppliers</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="zmdi zmdi-circle"></i><span>Special Products</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-3">
-                                <div class="single-footer">
-                                    <h4 class="footer-title border-left">my account</h4>
-                                    <ul class="footer-menu">
-                                        <li>
-                                            <a href="my-account.html"><i class="zmdi zmdi-circle"></i><span>My
-                                                        Account</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html"><i class="zmdi zmdi-circle"></i><span>My
-                                                        Wishlist</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="cart.html"><i class="zmdi zmdi-circle"></i><span>My Cart</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="login.html"><i class="zmdi zmdi-circle"></i><span>Sign In</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="login.html"><i
-                                                    class="zmdi zmdi-circle"></i><span>Registration</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="checkout.html"><i class="zmdi zmdi-circle"></i><span>Check
-                                                        out</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="order.html"><i class="zmdi zmdi-circle"></i><span>Oder
-                                                        Complete</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                <div class="single-footer">
-                                    <h4 class="footer-title border-left">Get in touch</h4>
-                                    <div class="footer-message">
-                                        <form action="#">
-                                            <input type="text" name="name" placeholder="Your name here...">
-                                            <input type="text" name="email" placeholder="Your email here...">
-                                            <textarea class="height-80" name="message"
-                                                      placeholder="Your messege here..."></textarea>
-                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">submit
-                                                message</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom black-bg">
-            <div class="container-fluid">
-                <div class="plr-185">
-                    <div class="copyright">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="copyright-text">
-                                    <p class="copy-text"> © 2022 <strong>Subas</strong> Made With <i class="zmdi zmdi-favorite" style="color: red;" aria-hidden="true"></i> By <a class="company-name" href="https://themeforest.net/user/codecarnival/portfolio">
-                                        <strong> CodeCarnival</strong></a>.</p>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="footer-payment text-end">
-                                    <li>
-                                        <a href="#"><img th:src="@{/web/img/payment/1.jpg}" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img th:src="@{/web/img/payment/2.jpg}" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img th:src="@{/web/img/payment/3.jpg}" alt=""></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img th:src="@{/web/img/payment/4.jpg}" alt=""></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div th:replace="~{web/fragments/footer::footer}"></div>
     <!-- END FOOTER AREA -->
 
-    <!--style-customizer start -->
-    <div class="style-customizer closed">
-        <div class="buy-button">
-            <a href="index.html" class="customizer-logo"><img src="images/logo/logo.png}" alt="Theme Logo"></a>
-            <a class="opener" href="#"><i class="zmdi zmdi-settings"></i></a>
-        </div>
-        <div class="clearfix content-chooser">
-            <h3>Layout Options</h3>
-            <p>Which layout option you want to use?</p>
-            <ul class="layoutstyle clearfix">
-                <li class="wide-layout selected" data-style="wide" title="wide"> Wide </li>
-                <li class="boxed-layout" data-style="boxed" title="boxed"> Boxed </li>
-            </ul>
-            <h3>Color Schemes</h3>
-            <p>Which theme color you want to use? Select from here.</p>
-            <ul class="styleChange clearfix">
-                <li class="skin-default selected" title="skin-default" data-style="skin-default" ></li>
-                <li class="skin-green" title="green" data-style="skin-green"></li>
-                <li class="skin-purple" title="purple" data-style="skin-purple"></li>
-                <li class="skin-blue" title="blue" data-style="skin-blue"></li>
-                <li class="skin-cyan" title="cyan" data-style="skin-cyan"></li>
-                <li class="skin-amber" title="amber" data-style="skin-amber"></li>
-                <li class="skin-blue-grey" title="blue-grey" data-style="skin-blue-grey"></li>
-                <li class="skin-teal" title="teal" data-style="skin-teal"></li>
-            </ul>
-            <h3>Background Patterns</h3>
-            <p>Which background pattern you want to use?</p>
-            <ul class="patternChange clearfix">
-                <li class="pattern-1" data-style="pattern-1" title="pattern-1"></li>
-                <li class="pattern-2" data-style="pattern-2" title="pattern-2"></li>
-                <li class="pattern-3" data-style="pattern-3" title="pattern-3"></li>
-                <li class="pattern-4" data-style="pattern-4" title="pattern-4"></li>
-                <li class="pattern-5" data-style="pattern-5" title="pattern-5"></li>
-                <li class="pattern-6" data-style="pattern-6" title="pattern-6"></li>
-                <li class="pattern-7" data-style="pattern-7" title="pattern-7"></li>
-                <li class="pattern-8" data-style="pattern-8" title="pattern-8"></li>
-            </ul>
-            <h3>Background Images</h3>
-            <p>Which background image you want to use?</p>
-            <ul class="patternChange main-bg-change clearfix">
-                <li class="main-bg-1" data-style="main-bg-1" title="Background 1"> <img src="images/customizer/bodybg/01.jpg}" alt=""></li>
-                <li class="main-bg-2" data-style="main-bg-2" title="Background 2"> <img src="images/customizer/bodybg/02.jpg}" alt=""></li>
-                <li class="main-bg-3" data-style="main-bg-3" title="Background 3"> <img src="images/customizer/bodybg/03.jpg}" alt=""></li>
-                <li class="main-bg-4" data-style="main-bg-4" title="Background 4"> <img src="images/customizer/bodybg/04.jpg}" alt=""></li>
-                <li class="main-bg-5" data-style="main-bg-5" title="Background 5"> <img src="images/customizer/bodybg/05.jpg}" alt=""></li>
-                <li class="main-bg-6" data-style="main-bg-6" title="Background 6"> <img src="images/customizer/bodybg/06.jpg}" alt=""></li>
-                <li class="main-bg-7" data-style="main-bg-7" title="Background 7"> <img src="images/customizer/bodybg/07.jpg}" alt=""></li>
-                <li class="main-bg-8" data-style="main-bg-8" title="Background 8"> <img src="images/customizer/bodybg/08.jpg}" alt=""></li>
-            </ul>
-            <ul class="resetAll">
-                <li><a class="button button-border button-reset" href="#">Reset All</a></li>
-            </ul>
-        </div>
-    </div>
-    <!--style-customizer end -->
 </div>
 <!-- Body main wrapper end -->
 
@@ -402,21 +144,7 @@
 <!-- Placed JS at the end of the document so the pages load faster -->
 
 <!-- jquery latest version -->
-<script th:src="@{/web/js/vendor/jquery-3.6.0.min.js}"></script>
-<script th:src="@{/web/js/vendor/jquery-migrate-3.3.2.min.js}"></script>
-<!-- Bootstrap framework js -->
-<script th:src="@{/web/js/bootstrap.bundle.min.js}"></script>
-<!-- jquery.nivo.slider js -->
-<script th:src="@{/web/lib/js/jquery.nivo.slider.js}"></script>
-<!-- Google Map js -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDacJcoyPCr-jdlP9HK93h3YKNyf710J0"></script>
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU_0_uLMnFM-2oWod_fzC0atPZj7dHlU"></script> -->
-<script th:src="@{/web/js/map.js}"></script>
-<!-- All js plugins included in this file. -->
-<!-- All js plugins included in this file. -->
-<script th:src="@{/web/js/plugins.js}"></script>
-<!-- Main js file that contents all jQuery plugins activation. -->
-<script th:src="@{/web/js/main.js}"></script>
+<div th:replace="~{web/fragments/script::script}"></div>
 
 </body>
 </html>
