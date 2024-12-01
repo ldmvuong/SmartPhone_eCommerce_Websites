@@ -51,34 +51,44 @@
                                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                      data-bs-parent="#accordion">
                                     <div class="card-body">
-                                        <form th:action="@{/user/my-profile/update}" th:object="${profileUpdateRequest}" method="post" id="profileForm">
+                                        <form th:action="@{/user/my-profile/update}" th:object="${profileUpdateRequest}"
+                                              method="post" id="profileForm">
                                             <div class="new-customers">
                                                 <div class="p-30">
                                                     <div class="row">
                                                         <input type="hidden" name="userId" th:field="*{userId}">
                                                         <input type="hidden" name="roleId" th:field="*{roleId}">
                                                         <div class="col-sm-6">
-                                                            <input type="text" th:field="*{userName}" placeholder="Username" required disabled>
+                                                            <input type="text" th:field="*{userName}"
+                                                                   placeholder="Username" required disabled>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" th:field="*{phone}" placeholder="Phone" disabled>
+                                                            <input type="text" th:field="*{phone}" placeholder="Phone"
+                                                                   disabled>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" th:field="*{firstName}" placeholder="First Name" disabled>
+                                                            <input type="text" th:field="*{firstName}"
+                                                                   placeholder="First Name" disabled>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" th:field="*{lastName}" placeholder="Last Name" disabled>
+                                                            <input type="text" th:field="*{lastName}"
+                                                                   placeholder="Last Name" disabled>
                                                         </div>
                                                     </div>
-                                                    <input type="text" th:field="*{address}" placeholder="Address" disabled>
+                                                    <input type="text" th:field="*{address}" placeholder="Address"
+                                                           disabled>
                                                     <input type="text" th:field="*{email}" placeholder="Email" disabled>
 
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Save</button>
+                                                            <button class="submit-btn-1 mt-20 btn-hover-1"
+                                                                    type="submit">Save
+                                                            </button>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="button" id="editButton">Edit</button>
+                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                                                    type="button" id="editButton">Edit
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,17 +110,25 @@
                                      data-bs-parent="#accordion">
                                     <div class="card-body">
                                         <!-- Form bound to the change password endpoint -->
-                                        <form th:action="@{/user/my-profile/change-password}" th:object="${changePasswordRequest}" method="post">
+                                        <form th:action="@{/user/my-profile/change-password}"
+                                              th:object="${changePasswordRequest}" method="post">
                                             <div class="new-customers p-30">
-                                                <input type="password" th:field="*{currentPassword}" placeholder="Current Password" required>
-                                                <input type="password" th:field="*{newPassword}" placeholder="New Password" required>
-                                                <input type="password" th:field="*{confirmPassword}" placeholder="Confirm New Password" required>
+                                                <input type="password" th:field="*{currentPassword}"
+                                                       placeholder="Current Password" required>
+                                                <input type="password" th:field="*{newPassword}"
+                                                       placeholder="New Password" required>
+                                                <input type="password" th:field="*{confirmPassword}"
+                                                       placeholder="Confirm New Password" required>
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">Save</button>
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">
+                                                            Save
+                                                        </button>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Clear</button>
+                                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                                                type="reset">Clear
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,119 +148,47 @@
                                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                                      data-bs-parent="#accordion">
                                     <div class="card-body">
-                                        <form action="#">
-                                            <div class="billing-details p-30">
-                                                <input type="text" placeholder="Your Name Here...">
-                                                <input type="text" placeholder="Email address here...">
-                                                <input type="text" placeholder="Phone here...">
-                                                <input type="text" placeholder="Company neme here...">
-                                                <select class="custom-select">
-                                                    <option value="defalt">country</option>
-                                                    <option value="c-1">Australia</option>
-                                                    <option value="c-2">Bangladesh</option>
-                                                    <option value="c-3">Unitd States</option>
-                                                    <option value="c-4">Unitd Kingdom</option>
-                                                </select>
-                                                <select class="custom-select">
-                                                    <option value="defalt">State</option>
-                                                    <option value="c-1">Melbourne</option>
-                                                    <option value="c-2">Dhaka</option>
-                                                    <option value="c-3">New York</option>
-                                                    <option value="c-4">London</option>
-                                                </select>
-                                                <select class="custom-select">
-                                                    <option value="defalt">Town/City</option>
-                                                    <option value="c-1">Victoria</option>
-                                                    <option value="c-2">Chittagong</option>
-                                                    <option value="c-3">Boston</option>
-                                                    <option value="c-4">Cambridge</option>
-                                                </select>
-                                                <textarea class="custom-textarea"
-                                                          placeholder="Your address here..."></textarea>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                value="register">Save
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-                                                                type="reset">Clear
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                        <!-- our order -->
+                                        <div class="payment-details p-30">
+                                            <div th:each="order : ${orders}">
+                                                <table>
+                                                    <tr>
+                                                        <td class="td-title-1">Order day</td>
+                                                        <td class="td-title-2" th:text="${order.orderDate}"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td-title-1">Status</td>
+                                                        <td class="td-title-2" th:text="${order.orderStatus}">PENDING</td>
+                                                    </tr>
+
+                                                    <tr th:each="detail : ${order.orderDetails}">
+                                                        <td class="td-title-1" th:text="${detail.productName} + ' x ' + ${detail.quantity}"></td>
+                                                        <td class="td-title-2" th:text="${detail.unitPrice}">1855</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="order-total">Order Total</td>
+                                                        <td class="order-total-price" th:text="${order.totalPrice}">2425</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td-title-1"></td>
+                                                        <td class="td-title-2"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td-title-1"></td>
+                                                        <td class="td-title-2"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td-title-1"></td>
+                                                        <td class="td-title-2"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="td-title-1"></td>
+                                                        <td class="td-title-2"></td>
+                                                    </tr>
+                                                </table>
                                             </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Payment Method -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">
-                                        <a data-bs-toggle="collapse" data-bs-target="#collapseFive"
-                                           aria-expanded="false" aria-controls="collapseFive">Payment
-                                            Method</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
-                                     data-bs-parent="#accordion">
-                                    <div class="panel-body">
-                                        <form action="#">
-                                            <div class="new-customers p-30">
-                                                <select class="custom-select">
-                                                    <option value="defalt">Card Type</option>
-                                                    <option value="c-1">Master Card</option>
-                                                    <option value="c-2">Paypal</option>
-                                                    <option value="c-3">Paypal</option>
-                                                    <option value="c-4">Paypal</option>
-                                                </select>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <input type="text" placeholder="Card Number">
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <input type="text" placeholder="Card Security Code">
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <select class="custom-select">
-                                                            <option value="defalt">Month</option>
-                                                            <option value="c-1">January</option>
-                                                            <option value="c-2">February</option>
-                                                            <option value="c-3">March</option>
-                                                            <option value="c-4">April</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <select class="custom-select">
-                                                            <option value="defalt">Year</option>
-                                                            <option value="c-4">2022</option>
-                                                            <option value="c-1">2016</option>
-                                                            <option value="c-2">2015</option>
-                                                            <option value="c-3">2014</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                value="register">pay now
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-                                                                value="register">cancel order
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <button class="submit-btn-1 mt-20 f-right btn-hover-1"
-                                                                type="submit"
-                                                                value="register">continue
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -266,9 +212,9 @@
 <!-- jquery latest version -->
 <div th:replace="~{web/fragments/script::script}"></div>
 <script>
-    document.getElementById('editButton').addEventListener('click', function() {
+    document.getElementById('editButton').addEventListener('click', function () {
         var formElements = document.querySelectorAll('#profileForm input[type="text"]');
-        formElements.forEach(function(input) {
+        formElements.forEach(function (input) {
             input.disabled = !input.disabled; // Toggle the disabled state
         });
     });
