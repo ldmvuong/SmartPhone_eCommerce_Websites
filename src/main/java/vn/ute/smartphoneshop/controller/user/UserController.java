@@ -14,14 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
+import vn.ute.smartphoneshop.model.dto.MyOrderDTO;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.model.request.ChangePasswordRequest;
 import vn.ute.smartphoneshop.model.request.ProfileUpdateRequest;
-import vn.ute.smartphoneshop.service.IBrandService;
-import vn.ute.smartphoneshop.service.ICartDetailService;
-import vn.ute.smartphoneshop.service.ICartService;
-import vn.ute.smartphoneshop.service.IUserService;
+import vn.ute.smartphoneshop.service.*;
 import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.util.ArrayList;
@@ -42,6 +40,9 @@ public class UserController {
 
     @Autowired
     ICartService cartService;
+
+    @Autowired
+    IOrderService orderService;
 
 
     private UserDTO getCurrentUser() {
@@ -64,7 +65,7 @@ public class UserController {
         model.addAttribute("changePasswordRequest", new ChangePasswordRequest());
 
         List<BrandEntity> brandEntities = brandService.findAll();
-
+        List<MyOrderDTO> orders = orderService.getOrderHistory(user.getUserId());
 
 
         CartEntity cartEntity = new CartEntity();
@@ -77,6 +78,7 @@ public class UserController {
             }
         }
 
+        model.addAttribute("orders", orders);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("brands", brandEntities);

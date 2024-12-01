@@ -5,6 +5,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.entity.*;
+import vn.ute.smartphoneshop.model.dto.MyOrderDTO;
+import vn.ute.smartphoneshop.model.dto.MyOrderDetailDTO;
 import vn.ute.smartphoneshop.model.dto.OrderDTO;
 import vn.ute.smartphoneshop.exception.DataNotFoundException;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
@@ -16,6 +18,7 @@ import vn.ute.smartphoneshop.repository.VoucherRepository;
 import vn.ute.smartphoneshop.service.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,5 +72,32 @@ public class OrderServiceImpl implements IOrderService {
         }
         cartDetailService.deleteAllByCartId(cartId);
         return order;
+    }
+
+    @Override
+    public List<MyOrderDTO> getOrderHistory(int userId) {
+        List<OrderEntity> orders = orderRepository.findByUser_UserIdOrderByOrderDateDesc(userId);
+        List<MyOrderDTO> orderDTOs = new ArrayList<>();
+
+        for (OrderEntity order : orders) {
+            MyOrderDTO orderDTO = new MyOrderDTO();
+            orderDTO.setOrderId(order.getOrderId());
+            orderDTO.setOrderDate(order.getOrderDate());
+            orderDTO.setOrderStatus(order.getOrderStatus().toString());
+            orderDTO.setTotalPrice(order.getTotalPrice());
+
+            List<MyOrderDetailDTO> orderDetails = new ArrayList<>();
+            for (OrderDetailEntity detail : order.getOrderDetails()) {
+                MyOrderDetailDTO orderDetailDTO = new MyOrderDetailDTO();
+                orderDetailDTO.setProductName(detail.getProduct().getName());
+                orderDetailDTO.setQuantity(detail.getQuantity());
+                orderDetailDTO.setUnitPrice(detail.getUnitPrice());
+                orderDetails.add(orderDetailDTO);
+            }
+
+            orderDTO.setOrderDetails(orderDetails);
+            orderDTOs.add(orderDTO);
+        }
+        return orderDTOs;
     }
 }
