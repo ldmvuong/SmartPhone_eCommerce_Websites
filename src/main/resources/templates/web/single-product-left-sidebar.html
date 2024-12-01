@@ -228,17 +228,36 @@
                                                             </div>
                                                         </div>
                                                         <!-- submit comments -->
-                                                        <form th:action="@{/products/review}">
-                                                            <div class="media mt-30">
-                                                                <textarea style="width: 580px; margin-left: 20px; margin-right: 30px"
-                                                                          class="height-50"
-                                                                          name="message"
-                                                                          placeholder="Your review here...">
-                                                                </textarea>
-                                                                <button
-                                                                        class="submit-btn-1 mt-20 btn-hover-1"
-                                                                        type="submit">submit review
-                                                                </button>
+                                                        <br>
+                                                        <form th:action="@{/products/reviews(productId=${product.productId})}" method="post" th:object="${rating}">
+                                                            <div>
+                                                                <div>
+                                                                    <div style="margin-left: 20px">
+                                                                        <h5 class="title">Add a Review</h5>
+                                                                        <p>Your email address will not be published. Required fields are marked *</p>
+                                                                        <div class="rating-wrapper d-flex-center mb--40">
+                                                                            Your Rating <span class="require">*</span>
+                                                                        </div>
+                                                                        <div class="rating-inner ml--20">
+                                                                            <i class="zmdi zmdi-star-outline" id="st1" data-value="1"></i>
+                                                                            <i class="zmdi zmdi-star-outline" id="st2" data-value="2"></i>
+                                                                            <i class="zmdi zmdi-star-outline" id="st3" data-value="3"></i>
+                                                                            <i class="zmdi zmdi-star-outline" id="st4" data-value="4"></i>
+                                                                            <i class="zmdi zmdi-star-outline" id="st5" data-value="5"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                            <input type="hidden" name="ratingValue" id="ratingValue" th:field="*{star}"/>
+
+                                                                            <textarea style="width: 580px; margin-left: 20px; margin-right: 30px"
+                                                                                  class="height-50"
+                                                                                  name="message"
+                                                                                  placeholder="Your review here..." th:field="*{content}">
+                                                                        </textarea>
+                                                                        <button
+                                                                                class="submit-btn-1 mt-20 btn-hover-1"
+                                                                                type="submit">submit review
+                                                                        </button>
+                                                                    </div>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -539,6 +558,36 @@
         });
     </script>
 
+    <!--Tạo số sao-->
+    <script>
+        // Lấy tất cả các ngôi sao
+        const stars = document.querySelectorAll('.rating-inner .zmdi-star-outline');
+        const ratingValue = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                // Lấy giá trị sao của ngôi sao được click
+                const rating = parseInt(this.getAttribute('data-value'));
+
+                // Đặt trạng thái "đầy" cho các ngôi sao từ 1 đến rating
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('zmdi-star-outline');
+                        s.classList.add('zmdi-star'); // Sao đầy
+                    } else {
+                        s.classList.remove('zmdi-star');
+                        s.classList.add('zmdi-star-outline'); // Sao rỗng
+                    }
+                });
+
+                // Cập nhật giá trị rating vào input hidden
+                ratingValue.value = rating;
+            });
+        });
+    </script>
+
+
+    <!--End Tạo số sao-->
     <div th:replace="~{web/fragments/script::script}"></div>
 
 </body>

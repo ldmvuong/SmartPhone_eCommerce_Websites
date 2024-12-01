@@ -1,5 +1,7 @@
 package vn.ute.smartphoneshop.controller.web;
 
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,11 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import vn.ute.smartphoneshop.entity.BrandEntity;
-import vn.ute.smartphoneshop.entity.CartDetailEntity;
-import vn.ute.smartphoneshop.entity.CartEntity;
-import vn.ute.smartphoneshop.entity.ProductEntity;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.ute.smartphoneshop.entity.*;
 import vn.ute.smartphoneshop.model.dto.ProductDTO;
+import vn.ute.smartphoneshop.model.dto.RatingDTO;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.service.*;
@@ -43,6 +44,9 @@ public class ProductController {
 
     @Autowired
     ICartDetailService cartDetailService;
+
+    @Autowired
+    IRatingService ratingService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -151,6 +155,10 @@ public class ProductController {
             }
         }
 
+        List<RatingEntity> ratings = ratingService.findByProductId(id);
+        float ratingCount = ratingService.countRatingStar(id);
+        int ratingUser = ratingService.countUser(id);
+
         model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
@@ -159,6 +167,34 @@ public class ProductController {
 
         model.addAttribute("product", productDTO);
         model.addAttribute("brands", brandEntityList);
+
+        model.addAttribute("ratings", ratings);
+        model.addAttribute("ratingCount", ratingCount);
+        model.addAttribute("ratingUser", ratingUser);
+        model.addAttribute("rating",new RatingDTO());
         return "web/single-product-left-sidebar";
+    }
+
+    @PostMapping("/reviews")
+    public String reviews(@Valid @ModelAttribute("rating") RatingDTO ratingDTO,
+                          @RequestParam("productId") int productId, HttpSession session,
+                          RedirectAttributes redirectAttributes) {
+        if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")){
+            UserDTO user = (UserDTO) session.getAttribute("user");
+            ratingDTO.setProductId(productId);
+            ratingDTO.setUserId(user.getUserId());
+
+            if(ratingService.checkOrderFirst(productId,user.getUserId())){
+                if (!ratingService.insert(ratingDTO)){
+                    String msg = "Not found user/product";
+                    redirectAttributes.addFlashAttribute("msg", msg);
+                }
+            }
+            else {
+                String msg = "You need to buy first";
+                redirectAttributes.addFlashAttribute("msg", msg);
+            }
+        }
+        return "redirect:/products/"+productId;
     }
 }
