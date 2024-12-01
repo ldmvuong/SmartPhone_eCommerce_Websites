@@ -47,9 +47,6 @@ public class CartController {
     IUserService userService;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     IProductService productService;
 
     private UserDTO getCurrentUser() {

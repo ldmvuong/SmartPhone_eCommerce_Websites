@@ -48,7 +48,7 @@
                                                             </div>
                                                             <div class="pro-thumbnail-info text-start">
                                                                 <h6 class="product-title-2">
-                                                                    <a href="#" th:text="${cartDetail.productId.name}"></a>
+                                                                    <a th:href="@{/products/{id}(id=${cartDetail.productId.productId})}" th:text="${cartDetail.productId.name}"></a>
                                                                 </h6>
                                                                 <p>Brand: <span th:text="${cartDetail.productId.brand.name}"></span></p>
                                                                 <p>Operating system: <span th:text="${cartDetail.productId.operatingSystem}"></span></p>
