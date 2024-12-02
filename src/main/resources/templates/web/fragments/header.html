@@ -15,9 +15,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/templates/web/wishlist.html">
+                                <a th:href="@{/user/wishlists}">
                                     <i class="zmdi zmdi-favorite"></i>
-                                    Wish List (0)
+                                    Wish List
                                 </a>
                             </li>
                             <li th:if="${#authorization.expression('isAuthenticated()')}">
@@ -80,13 +80,10 @@
                                             <a th:href="@{/products}">Shopping Cart</a>
                                         </li>
                                         <li>
-                                            <a href="/templates/web/wishlist.html">Wishlist</a>
+                                            <a th:href="@{/user/wishlists}">Wishlist</a>
                                         </li>
                                         <li>
                                             <a th:href="@{/user/checkout}">Checkout</a>
-                                        </li>
-                                        <li>
-                                            <a href="/templates/web/order.html">Order</a>
                                         </li>
                                         <li>
                                             <a th:href="@{/user/my-profile}">My Account</a>
