@@ -87,126 +87,81 @@
                                 <div class="wg-box">
                                     <div class="flex items-center justify-between gap10 flex-wrap">
                                         <div class="wg-filter flex-grow">
-                                            <form class="form-search">
-                                                <fieldset class="name">
-                                                    <input type="text" placeholder="Search here..." class="" name="name" tabindex="2" value="" aria-required="true" required="">
-                                                </fieldset>
-                                                <div class="button-submit">
-                                                    <button class="" type="submit"><i class="icon-search"></i></button>
-                                                </div>
-                                            </form>
+                                            <div class="select">
+                                                <form action="#" method="get">
+                                                    <select name="status" onchange="this.form.submit()">
+                                                        <option value="">All</option>
+                                                        <option value="PENDING" th:selected="${status == 'PENDING'}">PENDING</option>
+                                                        <option value="SHIPPING" th:selected="${status == 'SHIPPING'}">SHIPPING</option>
+                                                        <option value="DELIVERED" th:selected="${status == 'DELIVERED'}">DELIVERED</option>
+                                                        <option value="CANCELLED" th:selected="${status == 'CANCELLED'}">CANCELLED</option>
+                                                    </select>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="wg-table table-all-category">
                                         <ul class="table-title flex gap20 mb-14">
-                                            <li>
-                                                <div class="body-title">Product</div>
-                                            </li>    
-                                            <li>
-                                                <div class="body-title">Order ID</div>
-                                            </li>
-                                            <li>
-                                                <div class="body-title">Price</div>
-                                            </li>
-                                            <li>
-                                                <div class="body-title">Quantity</div>
-                                            </li>
-                                            <li>
-                                                <div class="body-title">Payment</div>
-                                            </li>
-                                            <li>
-                                                <div class="body-title">Status</div>
-                                            </li>
-                                            <li>
-                                                <div class="body-title">Tracking</div>
-                                            </li>
-                                            <li>
-                                                <div class="body-title">Action</div>
-                                            </li>
+                                            <li><div class="body-title">Product</div></li>
+                                            <li><div class="body-title">Customer</div></li>
+                                            <li><div class="body-title">Price</div></li>
+                                            <li><div class="body-title">Quantity</div></li>
+                                            <li><div class="body-title">Payment</div></li>
+                                            <li><div class="body-title">Order time</div></li>
+                                            <li><div class="body-title">Status</div></li>
+                                            <li><div class="body-title">Action</div></li>
                                         </ul>
+
                                         <ul class="flex flex-column">
-                                            <li class="product-item gap14">
-                                                <div class="image no-bg">
-                                                    <img th:src="@{/admin/images/products/51.png}" alt="">
-                                                </div>
-                                                <div class="flex items-center justify-between gap20 flex-grow">
-                                                    <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
+                                            <th:block th:each="order : ${orders}">
+                                                <li class="product-item gap14">
+                                                    <div class="image no-bg">
+                                                        <img th:src="@{|/${order.productImage}}" alt="Product Image">
                                                     </div>
-                                                    <div class="body-text">#7712309</div>
-                                                    <div class="body-text">$1,452.500</div>
-                                                    <div class="body-text">1,638</div>
-                                                    <div class="body-text">20</div>
-                                                    <div>
-                                                        <div class="block-available">Success</div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="block-tracking">Tracking</div>
-                                                    </div>
-                                                    <div class="list-icon-function">
-                                                        <div class="item eye">
-                                                            <i class="icon-eye"></i>
+                                                    <div class="flex items-center justify-between gap20 flex-grow">
+                                                        <div class="name">
+                                                            <a class="body-title-2" th:text="${order.productName}"></a>
                                                         </div>
-                                                        <div class="item edit">
-                                                            <i class="icon-edit-3"></i>
+                                                        <div class="body-text" th:text="${order.customerName}"></div>
+                                                        <div class="body-text" th:text="${order.totalPrice}"></div>
+                                                        <div class="body-text" th:text="${order.totalQuantity}"></div>
+                                                        <div class="body-text" th:text="${order.paymentMethod}"></div>
+                                                        <div class="body-text" th:text="${order.orderDate}"></div>
+
+                                                        <div>
+                                                            <div th:class="${order.orderStatus == 'Success' ? 'block-available' : 'block-pending'}" th:text="${order.orderStatus}"></div>
                                                         </div>
-                                                        <div class="item trash">
-                                                            <i class="icon-trash-2"></i>
+
+                                                        <div class="list-icon-function">
+                                                            <div class="item eye">
+                                                                <a th:href="@{/admin/orders/order-detail/{orderId}(orderId=${order.orderId})}" title="Xem chi tiết đơn hàng">
+                                                                    <i class="icon-eye"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </li>
-                                            <li class="product-item gap14">
-                                                <div class="image no-bg">
-                                                    <img th:src="@{/admin/images/products/52.png}" alt="">
-                                                </div>
-                                                <div class="flex items-center justify-between gap20 flex-grow">
-                                                    <div class="name">
-                                                        <a href="product-list.html" class="body-title-2">Kristin Watson</a>
-                                                    </div>
-                                                    <div class="body-text">#7712309</div>
-                                                    <div class="body-text">$1,452.500</div>
-                                                    <div class="body-text">1,638</div>
-                                                    <div class="body-text">20</div>
-                                                    <div>
-                                                        <div class="block-pending">Pending</div>
-                                                    </div>
-                                                    <div>
-                                                        <div class="block-tracking">Tracking</div>
-                                                    </div>
-                                                    <div class="list-icon-function">
-                                                        <div class="item eye">
-                                                            <i class="icon-eye"></i>
-                                                        </div>
-                                                        <div class="item edit">
-                                                            <i class="icon-edit-3"></i>
-                                                        </div>
-                                                        <div class="item trash">
-                                                            <i class="icon-trash-2"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            </th:block>
                                         </ul>
                                     </div>
+
                                     <div class="divider"></div>
                                     <div class="flex items-center justify-between flex-wrap gap10">
-                                        <div class="text-tiny">Showing 10 entries</div>
+                                        <div class="text-tiny" th:text="'Showing ' + ${orders.size()} + ' entries'"></div>
                                         <ul class="wg-pagination">
-                                            <li>
-                                                <a href="#"><i class="icon-chevron-left"></i></a>
+                                            <li th:if="${currentPage > 1}">
+                                                <a th:href="@{${'order-list'}(page=${currentPage - 1}, status=${status})}">
+                                                    <i class="icon-chevron-left"></i>
+                                                </a>
                                             </li>
-                                            <li>
-                                                <a href="#">1</a>
+                                            <li th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                                                <a th:href="@{${'order-list'}(page=${pageNum}, status=${status})}" th:text="${pageNum}" th:classappend="${pageNum == currentPage} ? 'active' : ''"></a>
                                             </li>
-                                            <li class="active">
-                                                <a href="#">2</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">3</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="icon-chevron-right"></i></a>
+                                            <li th:if="${currentPage < totalPages}">
+                                                <a th:href="@{${'order-list'}(page=${currentPage + 1}, status=${status})}">
+                                                    <i class="icon-chevron-right"></i>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
