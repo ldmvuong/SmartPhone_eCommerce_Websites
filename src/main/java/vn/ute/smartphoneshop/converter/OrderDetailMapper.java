@@ -21,6 +21,7 @@ public class OrderDetailMapper {
     public static OrderDetaiRespone toOrderDetailRespone(OrderEntity order) {
         OrderDetaiRespone orderDetailDTO = new OrderDetaiRespone();
 
+        orderDetailDTO.setOrderId(order.getOrderId());
         // Lấy tên khách hàng
         String customerName = order.getUser().getFirstName() + " " + order.getUser().getLastName();
         orderDetailDTO.setCustomerName(customerName);

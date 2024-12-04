@@ -130,7 +130,7 @@
                                                         <div class="body-text" th:text="${order.orderDate}"></div>
 
                                                         <div>
-                                                            <div th:class="${order.orderStatus == 'Success' ? 'block-available' : 'block-pending'}" th:text="${order.orderStatus}"></div>
+                                                            <div th:class="${order.orderStatus == 'DELIVERED' ? 'block-available' : 'block-pending'}" th:text="${order.orderStatus}"></div>
                                                         </div>
 
                                                         <div class="list-icon-function">

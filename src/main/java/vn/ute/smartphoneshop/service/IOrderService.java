@@ -23,4 +23,6 @@ public interface IOrderService {
     Page<OrderRespone> getAllOrders(Pageable pageable);
     Page<OrderRespone> getOrdersByStatus(OrderStatus status, Pageable pageable);
     Optional<OrderDetaiRespone> getOrderDetailById(int orderID);
+    Optional<OrderEntity> getOrderById(int orderId);
+    void saveOrder(OrderEntity order);
 }

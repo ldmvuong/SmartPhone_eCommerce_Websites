@@ -122,4 +122,13 @@ public class OrderServiceImpl implements IOrderService {
 
     }
 
+    @Override
+    public Optional<OrderEntity> getOrderById(int orderId) {
+        return orderRepository.findById(orderId);
+    }
+
+    @Override
+    public void saveOrder(OrderEntity order) {
+        orderRepository.save(order);
+    }
 }

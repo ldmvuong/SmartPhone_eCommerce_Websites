@@ -6,10 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import vn.ute.smartphoneshop.entity.OrderEntity;
 import vn.ute.smartphoneshop.enums.OrderStatus;
 import vn.ute.smartphoneshop.model.response.OrderDetaiRespone;
 import vn.ute.smartphoneshop.model.response.OrderRespone;
@@ -65,6 +63,38 @@ public class OrderController {
         } else {
             model.addAttribute("error", "Order not found");
             return "error";
+        }
+    }
+
+    @PostMapping("/update-status")
+    public String updateOrderStatus(@RequestParam("orderId") int orderId,
+                                    @RequestParam("status") String status,
+                                    Model model) {
+
+        Optional<OrderEntity> orderOptional = orderService.getOrderById(orderId);
+        if (orderOptional.isPresent()) {
+            OrderEntity order = orderOptional.get();
+            try {
+                OrderStatus newStatus = OrderStatus.valueOf(status);
+                order.setOrderStatus(newStatus);
+                orderService.saveOrder(order);
+
+                Optional<OrderDetaiRespone> updatedOrderDetail = orderService.getOrderDetailById(orderId);
+                if (updatedOrderDetail.isPresent()) {
+                    model.addAttribute("orderDetail", updatedOrderDetail.get());
+                    model.addAttribute("message", "Order status updated successfully");
+                    return "admin/oder-detail";
+                } else {
+                    model.addAttribute("error", "Order not found after update");
+                    model.addAttribute("orderDetail", updatedOrderDetail.get());
+                    return "admin/oder-detail";                }
+            } catch (IllegalArgumentException e) {
+                model.addAttribute("error", "Invalid status value");
+                return "admin/oder-detail";
+            }
+        } else {
+            model.addAttribute("error", "Order not found");
+            return "admin/oder-detail";
         }
     }
 }

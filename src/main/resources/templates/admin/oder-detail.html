@@ -183,17 +183,29 @@
                                             </div>
                                         </div>
 
-                                        <div class="wg-box gap10">
-                                            <div class="body-title">Status</div>
-                                            <div class="select">
-                                                <select name="status" th:value="${orderDetail.orderStatus}">
-                                                    <option th:value="'PENDING'" th:text="'PENDING'"></option>
-                                                    <option th:value="'SHIPPED'" th:text="'SHIPPED'"></option>
-                                                    <option th:value="'DELIVERED'" th:text="'DELIVERED'"></option>
-                                                    <option th:value="'CANCELLED'" th:text="'CANCELLED'"></option>
-                                                </select>
+                                        <form action="/admin/orders/update-status" method="post">
+                                            <input type="hidden" name="orderId" th:value="${orderDetail.getOrderId()}" />
+                                            <div class="wg-box gap10">
+                                                <div th:if="${message}" class="alert alert-success">
+                                                    <p th:text="${message}"></p>
+                                                </div>
+
+                                                <div th:if="${error}" class="alert alert-danger">
+                                                    <p th:text="${error}"></p>
+                                                </div>
+
+                                                <div class="body-title">Status</div>
+                                                <div class="select">
+                                                    <select name="status">
+                                                        <option value="PENDING" th:selected="${orderDetail.orderStatus == 'PENDING'}">PENDING</option>
+                                                        <option value="SHIPPING" th:selected="${orderDetail.orderStatus == 'SHIPPING'}">SHIPPING</option>
+                                                        <option value="DELIVERED" th:selected="${orderDetail.orderStatus == 'DELIVERED'}">DELIVERED</option>
+                                                        <option value="CANCELLED" th:selected="${orderDetail.orderStatus == 'CANCELLED'}">CANCELLED</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <button type="submit">Update Status</button>
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- /order-detail -->
