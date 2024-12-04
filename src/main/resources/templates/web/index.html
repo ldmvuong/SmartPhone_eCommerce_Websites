@@ -134,8 +134,33 @@
                             <div id="best-seller" class="tab-pane" role="tabpanel">
                                 <div class="row">
                                     <!-- product-item start -->
-                                    <div class="col-lg-3 col-md-4">
-                                        <div th:replace="~{web/product/product-item::product-item}"></div>
+                                    <div class="col-lg-3 col-md-4" th:each="product : ${bestSellerProductList}">
+                                        <div class="product-item">
+                                            <div class="product-img">
+                                                <a th:href="@{/products/{id}(id=${product.productId})}">
+                                                    <img th:src="@{|/${product.imagePath}|}" alt="" style="width: 265px; height: 250px; object-fit: cover;" />
+                                                </a>
+                                            </div>
+                                            <div class="product-info">
+                                                <h6 class="product-title">
+                                                    <a th:href="@{/products/{id}(id=${product.productId})}" th:text="${product.name}"></a>
+                                                </h6>
+                                                <input type="hidden" class="rating" th:value="${product.rating}">
+                                                <input type="hidden" name="id" th:value="${product.productId}">
+                                                <div class="pro-rating"></div>
+                                                <h3 class="pro-price" th:text="${product.price}"></h3>
+                                                <input type="hidden" name="quantity" th:value="1">
+                                                <ul class="action-button">
+                                                    <li>
+                                                        <a th:href="@{/user/wishlists/add-wishlist(id=${product.productId})}" title="Wishlist" tabindex="0"><i
+                                                                class="zmdi zmdi-favorite"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a th:href="@{/user/carts/add-cart(id=${product.productId},quantity=${1})}" title="Add to cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- product-item end -->
                                 </div>

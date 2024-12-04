@@ -55,6 +55,11 @@ public class HomeController {
             newArrivalProductList = newArrivalProductList.subList(0, 12);
         }
 
+        List<ProductDTO> bestSellerProductList = productService.bestSellerProduct();
+        if (bestSellerProductList.size() > 12){
+            bestSellerProductList = bestSellerProductList.subList(0, 12);
+        }
+
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
         List<CartDetailRequest> cartDetailRequestListFull = new ArrayList<>();
@@ -76,6 +81,7 @@ public class HomeController {
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("newArrivalProducts", newArrivalProductList);
+        model.addAttribute("bestSellerProductList", bestSellerProductList);
         model.addAttribute("brands", brandEntities);
 
         session.setAttribute("cart", cartEntity);

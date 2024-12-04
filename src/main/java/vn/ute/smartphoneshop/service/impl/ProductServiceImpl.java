@@ -163,4 +163,15 @@ public class ProductServiceImpl implements IProductService {
         return productDTOList;
     }
 
+    @Override
+    public List<ProductDTO> bestSellerProduct() {
+        List<ProductEntity> productEntities = productRepository.findByOrderProduct();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductEntity productEntity : productEntities){
+            ProductDTO productDTO = productDTOConverter.toProductDTO(productEntity);
+            productDTOList.add(productDTO);
+        }
+        return productDTOList;
+    }
+
 }

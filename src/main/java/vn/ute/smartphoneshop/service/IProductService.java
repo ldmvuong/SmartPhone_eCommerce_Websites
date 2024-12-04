@@ -20,4 +20,5 @@ public interface IProductService {
     List<ProductDTO> findProductByBrandName(String brandName);
 
     List<ProductDTO> newArrivalProduct();
+    List<ProductDTO> bestSellerProduct();
 }
