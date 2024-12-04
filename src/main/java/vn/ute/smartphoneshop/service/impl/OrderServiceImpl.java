@@ -1,26 +1,27 @@
 package vn.ute.smartphoneshop.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import vn.ute.smartphoneshop.converter.OrderDetailMapper;
+import vn.ute.smartphoneshop.converter.OrderMapper;
 import vn.ute.smartphoneshop.entity.*;
+import vn.ute.smartphoneshop.enums.OrderStatus;
 import vn.ute.smartphoneshop.model.dto.MyOrderDTO;
 import vn.ute.smartphoneshop.model.dto.MyOrderDetailDTO;
-import vn.ute.smartphoneshop.model.dto.OrderDTO;
-import vn.ute.smartphoneshop.exception.DataNotFoundException;
-import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
+import vn.ute.smartphoneshop.model.response.OrderDetaiRespone;
+import vn.ute.smartphoneshop.model.response.OrderRespone;
 import vn.ute.smartphoneshop.repository.OrderDetailRepository;
 import vn.ute.smartphoneshop.repository.OrderRepository;
-import vn.ute.smartphoneshop.repository.UserRepository;
-import vn.ute.smartphoneshop.repository.VoucherRepository;
 import vn.ute.smartphoneshop.service.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -100,4 +101,25 @@ public class OrderServiceImpl implements IOrderService {
         }
         return orderDTOs;
     }
+
+    @Override
+    public Page<OrderRespone> getAllOrders(Pageable pageable) {
+        Page<OrderEntity> orderEntities = orderRepository.findAll(pageable);
+        return orderEntities.map(OrderMapper::toOrderRespone);
+    }
+
+    @Override
+    public Page<OrderRespone> getOrdersByStatus(OrderStatus status, Pageable pageable) {
+        Page<OrderEntity> orderEntities = orderRepository.findByOrderStatus(status , pageable);
+        return orderEntities.map(OrderMapper::toOrderRespone);
+    }
+
+    @Override
+    public Optional<OrderDetaiRespone> getOrderDetailById(int orderID) {
+        Optional<OrderEntity> order = orderRepository.findById(orderID);
+
+        return order.map(OrderDetailMapper::toOrderDetailRespone);
+
+    }
+
 }
