@@ -202,7 +202,7 @@
                                                     <!-- reviews-tab-desc -->
                                                     <div class="reviews-tab-desc">
                                                         <!-- single comments -->
-                                                        <div class="media mt-30">
+                                                        <div class="media mt-30" th:each="review : ${ratings}">
                                                             <div class="media-left">
                                                                 <a href="#"><img class="media-object" th:src="@{/web/img/author/1.jpg}"
                                                                                  alt="#"></a>
@@ -210,20 +210,11 @@
                                                             <div class="media-body">
                                                                 <div class="clearfix">
                                                                     <div class="name-commenter pull-left">
-                                                                        <h6 class="media-heading"><a href="#">Gerald Barnes</a>
+                                                                        <h6 class="media-heading"><a href="#" th:text="${review.user.lastName+' '+review.user.firstName}"></a>
                                                                         </h6>
-                                                                        <p class="mb-10">27 Jun, 2019 at 2:30pm</p>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <ul class="reply-delate">
-                                                                            <li><a href="#">Reply</a></li>
-                                                                            <li>/</li>
-                                                                            <li><a href="#">Delate</a></li>
-                                                                        </ul>
                                                                     </div>
                                                                 </div>
-                                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur
-                                                                    adipiscing elit. Integer accumsan egestas .</p>
+                                                                <p class="mb-0" th:text="${review.content}"></p>
                                                             </div>
                                                         </div>
                                                         <!-- submit comments -->
