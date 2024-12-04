@@ -49,7 +49,7 @@ public class WishlistServiceImpl implements IWishlistService {
     @Override
     public WishlistDTO findByUserIdAndProductId(int userId, int productId){
         WishlistDTO wishlistDTO = new WishlistDTO();
-        WishlistEntity wishlistEntity = wishlistRepository.findByProduct_ProductIdAndAndUser_UserId(userId, productId).orElse(null);
+        WishlistEntity wishlistEntity = wishlistRepository.findByProduct_ProductIdAndAndUser_UserId(productId, userId).orElse(null);
         if(wishlistEntity != null){
             wishlistDTO.setUserId(wishlistEntity.getUser().getUserId());
             ProductDTO productDTO = productDTOConverter.toProductDTO(wishlistEntity.getProduct());
@@ -74,7 +74,6 @@ public class WishlistServiceImpl implements IWishlistService {
                     .product(product)
                     .user(user)
                     .build();
-
             wishlistRepository.save(item);
             return true;
         }

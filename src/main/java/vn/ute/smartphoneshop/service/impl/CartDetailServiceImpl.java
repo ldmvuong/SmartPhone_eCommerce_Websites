@@ -7,11 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.ute.smartphoneshop.entity.CartDetailEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.ProductEntity;
+import vn.ute.smartphoneshop.entity.WishlistEntity;
 import vn.ute.smartphoneshop.model.dto.CartDetailDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.repository.CartRepository;
 import vn.ute.smartphoneshop.repository.ICartDetailRepository;
 import vn.ute.smartphoneshop.repository.ProductRepository;
+import vn.ute.smartphoneshop.repository.WishlistRepository;
 import vn.ute.smartphoneshop.service.ICartDetailService;
 
 import java.util.ArrayList;
@@ -26,9 +28,11 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Autowired
     private ProductRepository productRepository;
 
-
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private WishlistRepository wishlistRepository;
 
     @Override
     public List<CartDetailRequest> findByCartId(int cartId) {
@@ -59,8 +63,14 @@ public class CartDetailServiceImpl implements ICartDetailService {
 
             cartEntity.setTotalPrice(cartEntity.getTotalPrice()+cartDetailDTO.getCartPrice());
 
+            WishlistEntity wishlistEntity = wishlistRepository.findByProduct_ProductIdAndAndUser_UserId(productEntity.getProductId(),cartEntity.getUser().getUserId()).orElse(null);
+
             cartDetailRepository.save(cartDetailEntity);
             cartRepository.save(cartEntity);
+
+            if (wishlistEntity != null) {
+                wishlistRepository.delete(wishlistEntity);
+            }
             return true;
         }catch (Exception e) {
             e.printStackTrace();
@@ -79,8 +89,15 @@ public class CartDetailServiceImpl implements ICartDetailService {
             cartDetailEntity.setQuantity(cartDetailDTO.getQuantity());
             cartDetailEntity.setCartPrice(cartDetailDTO.getCartPrice());
 
+            WishlistEntity wishlistEntity = wishlistRepository.findByProduct_ProductIdAndAndUser_UserId(cartDetailEntity.getProduct().getProductId(),cartEntity.getUser().getUserId()).orElse(null);
+
             cartDetailRepository.save(cartDetailEntity);
             cartRepository.save(cartEntity);
+
+            if (wishlistEntity != null) {
+                wishlistRepository.delete(wishlistEntity);
+            }
+
             return true;
         }catch (Exception e) {
             e.printStackTrace();

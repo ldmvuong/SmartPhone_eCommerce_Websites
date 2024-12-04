@@ -15,8 +15,8 @@ public class WishlistEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "userId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId", nullable = false)
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.EAGER)
