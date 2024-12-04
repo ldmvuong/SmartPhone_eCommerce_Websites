@@ -144,7 +144,20 @@
 <!-- Placed JS at the end of the document so the pages load faster -->
 
 <!-- jquery latest version -->
-<div th:replace="~{web/fragments/script::script}"></div>
-
+<script th:src="@{/web/js/vendor/jquery-3.6.0.min.js}"></script>
+<script th:src="@{/web/js/vendor/jquery-migrate-3.3.2.min.js}"></script>
+<!-- Bootstrap framework js -->
+<script th:src="@{/web/js/bootstrap.bundle.min.js}"></script>
+<!-- jquery.nivo.slider js -->
+<script th:src="@{/web/lib/js/jquery.nivo.slider.js}"></script>
+<!-- Google Map js -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDacJcoyPCr-jdlP9HK93h3YKNyf710J0"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuU_0_uLMnFM-2oWod_fzC0atPZj7dHlU"></script> -->
+<script th:src="@{/web/js/map.js}"></script>
+<!-- All js plugins included in this file. -->
+<!-- All js plugins included in this file. -->
+<script th:src="@{/web/js/plugins.js}"></script>
+<!-- Main js file that contents all jQuery plugins activation. -->
+<script th:src="@{/web/js/main.js}"></script>
 </body>
 </html>
