@@ -98,8 +98,9 @@ public class CartController {
         if (cartEntity == null) {
             cartService.createCart(new CartDTO(userDTO.getUserId(),0L));
         }
+        cartEntity = cartService.findCartByUserId(userDTO.getUserId());
 
-        CartDetailEntity cartDetailEntity = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(), productId);
+        CartDetailEntity cartDetailEntity = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(), productId);;
         ProductDTO productDTO = productService.findProductById(productId);
         Long totalPrice, price;
 
