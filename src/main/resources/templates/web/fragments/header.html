@@ -1,4 +1,4 @@
-<header class="header-area header-wrapper" th:fragment="header">
+<header class="header-area header-wrapper" th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
     <!-- header-top-bar -->
     <div class="header-top-bar plr-185">
         <div class="container-fluid">
@@ -8,6 +8,12 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="top-link clearfix">
                         <ul class="link f-right">
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a th:href="@{/admin/home}">
+                                    <i class="zmdi zmdi-home"></i>
+                                    Admin home
+                                </a>
+                            </li>
                             <li>
                                 <a th:href="@{/user/my-profile}">
                                     <i class="zmdi zmdi-account"></i>
