@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.entity.CartDetailEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.WishlistEntity;
@@ -37,6 +38,9 @@ public class WishlistController {
 
     @Autowired
     IWishlistService wishlistService;
+
+    @Autowired
+    IBrandService brandService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -67,6 +71,9 @@ public class WishlistController {
             }
         }
 
+        List<BrandEntity> brandEntities = brandService.findAll();
+
+        model.addAttribute("brands", brandEntities);
         model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailList);

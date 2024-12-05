@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import vn.ute.smartphoneshop.entity.BrandEntity;
 import vn.ute.smartphoneshop.entity.CartDetailEntity;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.UserEntity;
@@ -25,10 +26,7 @@ import vn.ute.smartphoneshop.model.dto.ProductDTO;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
 import vn.ute.smartphoneshop.repository.UserRepository;
-import vn.ute.smartphoneshop.service.ICartDetailService;
-import vn.ute.smartphoneshop.service.ICartService;
-import vn.ute.smartphoneshop.service.IProductService;
-import vn.ute.smartphoneshop.service.IUserService;
+import vn.ute.smartphoneshop.service.*;
 import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.math.BigDecimal;
@@ -49,6 +47,9 @@ public class CartController {
 
     @Autowired
     IProductService productService;
+
+    @Autowired
+    IBrandService brandService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -76,6 +77,9 @@ public class CartController {
             }
         }
 
+        List<BrandEntity> brandEntities = brandService.findAll();
+
+        model.addAttribute("brands", brandEntities);
         model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
         model.addAttribute("cartDetailList", cartDetailList);
