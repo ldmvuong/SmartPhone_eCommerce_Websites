@@ -17,6 +17,8 @@ import vn.ute.smartphoneshop.model.response.OrderRespone;
 import vn.ute.smartphoneshop.repository.OrderDetailRepository;
 import vn.ute.smartphoneshop.repository.OrderRepository;
 import vn.ute.smartphoneshop.service.*;
+import vn.ute.smartphoneshop.utils.FormatterUtil;
+import vn.ute.smartphoneshop.utils.PriceUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,16 +30,16 @@ import java.util.Optional;
 public class OrderServiceImpl implements IOrderService {
 
     @Autowired
-    private OrderRepository orderRepository; // Assuming you have a repository to handle OrderEntity
+    private OrderRepository orderRepository;
 
     @Autowired
-    private OrderDetailRepository orderDetailRepository; // Repository for handling OrderDetailEntity
+    private OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    private ICartDetailService cartDetailService; // Service to get cart details
+    private ICartDetailService cartDetailService;
 
     @Autowired
-    private IPaymentService paymentService; // Service for payment methods
+    private IPaymentService paymentService;
 
     @Autowired
     private IUserService userService;
@@ -47,29 +49,24 @@ public class OrderServiceImpl implements IOrderService {
                                    PaymentEntity payment, Integer cartId,
                                    List<CartDetailRequest> cartDetailList) {
 
-        // Create a new OrderEntity and set its basic attributes
         OrderEntity order = new OrderEntity();
         UserEntity user = userService.getUserById(id);
         order.setUser(user);
         order.setTotalPrice(totalPrice);
-        order.setAddress(user.getAddress()); // Set shipping address
-        order.setVoucher(voucher); // Attach voucher if provided
-        order.setPayment(payment); // Attach the selected payment method
+        order.setAddress(user.getAddress());
+        order.setVoucher(voucher);
+        order.setPayment(payment);
 
-        // Save the order to the database
         orderRepository.save(order);
 
-        // Create OrderDetailEntity objects from the cart details
         for (CartDetailRequest cartDetail : cartDetailList) {
             OrderDetailEntity orderDetail = new OrderDetailEntity();
-            orderDetail.setOrder(order); // Set the order for this detail
-            orderDetail.setProduct(cartDetail.getProductId()); // Set the product
-            orderDetail.setQuantity(cartDetail.getQuantity()); // Set quantity
-            orderDetail.setUnitPrice(BigDecimal.valueOf(cartDetail.getProductId().getPrice())); // Set unit price of product
+            orderDetail.setOrder(order);
+            orderDetail.setProduct(cartDetail.getProductId());
+            orderDetail.setQuantity(cartDetail.getQuantity());
+            orderDetail.setUnitPrice(BigDecimal.valueOf(cartDetail.getProductId().getPrice()));
 
-            // Save each order detail in the database
             orderDetailRepository.save(orderDetail);
-            // After saving, you can update the cart to reflect that it's been ordered (optional)
         }
         cartDetailService.deleteAllByCartId(cartId);
         return order;
@@ -83,16 +80,21 @@ public class OrderServiceImpl implements IOrderService {
         for (OrderEntity order : orders) {
             MyOrderDTO orderDTO = new MyOrderDTO();
             orderDTO.setOrderId(order.getOrderId());
-            orderDTO.setOrderDate(order.getOrderDate());
+
+            String formattedDate = FormatterUtil.formatDate(order.getOrderDate());
+            orderDTO.setOrderDate(formattedDate);
+
             orderDTO.setOrderStatus(order.getOrderStatus().toString());
-            orderDTO.setTotalPrice(order.getTotalPrice());
+            String formattedTotalPrice = FormatterUtil.formatCurrency(order.getTotalPrice());
+            orderDTO.setTotalPrice(formattedTotalPrice);
 
             List<MyOrderDetailDTO> orderDetails = new ArrayList<>();
             for (OrderDetailEntity detail : order.getOrderDetails()) {
                 MyOrderDetailDTO orderDetailDTO = new MyOrderDetailDTO();
                 orderDetailDTO.setProductName(detail.getProduct().getName());
                 orderDetailDTO.setQuantity(detail.getQuantity());
-                orderDetailDTO.setUnitPrice(detail.getUnitPrice());
+                String formattedUnitPrice = FormatterUtil.formatCurrency(detail.getUnitPrice());
+                orderDetailDTO.setUnitPrice(formattedUnitPrice);
                 orderDetails.add(orderDetailDTO);
             }
 

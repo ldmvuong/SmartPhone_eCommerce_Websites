@@ -331,36 +331,37 @@
                                 </div>
                                 <!-- wishlist end -->
                                 <!-- checkout start -->
+                                <!-- Giao diện checkout.html -->
                                 <div class="tab-pane active" id="checkout">
                                     <div class="checkout-content box-shadow p-30">
                                         <form action="/user/checkout/create-order" method="post">
                                             <div class="row">
-                                                <!-- billing details -->
+                                                <!-- Billing Details -->
                                                 <div class="col-md-6">
                                                     <div class="billing-details pr-10">
-                                                        <h6 class="widget-title border-left mb-20">billing details</h6>
+                                                        <h6 class="widget-title border-left mb-20">Billing Details</h6>
                                                         <input type="text" th:value="${#authentication.principal.fullName}" placeholder="Your Name Here..." readonly />
                                                         <input type="text" th:value="${user.getEmail()}" placeholder="Email address here..." readonly />
                                                         <input type="text" th:value="${user.getPhone()}" placeholder="Phone here..." readonly />
-                                                        <textarea class="custom-textarea" th:text="${user.getAddress()}" placeholder="Your address here..."></textarea>
+                                                        <textarea class="custom-textarea" th:text="${user.getAddress()}" placeholder="Your address here..." readonly></textarea>
                                                     </div>
                                                     <br>
                                                     <div class="billing-details pr-10">
-                                                        <h6 class="widget-title border-left mb-20">coupon discount</h6>
+                                                        <h6 class="widget-title border-left mb-20">Coupon Discount</h6>
                                                         <p>Enter your coupon code if you have one!</p>
                                                         <input type="text" id="voucherCode" name="voucherCode" placeholder="Enter your code here.">
-                                                        <button type="button" id="applyCouponBtn" class="submit-btn-1 black-bg btn-hover-2">apply coupon</button>
+                                                        <button type="button" id="applyCouponBtn" class="submit-btn-1 black-bg btn-hover-2">Apply Coupon</button>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-6">
-                                                    <!-- our order -->
+                                                    <!-- Our Order -->
                                                     <div class="payment-details pl-10 mb-50">
-                                                        <h6 class="widget-title border-left mb-20">our order</h6>
+                                                        <h6 class="widget-title border-left mb-20">Our Order</h6>
                                                         <table>
                                                             <tr th:each="cartDetail : ${cartDetail}">
                                                                 <td class="td-title-1" th:text="${cartDetail.productId.name} + ' x ' + ${cartDetail.quantity}"></td>
-                                                                <td class="td-title-2" th:text="${cartDetail.productId.price * cartDetail.quantity}"></td>
+                                                                <td class="td-title-2" th:text="${#numbers.formatDecimal(cartDetail.productId.price * cartDetail.quantity, 1, 'COMMA', 0, 'POINT')}"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td-title-1">Cart Subtotal</td>
@@ -378,14 +379,14 @@
                                                             </tr>
                                                         </table>
                                                     </div>
-                                                    <!-- payment-method -->
+                                                    <!-- Payment Method -->
                                                     <div class="payment-method">
-                                                        <h6 class="widget-title border-left mb-20">payment method</h6>
+                                                        <h6 class="widget-title border-left mb-20">Payment Method</h6>
                                                         <div id="accordion">
                                                             <!-- COD option -->
                                                             <div class="panel">
                                                                 <h4 class="payment-title box-shadow">
-                                                                    <input type="radio" id="cod" name="payment-method" value="cod">
+                                                                    <input type="radio" id="cod" name="payment-method" value="cod" required>
                                                                     <label for="cod">COD (Cash on Delivery)</label>
                                                                 </h4>
                                                             </div>
@@ -393,7 +394,7 @@
                                                             <!-- VNPay option -->
                                                             <div class="panel">
                                                                 <h4 class="payment-title box-shadow">
-                                                                    <input type="radio" id="vnPay" name="payment-method" value="VNPay">
+                                                                    <input type="radio" id="vnPay" name="payment-method" value="VNPay" required>
                                                                     <label for="vnPay">VNPay</label>
                                                                 </h4>
                                                             </div>
@@ -401,13 +402,13 @@
                                                             <!-- Paypal option -->
                                                             <div class="panel">
                                                                 <h4 class="payment-title box-shadow">
-                                                                    <input type="radio" id="paypal" name="payment-method" value="Paypal">
+                                                                    <input type="radio" id="paypal" name="payment-method" value="Paypal" required>
                                                                     <label for="paypal">Paypal</label>
                                                                 </h4>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">place order</button>
+                                                    <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Place Order</button>
                                                 </div>
                                             </div>
                                         </form>

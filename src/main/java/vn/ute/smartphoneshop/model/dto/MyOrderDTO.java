@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 public class MyOrderDTO {
     private int orderId;
-    private LocalDateTime orderDate;
+    private String orderDate;
     private String orderStatus;
-    private BigDecimal totalPrice;
+    private String totalPrice;
     private List<MyOrderDetailDTO> orderDetails;
 }

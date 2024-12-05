@@ -82,7 +82,6 @@ public class AuthController {
             return "web/login";
         }
 
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setRoleId(2);
         userService.add(userDTO);
 

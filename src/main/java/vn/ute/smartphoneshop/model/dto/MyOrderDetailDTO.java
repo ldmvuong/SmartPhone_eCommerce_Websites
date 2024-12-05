@@ -10,5 +10,5 @@ import java.math.BigDecimal;
 public class MyOrderDetailDTO {
     private String productName;
     private int quantity;
-    private BigDecimal unitPrice;
+    private String unitPrice;
 }
