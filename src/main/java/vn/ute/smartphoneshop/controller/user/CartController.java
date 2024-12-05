@@ -1,5 +1,6 @@
 package vn.ute.smartphoneshop.controller.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -90,7 +91,7 @@ public class CartController {
     }
 
     @GetMapping("/add-cart")
-    public String addProduct(@Valid@RequestParam("id") int productId, @RequestParam("quantity") int quantity, Model model, HttpSession session) {
+    public String addProduct(@Valid@RequestParam("id") int productId, @RequestParam("quantity") int quantity, Model model, HttpSession session, HttpServletRequest request) {
         CartEntity cartEntity = (CartEntity) session.getAttribute("cart");
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
@@ -125,25 +126,25 @@ public class CartController {
             if (cartDetailService.insert(new CartDetailDTO(cartEntity.getCartId(),
                     productId,quantity,
                     price))) {
-                return "redirect:/home";
+                return "redirect:"+request.getHeader("referer");
             }
             else {
                 model.addAttribute("error", "Could not add product");
             }
         }
-        return "redirect:/home";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @GetMapping("/delete-cart")
-    public String deleteProduct(@Valid@RequestParam("productId") int productId, Model model, HttpSession session) {
+    public String deleteProduct(@Valid@RequestParam("productId") int productId, Model model, HttpSession session, HttpServletRequest request) {
         CartEntity cartEntity = (CartEntity) session.getAttribute("cart");
         if (cartEntity != null) {
             CartDetailEntity cartDetailEntity = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(),productId);
             if(cartDetailService.delete(cartDetailEntity.getCartDetailId())){
-                return "redirect:/home";
+                return "redirect:"+request.getHeader("referer");
             }
         }
-        return "redirect:/home";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @PostMapping("/dec-cart")

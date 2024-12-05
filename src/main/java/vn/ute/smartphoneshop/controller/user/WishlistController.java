@@ -1,5 +1,6 @@
 package vn.ute.smartphoneshop.controller.user;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class WishlistController {
     }
 
     @GetMapping("/add-wishlist")
-    public String addProduct(@Valid @RequestParam("id") int productId, Model model, HttpSession session) {
+    public String addProduct(@Valid @RequestParam("id") int productId, Model model, HttpSession session, HttpServletRequest request) {
         UserDTO userDTO = (UserDTO) session.getAttribute("user");
 
         WishlistDTO wishlistDTO = wishlistService.findByUserIdAndProductId(userDTO.getUserId(), productId);
@@ -104,7 +105,7 @@ public class WishlistController {
                 }
             }
         }
-        return "redirect:/home";
+        return "redirect:"+request.getHeader("referer");
     }
 
     @GetMapping("/delete-wishlist")
