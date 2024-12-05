@@ -123,6 +123,7 @@ public class OrderController {
                 discount = cartTotalPrice.multiply(discountPercent.divide(BigDecimal.valueOf(100)));
                 cartTotalPrice = cartTotalPrice.subtract(discount);
                 session.setAttribute("cartTotalPrice", cartTotalPrice);
+                session.setAttribute("voucher",voucher);
             }
         }
 
@@ -138,7 +139,14 @@ public class OrderController {
                 e.printStackTrace();
                 return "redirect:/user/checkout";
             }
-        } else {
+        }
+        else if("VnPay".equalsIgnoreCase(paymentMethod)){
+            BigDecimal totalPriceUSD = PriceUtil.convertVNDToUSD(cartTotalPrice);
+            session.setAttribute("totalPriceToPayment", cartTotalPrice);
+            session.setAttribute("payment", payment);
+            return "redirect:/user/checkout/vnpay";
+        }
+        else {
             OrderEntity order = orderService.createOrder(currentUser.getUserId(), cartTotalPrice, voucher, payment, cart.getCartId(), cartDetailList);
             return "redirect:/user/my-profile";
         }
