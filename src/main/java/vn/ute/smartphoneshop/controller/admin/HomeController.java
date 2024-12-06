@@ -1,5 +1,6 @@
 package vn.ute.smartphoneshop.controller.admin;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.ChangePasswordRequest;
 import vn.ute.smartphoneshop.model.request.ProfileUpdateRequest;
+import vn.ute.smartphoneshop.service.IOrderService;
+import vn.ute.smartphoneshop.service.IProductService;
 import vn.ute.smartphoneshop.service.IUserService;
 import vn.ute.smartphoneshop.utils.SecurityUtil;
+
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 
 @Controller("adminHomeController")
@@ -25,6 +32,12 @@ public class HomeController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IOrderService orderService;
+
+    @Autowired
+    private IProductService productService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -39,7 +52,18 @@ public class HomeController {
 
 
     @GetMapping("/admin/home")
-    public String home() {
+    public String home(HttpSession session, Model model) {
+        Long orderCount = orderService.countOrders();
+        BigDecimal totalPrice = orderService.calculateTotalOrderValue();
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String price = currencyFormatter.format(totalPrice);
+        Long userCount = userService.countUser();
+        Long productCount = productService.countProduct();
+
+        model.addAttribute("orderCount", orderCount);
+        model.addAttribute("totalPrice", price);
+        model.addAttribute("userCount", userCount);
+        model.addAttribute("productCount", productCount);
         return "admin/index";
     }
 

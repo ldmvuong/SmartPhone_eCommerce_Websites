@@ -133,4 +133,14 @@ public class OrderServiceImpl implements IOrderService {
     public void saveOrder(OrderEntity order) {
         orderRepository.save(order);
     }
+
+    @Override
+    public Long countOrders() {
+        return orderRepository.countOrders();
+    }
+
+    @Override
+    public BigDecimal calculateTotalOrderValue() {
+        return orderRepository.calculateTotalOrderValue();
+    }
 }

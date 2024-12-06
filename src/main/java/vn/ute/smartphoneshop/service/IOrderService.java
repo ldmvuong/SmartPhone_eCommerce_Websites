@@ -25,4 +25,6 @@ public interface IOrderService {
     Optional<OrderDetaiRespone> getOrderDetailById(int orderID);
     Optional<OrderEntity> getOrderById(int orderId);
     void saveOrder(OrderEntity order);
+    Long countOrders();
+    BigDecimal calculateTotalOrderValue();
 }

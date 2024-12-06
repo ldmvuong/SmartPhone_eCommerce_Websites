@@ -47,8 +47,8 @@
                                                     <i class="icon-shopping-bag"></i>
                                                 </div>
                                                 <div>
-                                                    <div class="body-text mb-2">Total Sales</div>
-                                                    <h4>34,945</h4>
+                                                    <div class="body-text mb-2">Total Orders</div>
+                                                    <h4 th:text="${orderCount}"></h4>
                                                 </div>
                                             </div>
                                             <div class="box-icon-trending up">
@@ -72,14 +72,18 @@
                                                     <i class="icon-dollar-sign"></i>
                                                 </div>
                                                 <div>
-                                                    <div class="body-text mb-2">Total Income</div>
-                                                    <h4>$37,802</h4>
+                                                    <div class="body-text mb-2">Total Income
+                                                        <span>
+                                                            <div class="box-icon-trending down">
+                                                                <i class="icon-trending-down"></i>
+                                                                <div class="body-title number">1.32%</div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                    <h4><span th:text="${totalPrice}"></span></h4>
                                                 </div>
                                             </div>
-                                            <div class="box-icon-trending down">
-                                                <i class="icon-trending-down"></i>
-                                                <div class="body-title number">1.56%</div>
-                                            </div>
+
                                         </div>
                                         <div class="wrap-chart">
                                             <div id="line-chart-2"></div>
@@ -97,13 +101,13 @@
                                                     <i class="icon-file"></i>
                                                 </div>
                                                 <div>
-                                                    <div class="body-text mb-2">Orders Paid</div>
-                                                    <h4>34,945</h4>
+                                                    <div class="body-text mb-2">Total Products</div>
+                                                    <h4 th:text="${productCount}"></h4>
                                                 </div>
                                             </div>
                                             <div class="box-icon-trending">
                                                 <i class="icon-trending-up"></i>
-                                                <div class="body-title number">0.00%</div>
+                                                <div class="body-title number">1.06%</div>
                                             </div>
                                         </div>
                                         <div class="wrap-chart">
@@ -122,8 +126,8 @@
                                                     <i class="icon-users"></i>
                                                 </div>
                                                 <div>
-                                                    <div class="body-text mb-2">Total Visitor</div>
-                                                    <h4>34,945</h4>
+                                                    <div class="body-text mb-2">Total Users</div>
+                                                    <h4 th:text="${userCount}"></h4>
                                                 </div>
                                             </div>
                                             <div class="box-icon-trending up">

@@ -16,4 +16,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
             "GROUP BY od.product.productId " +
             "ORDER BY totalQuantity DESC ")
     List<ProductEntity> findByOrderProduct();
+
+    @Query("SELECT COUNT(o) FROM ProductEntity o")
+    Long countProduct();
 }

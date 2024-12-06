@@ -165,4 +165,9 @@ public class UserServiceImpl implements IUserService {
                 fullName
         );
     }
+
+    @Override
+    public Long countUser(){
+        return userRepository.countUsers();
+    }
 }

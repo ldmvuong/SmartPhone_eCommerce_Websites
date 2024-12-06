@@ -21,4 +21,6 @@ public interface IProductService {
 
     List<ProductDTO> newArrivalProduct();
     List<ProductDTO> bestSellerProduct();
+
+    Long countProduct();
 }

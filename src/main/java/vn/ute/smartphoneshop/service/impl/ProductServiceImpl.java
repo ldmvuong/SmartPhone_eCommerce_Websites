@@ -174,4 +174,8 @@ public class ProductServiceImpl implements IProductService {
         return productDTOList;
     }
 
+    @Override
+    public Long countProduct(){
+        return productRepository.countProduct();
+    }
 }

@@ -20,4 +20,6 @@ public interface IUserService extends UserDetailsService {
     boolean checkPassword(UserDTO user, String rawPassword);
     void updatePassword(int userId, String newPassword);
     UserEntity getUserById(int id);
+
+    Long countUser();
 }
