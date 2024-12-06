@@ -35,11 +35,11 @@
                                 <!-- single-brand-product start -->
                                 <div class="brand-item" th:each="brand : ${brands}">
                                     <div class="single-brand-product">
-                                        <a th:href="@{/products(brand=${brand.name})}">
+                                        <a th:href="@{/products(brandName=${brand.name})}">
                                             <img th:src="@{|/${brand.img}|}" alt="" style="width: 250px; height: 300px; object-fit: cover;" />
                                         </a>
                                         <h3 class="brand-title text-gray">
-                                            <a th:href="@{/products(brand=${brand.name})}" th:text="${brand.name}"></a>
+                                            <a th:href="@{/products(brandName=${brand.name})}" th:text="${brand.name}"></a>
                                         </h3>
                                     </div>
                                 </div>
