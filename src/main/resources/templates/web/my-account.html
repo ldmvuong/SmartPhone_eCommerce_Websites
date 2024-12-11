@@ -162,8 +162,17 @@
                                                     </tr>
 
                                                     <tr th:each="detail : ${order.orderDetails}">
+                                                        <!-- Hàng hiển thị thông tin sản phẩm -->
                                                         <td class="td-title-1" th:text="${detail.productName} + ' x ' + ${detail.quantity}"></td>
                                                         <td class="td-title-2" th:text="${detail.unitPrice}">1855</td>
+                                                    </tr>
+                                                    <tr th:each="detail : ${order.orderDetails}" th:if="${order.orderStatus == 'DELIVERED'}">
+                                                        <!-- Hàng hiển thị nút Review với tên sản phẩm -->
+                                                        <td colspan="2" class="review-link">
+                                                            <a th:href="@{/products/{id}(id=${detail.product_id})}" class="btn btn-link">
+                                                                <label class="review-label" th:text="'Review ' + ${detail.productName}"></label>
+                                                            </a>
+                                                        </td>
                                                     </tr>
 
                                                     <tr>

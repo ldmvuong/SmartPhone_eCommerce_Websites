@@ -91,6 +91,7 @@ public class OrderServiceImpl implements IOrderService {
             List<MyOrderDetailDTO> orderDetails = new ArrayList<>();
             for (OrderDetailEntity detail : order.getOrderDetails()) {
                 MyOrderDetailDTO orderDetailDTO = new MyOrderDetailDTO();
+                orderDetailDTO.setProduct_id(detail.getProduct().getProductId());
                 orderDetailDTO.setProductName(detail.getProduct().getName());
                 orderDetailDTO.setQuantity(detail.getQuantity());
                 String formattedUnitPrice = FormatterUtil.formatCurrency(detail.getUnitPrice());
