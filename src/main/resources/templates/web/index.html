@@ -82,13 +82,13 @@
                                 <div class="row">
                                     <!-- product-item start -->
                                     <div class="col-lg-3 col-md-4" th:each="product : ${newArrivalProducts}">
-                                        <div class="product-item">
+                                        <div class="product-item" >
                                             <div class="product-img">
                                                 <a th:href="@{/products/{id}(id=${product.productId})}">
                                                     <img th:src="@{|/${product.imagePath}|}" alt="" style="width: 265px; height: 250px; object-fit: cover;" />
                                                 </a>
                                             </div>
-                                            <div class="product-info">
+                                            <div class="product-info gray-bg">
                                                 <h6 class="product-title">
                                                     <a th:href="@{/products/{id}(id=${product.productId})}" th:text="${product.name}"></a>
                                                 </h6>
@@ -124,7 +124,7 @@
                                                     <img th:src="@{|/${product.imagePath}|}" alt="" style="width: 265px; height: 250px; object-fit: cover;" />
                                                 </a>
                                             </div>
-                                            <div class="product-info">
+                                            <div class="product-info gray-bg">
                                                 <h6 class="product-title">
                                                     <a th:href="@{/products/{id}(id=${product.productId})}" th:text="${product.name}"></a>
                                                 </h6>
@@ -157,6 +157,31 @@
         <!-- PRODUCT TAB SECTION END -->
     </section>
     <!-- End page content -->
+    <br>
+    <!-- NEWSLETTER SECTION START -->
+    <div class="newsletter-section gray-bg pt-60 pb-80 mt-80" style="background-color: white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="newsletter">
+                        <div class="newsletter-info text-center">
+                            <h2 class="newsletter-title">get a newsletter</h2>
+                            <p>Make sure that you never miss our interesting news <br class="hidden-xs">by joining our newsletter program.</p>
+                        </div>
+                        <div class="subcribe clearfix">
+                            <form action="#">
+                                <input type="text" name="email" placeholder="Enter your email here..."/>
+                                <button class="submit-btn-2 btn-hover-2" type="submit">subcribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- NEWSLETTER SECTION END -->
+    <br>
+
 
     <!-- START FOOTER AREA -->
     <div th:replace="~{web/fragments/footer::footer}"></div>
