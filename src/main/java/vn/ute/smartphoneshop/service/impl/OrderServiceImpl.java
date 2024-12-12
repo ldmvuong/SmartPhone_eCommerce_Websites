@@ -104,13 +104,13 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Page<OrderRespone> getAllOrders(Pageable pageable) {
-        Page<OrderEntity> orderEntities = orderRepository.findAll(pageable);
+        Page<OrderEntity> orderEntities = orderRepository.findAllByOrderByOrderDateDesc(pageable);
         return orderEntities.map(OrderMapper::toOrderRespone);
     }
 
     @Override
     public Page<OrderRespone> getOrdersByStatus(OrderStatus status, Pageable pageable) {
-        Page<OrderEntity> orderEntities = orderRepository.findByOrderStatus(status , pageable);
+        Page<OrderEntity> orderEntities = orderRepository.findByOrderStatusOrderByOrderDateDesc(status , pageable);
         return orderEntities.map(OrderMapper::toOrderRespone);
     }
 

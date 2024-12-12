@@ -14,7 +14,8 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity,Integer> {
     List<OrderEntity> findByUser_UserIdOrderByOrderDateDesc(int customerId);
-    Page<OrderEntity> findByOrderStatus(OrderStatus status, Pageable pageable);
+    Page<OrderEntity> findByOrderStatusOrderByOrderDateDesc(OrderStatus status, Pageable pageable);
+    Page<OrderEntity> findAllByOrderByOrderDateDesc(Pageable pageable);
 
     @Query("SELECT COUNT(o) FROM OrderEntity o")
     Long countOrders();

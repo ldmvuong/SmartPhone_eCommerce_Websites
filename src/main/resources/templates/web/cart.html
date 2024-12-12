@@ -28,6 +28,7 @@
                                             <form th:action="@{/user/checkout}" method="get" id="checkoutForm">
                                                 <table class="text-center">
                                                     <thead>
+                                                    <button type="button" id="selectAllButton" class="btn btn-outline-secondary">Buy All</button>
                                                     <tr>
                                                         <th></th>
                                                         <th class="product-thumbnail">product</th>
@@ -92,7 +93,7 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="bot">
-                                                    <button class="single_add_to_cart_button" type="submit">Check out</button>
+                                                    <button id="checkoutButton" type="submit" class="btn btn-primary" style="display: none;">Checkout</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -121,6 +122,55 @@
     <!-- jquery latest version -->
 
     <div th:replace="~{web/fragments/script::script}"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="selectedProducts"]');
+            const checkoutButton = document.getElementById('checkoutButton');
+            const selectAllButton = document.getElementById('selectAllButton');
+
+            function toggleCheckoutButton() {
+                // Kiểm tra nếu có ít nhất 1 checkbox được chọn
+                const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                checkoutButton.style.display = isChecked ? 'block' : 'none'; // Hiển thị/ẩn nút checkout
+            }
+
+            // Gắn sự kiện thay đổi cho tất cả các checkbox
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', toggleCheckoutButton);
+            });
+
+            // Gắn sự kiện cho nút "Mua tất cả"
+            selectAllButton.addEventListener('click', function () {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = true; // Chọn tất cả các checkbox
+                });
+                toggleCheckoutButton(); // Cập nhật lại trạng thái nút checkout
+            });
+
+            // Gọi lần đầu để xác định trạng thái nút checkout khi load trang
+            toggleCheckoutButton();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="selectedProducts"]');
+            const checkoutButton = document.getElementById('checkoutButton');
+
+            function toggleCheckoutButton() {
+                // Kiểm tra nếu có ít nhất 1 checkbox được chọn
+                const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                checkoutButton.style.display = isChecked ? 'block' : 'none'; // Hiển thị/ẩn nút checkout
+            }
+
+            // Gắn sự kiện thay đổi cho tất cả các checkbox
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', toggleCheckoutButton);
+            });
+
+            // Gọi lần đầu để xác định trạng thái nút checkout khi load trang
+            toggleCheckoutButton();
+        });
+    </script>
 
 </body>
 </html>
