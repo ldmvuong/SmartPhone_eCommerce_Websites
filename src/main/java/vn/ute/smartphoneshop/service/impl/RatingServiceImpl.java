@@ -3,15 +3,9 @@ package vn.ute.smartphoneshop.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import vn.ute.smartphoneshop.entity.OrderDetailEntity;
-import vn.ute.smartphoneshop.entity.ProductEntity;
-import vn.ute.smartphoneshop.entity.RatingEntity;
-import vn.ute.smartphoneshop.entity.UserEntity;
+import vn.ute.smartphoneshop.entity.*;
 import vn.ute.smartphoneshop.model.dto.RatingDTO;
-import vn.ute.smartphoneshop.repository.OrderDetailRepository;
-import vn.ute.smartphoneshop.repository.ProductRepository;
-import vn.ute.smartphoneshop.repository.RatingRepository;
-import vn.ute.smartphoneshop.repository.UserRepository;
+import vn.ute.smartphoneshop.repository.*;
 import vn.ute.smartphoneshop.service.IRatingService;
 
 import java.util.List;
@@ -26,6 +20,8 @@ public class RatingServiceImpl implements IRatingService {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public List<RatingEntity> findByProductId(int productId) {
@@ -54,10 +50,11 @@ public class RatingServiceImpl implements IRatingService {
         try {
             ProductEntity product = productRepository.findById(ratingDTO.getProductId()).orElse(null);
             UserEntity user = userRepository.findById(ratingDTO.getUserId()).orElse(null);
-            if(product == null||user == null){
+            OrderEntity order = orderRepository.findById(ratingDTO.getOrderId()).orElse(null);
+            if(product == null||user == null||order == null){
                 return false;
             }
-            RatingEntity rating = new RatingEntity(ratingDTO.getContent(), ratingDTO.getStar(), user, product);
+            RatingEntity rating = new RatingEntity(ratingDTO.getContent(), ratingDTO.getStar(), user, product, order);
             ratingRepository.save(rating);
 
             product.setRating(this.countRatingStar(ratingDTO.getProductId()));

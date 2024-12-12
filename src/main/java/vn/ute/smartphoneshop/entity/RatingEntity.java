@@ -31,10 +31,15 @@ public class RatingEntity {
     @JoinColumn(name = "productId", nullable = false)
     private ProductEntity product;
 
-    public RatingEntity(String content, int star, UserEntity user, ProductEntity product) {
+    @ManyToOne
+    @JoinColumn(name = "orderId", nullable = false)
+    private OrderEntity order;
+
+    public RatingEntity(String content, int star, UserEntity user, ProductEntity product, OrderEntity order) {
         this.content = content;
         this.star = star;
         this.user = user;
         this.product = product;
+        this.order = order;
     }
 }

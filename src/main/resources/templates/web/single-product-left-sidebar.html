@@ -237,13 +237,14 @@
                                                                         </div>
                                                                     </div>
                                                                             <input type="hidden" name="ratingValue" id="ratingValue" th:field="*{star}"/>
+                                                                            <input type="hidden" name="orderId" th:value="${order.orderId}">
 
                                                                             <textarea style="width: 580px; margin-left: 20px; margin-right: 30px"
                                                                                   class="height-50"
                                                                                   name="message"
                                                                                   placeholder="Your review here..." th:field="*{content}">
                                                                         </textarea>
-                                                                        <button
+                                                                        <button th:if="${order != null}"
                                                                                 class="submit-btn-1 mt-20 btn-hover-1"
                                                                                 type="submit">submit review
                                                                         </button>

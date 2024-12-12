@@ -48,6 +48,9 @@ public class ProductController {
     @Autowired
     IRatingService ratingService;
 
+    @Autowired
+    IOrderService orderService;
+
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
         return userService.findByUsername(username);
@@ -175,26 +178,77 @@ public class ProductController {
         return "web/single-product-left-sidebar";
     }
 
+    @GetMapping("/reviews")
+    public String showReviews(Model model,@RequestParam(value = "productId") Integer productId,
+                              @RequestParam(value = "orderId") Integer orderId) {
+        List<BrandEntity> brandEntityList = brandService.findAll();
+        ProductDTO productDTO = productService.findProductById(productId);
+
+        List<ProductDTO> productDTOList = productService.findProductByBrandName(productDTO.getBrandName());
+        if (productDTOList.size() > 3) {
+            productDTOList = productDTOList.subList(0, 3);
+        }
+
+        int amountOfProduct = 0;
+
+        CartEntity cartEntity = new CartEntity();
+        List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
+        int numberProducts = cartDetailRequestList.size();
+
+        if (getCurrentUser() != null) {
+            cartEntity = cartService.findCartByUserId(getCurrentUser().getUserId());
+            if (cartEntity != null) {
+                cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
+                CartDetailEntity cartDetail = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(), productId);
+                if (cartDetail != null) {
+                    amountOfProduct = cartDetail.getQuantity();
+                }
+                numberProducts = cartDetailRequestList.size();
+                if (cartDetailRequestList.size() > 2) {
+                    cartDetailRequestList = cartDetailRequestList.subList(0, 2);
+                }
+            }
+        }
+        OrderEntity orderEntity = orderService.getOrderById(orderId).get();
+
+        List<RatingEntity> ratings = ratingService.findByProductId(productId);
+        float ratingCount = ratingService.countRatingStar(productId);
+        int ratingUser = ratingService.countUser(productId);
+
+        model.addAttribute("numberProducts", numberProducts);
+        model.addAttribute("cart", cartEntity);
+        model.addAttribute("cartDetailList", cartDetailRequestList);
+        model.addAttribute("products", productDTOList);
+        model.addAttribute("amountOfProduct", amountOfProduct);
+
+        model.addAttribute("product", productDTO);
+        model.addAttribute("brands", brandEntityList);
+
+        model.addAttribute("ratings", ratings);
+        model.addAttribute("ratingCount", ratingCount);
+        model.addAttribute("ratingUser", ratingUser);
+        model.addAttribute("rating",new RatingDTO());
+        model.addAttribute("order",orderEntity);
+        return "web/single-product-left-sidebar";
+    }
+
     @PostMapping("/reviews")
     public String reviews(@Valid @ModelAttribute("rating") RatingDTO ratingDTO,
-                          @RequestParam("productId") int productId, HttpSession session,
+                          @RequestParam("productId") int productId,
+                          @RequestParam("orderId") int orderId,
+                          HttpSession session,
                           RedirectAttributes redirectAttributes) {
         if (!SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser")){
             UserDTO user = (UserDTO) session.getAttribute("user");
             ratingDTO.setProductId(productId);
             ratingDTO.setUserId(user.getUserId());
-
-            if(ratingService.checkOrderFirst(productId,user.getUserId())){
-                if (!ratingService.insert(ratingDTO)){
+            ratingDTO.setOrderId(orderId);
+            if (!ratingService.insert(ratingDTO)){
                     String msg = "Not found user/product";
                     redirectAttributes.addFlashAttribute("msg", msg);
-                }
-            }
-            else {
-                String msg = "You need to buy first";
-                redirectAttributes.addFlashAttribute("msg", msg);
+                    return "redirect:/products/reviews?productId="+productId+"&orderId="+orderId;
             }
         }
-        return "redirect:/products/"+productId;
+        return "redirect:/user/my-profile";
     }
 }

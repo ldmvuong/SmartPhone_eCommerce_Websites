@@ -169,7 +169,7 @@
                                                     <tr th:each="detail : ${order.orderDetails}" th:if="${order.orderStatus == 'DELIVERED'}">
                                                         <!-- Hàng hiển thị nút Review với tên sản phẩm -->
                                                         <td colspan="2" class="review-link">
-                                                            <a th:href="@{/products/{id}(id=${detail.product_id})}" class="btn btn-link">
+                                                            <a th:href="@{/products/reviews(productId=${detail.product_id}, orderId=${order.orderId})}" class="btn btn-link">
                                                                 <label class="review-label" th:text="'Review ' + ${detail.productName}"></label>
                                                             </a>
                                                         </td>

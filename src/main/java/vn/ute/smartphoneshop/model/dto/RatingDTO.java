@@ -22,4 +22,6 @@ public class RatingDTO {
     private int userId;
 
     private int productId;
+
+    private int orderId;
 }
