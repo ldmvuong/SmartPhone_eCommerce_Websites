@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.ute.smartphoneshop.entity.CartEntity;
 import vn.ute.smartphoneshop.entity.OrderEntity;
 import vn.ute.smartphoneshop.entity.PaymentEntity;
@@ -59,7 +61,7 @@ public class VNPayController {
 
     // Sau khi hoàn tất thanh toán, VNPAY sẽ chuyển hướng trình duyệt về URL này
     @GetMapping("/vnpay-payment-return")
-    public String paymentCompleted(HttpServletRequest request, Model model, HttpSession session) {
+    public String paymentCompleted(HttpServletRequest request, Model model, HttpSession session, @SessionAttribute("selectedProducts") List<Integer> selectedProducts, RedirectAttributes redirectAttributes) {
         int paymentStatus =vnPayService.orderReturn(request);
 
 //        String orderInfo = request.getParameter("vnp_OrderInfo");
@@ -98,6 +100,7 @@ public class VNPayController {
             BigDecimal cartTotalPrice = (BigDecimal) session.getAttribute("totalPriceToPayment"); // Lấy tổng giá đã giảm
 
             if (user == null || cart == null || cartDetailToPayment == null || cartTotalPrice == null) {
+                redirectAttributes.addAttribute("selectedProducts", selectedProducts);
                 return "redirect:/user/checkout";
             }
 
@@ -116,6 +119,7 @@ public class VNPayController {
         }
         else {
             // Thanh toán không thành công, chuyển hướng quay lại trang checkout
+            redirectAttributes.addAttribute("selectedProducts", selectedProducts);
             return "redirect:/user/checkout";
         }
     }

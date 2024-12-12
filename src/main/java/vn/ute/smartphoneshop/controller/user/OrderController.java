@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.ute.smartphoneshop.entity.*;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
@@ -62,7 +63,13 @@ public class OrderController {
     }
 
     @GetMapping("")
-    public String orders(Model model, @RequestParam("selectedProducts")List<Integer> selectedProducts, HttpSession session) {
+    public String orders(Model model, @RequestParam(value = "selectedProducts", required = false)List<Integer> selectedProducts, HttpSession session) {
+        if (selectedProducts == null|| selectedProducts.isEmpty()) {
+            selectedProducts = (List<Integer>) session.getAttribute("selectedProducts");
+        }
+        else {
+            session.setAttribute("selectedProducts", selectedProducts);
+        }
         UserDTO currentUser = getCurrentUser();
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
@@ -116,8 +123,9 @@ public class OrderController {
     @PostMapping("/create-order")
     public String createOrder(@RequestParam(value = "voucherCode", required = false) String voucherCode,
                               @RequestParam("payment-method") String paymentMethod,
-                              HttpSession session,
-                              HttpServletResponse response) {
+                              HttpSession session, HttpServletResponse response,
+                              @SessionAttribute("selectedProducts") List<Integer> selectedProducts,
+                              RedirectAttributes redirectAttributes) {
 
         UserDTO currentUser = getCurrentUser();
 
@@ -151,6 +159,7 @@ public class OrderController {
                 return null;
             } catch (Exception e) {
                 e.printStackTrace();
+                redirectAttributes.addAttribute("selectedProducts", selectedProducts);
                 return "redirect:/user/checkout";
             }
         }
@@ -262,7 +271,9 @@ public class OrderController {
     @GetMapping("/paypal/success")
     public String paypalSuccess(@RequestParam("paymentId") String paymentId,
                                 @RequestParam("PayerID") String payerId,
-                                HttpSession session) {
+                                HttpSession session,
+                                @SessionAttribute("selectedProducts") List<Integer> selectedProducts,
+                                RedirectAttributes redirectAttributes) {
         try {
             // Lấy thông tin thanh toán từ PayPal
             Payment payment = Payment.get(apiContext, paymentId);
@@ -283,6 +294,7 @@ public class OrderController {
                 BigDecimal cartTotalPrice = (BigDecimal) session.getAttribute("cartTotalPrice"); // Lấy tổng giá đã giảm
 
                 if (user == null || cart == null || cartDetails == null || paymentMethod == null || cartTotalPrice == null) {
+                    redirectAttributes.addAttribute("selectedProducts", selectedProducts);
                     return "redirect:/user/checkout";
                 }
 
@@ -301,10 +313,12 @@ public class OrderController {
                 return "redirect:/user/my-profile";
             } else {
                 // Thanh toán không thành công, chuyển hướng quay lại trang checkout
+                redirectAttributes.addAttribute("selectedProducts", selectedProducts);
                 return "redirect:/user/checkout";
             }
         } catch (PayPalRESTException e) {
             e.printStackTrace();
+            redirectAttributes.addAttribute("selectedProducts", selectedProducts);
             return "redirect:/user/checkout"; // Quay lại trang checkout nếu có lỗi
         }
     }
@@ -313,7 +327,8 @@ public class OrderController {
      * Xử lý khi thanh toán bị hủy
      */
     @GetMapping("/paypal/cancel")
-    public String paypalCancel() {
+    public String paypalCancel(@SessionAttribute("selectedProducts") List<Integer> selectedProducts, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("selectedProducts", selectedProducts);
         return "redirect:/user/checkout"; // Quay lại trang checkout
     }
 }
