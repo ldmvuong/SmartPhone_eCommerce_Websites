@@ -291,7 +291,7 @@ public class OrderController {
                 List<CartDetailRequest> cartDetails = (List<CartDetailRequest>) session.getAttribute("cartDetails");
                 VoucherEntity voucher = (VoucherEntity) session.getAttribute("voucher");
                 PaymentEntity paymentMethod = (PaymentEntity) session.getAttribute("paymentMethod");
-                BigDecimal cartTotalPrice = (BigDecimal) session.getAttribute("cartTotalPrice"); // Lấy tổng giá đã giảm
+                BigDecimal cartTotalPrice = (BigDecimal) session.getAttribute("totalPriceToPayment"); // Lấy tổng giá đã giảm
 
                 if (user == null || cart == null || cartDetails == null || paymentMethod == null || cartTotalPrice == null) {
                     redirectAttributes.addAttribute("selectedProducts", selectedProducts);
