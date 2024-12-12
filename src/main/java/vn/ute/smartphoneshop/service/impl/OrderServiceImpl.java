@@ -12,8 +12,10 @@ import vn.ute.smartphoneshop.enums.OrderStatus;
 import vn.ute.smartphoneshop.model.dto.MyOrderDTO;
 import vn.ute.smartphoneshop.model.dto.MyOrderDetailDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
+import vn.ute.smartphoneshop.model.response.CustomerSalesDTO;
 import vn.ute.smartphoneshop.model.response.OrderDetaiRespone;
 import vn.ute.smartphoneshop.model.response.OrderRespone;
+import vn.ute.smartphoneshop.model.response.ProductSalesDTO;
 import vn.ute.smartphoneshop.repository.OrderDetailRepository;
 import vn.ute.smartphoneshop.repository.OrderRepository;
 import vn.ute.smartphoneshop.service.*;
@@ -24,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -140,5 +143,22 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public BigDecimal calculateTotalOrderValue() {
         return orderRepository.calculateTotalOrderValue();
+    }
+
+    @Override
+    public List<ProductSalesDTO> getTop5BestSellingProducts() {
+        List<ProductSalesDTO> allProducts = orderDetailRepository.findTop5BestSellingProducts();
+
+        return allProducts.stream()
+                .limit(5)
+                .collect(Collectors.toList());    }
+
+    @Override
+    public List<CustomerSalesDTO> getTop5Customers() {
+        List<CustomerSalesDTO> customerSalesDTOS = orderRepository.findTop5Customers();
+
+        return customerSalesDTOS.stream()
+                .limit(5)
+                .collect(Collectors.toList());
     }
 }

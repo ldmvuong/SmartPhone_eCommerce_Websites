@@ -8,8 +8,10 @@ import vn.ute.smartphoneshop.enums.OrderStatus;
 import vn.ute.smartphoneshop.model.dto.MyOrderDTO;
 import vn.ute.smartphoneshop.entity.OrderEntity;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
+import vn.ute.smartphoneshop.model.response.CustomerSalesDTO;
 import vn.ute.smartphoneshop.model.response.OrderDetaiRespone;
 import vn.ute.smartphoneshop.model.response.OrderRespone;
+import vn.ute.smartphoneshop.model.response.ProductSalesDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,4 +29,6 @@ public interface IOrderService {
     void saveOrder(OrderEntity order);
     Long countOrders();
     BigDecimal calculateTotalOrderValue();
+    List<ProductSalesDTO> getTop5BestSellingProducts();
+    List<CustomerSalesDTO> getTop5Customers();
 }

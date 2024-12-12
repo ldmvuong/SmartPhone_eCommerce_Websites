@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import vn.ute.smartphoneshop.entity.*;
 import vn.ute.smartphoneshop.model.dto.RatingDTO;
+import vn.ute.smartphoneshop.model.response.RatingRespone;
 import vn.ute.smartphoneshop.repository.*;
 import vn.ute.smartphoneshop.service.IRatingService;
 
@@ -79,4 +80,10 @@ public class RatingServiceImpl implements IRatingService {
         }
         return false;
     }
+
+    @Override
+    public List<RatingRespone> findAllRating() {
+        return ratingRepository.findAllRatings();
+    }
+
 }

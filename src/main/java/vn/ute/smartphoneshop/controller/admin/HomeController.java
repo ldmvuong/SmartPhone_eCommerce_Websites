@@ -4,9 +4,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,13 +14,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.ChangePasswordRequest;
 import vn.ute.smartphoneshop.model.request.ProfileUpdateRequest;
+import vn.ute.smartphoneshop.model.response.CustomerSalesDTO;
+import vn.ute.smartphoneshop.model.response.ProductSalesDTO;
+import vn.ute.smartphoneshop.model.response.RatingRespone;
 import vn.ute.smartphoneshop.service.IOrderService;
 import vn.ute.smartphoneshop.service.IProductService;
+import vn.ute.smartphoneshop.service.IRatingService;
 import vn.ute.smartphoneshop.service.IUserService;
 import vn.ute.smartphoneshop.utils.SecurityUtil;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -38,6 +40,9 @@ public class HomeController {
 
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private IRatingService ratingService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -60,6 +65,14 @@ public class HomeController {
         Long userCount = userService.countUser();
         Long productCount = productService.countProduct();
 
+        List<ProductSalesDTO> productSalesDTOS = orderService.getTop5BestSellingProducts();
+        List<CustomerSalesDTO> customerSalesDTOS = orderService.getTop5Customers();
+        List<RatingRespone>  ratingRespones = ratingService.findAllRating();
+
+
+        model.addAttribute("ratingRespones", ratingRespones);
+        model.addAttribute("customerSalesDTOS", customerSalesDTOS);
+        model.addAttribute("productSalesDTOS", productSalesDTOS);
         model.addAttribute("orderCount", orderCount);
         model.addAttribute("totalPrice", price);
         model.addAttribute("userCount", userCount);

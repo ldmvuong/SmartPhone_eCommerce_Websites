@@ -2,6 +2,7 @@ package vn.ute.smartphoneshop.service;
 
 import vn.ute.smartphoneshop.entity.RatingEntity;
 import vn.ute.smartphoneshop.model.dto.RatingDTO;
+import vn.ute.smartphoneshop.model.response.RatingRespone;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface IRatingService {
     float countRatingStar(int productId);
     boolean insert(RatingDTO ratingDTO);
     boolean checkOrderFirst(int productId, int userId);
+    List<RatingRespone> findAllRating();
 }
