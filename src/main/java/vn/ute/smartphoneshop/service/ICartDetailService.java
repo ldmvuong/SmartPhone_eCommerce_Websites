@@ -9,6 +9,9 @@ import java.util.Optional;
 
 public interface ICartDetailService {
     List<CartDetailRequest> findByCartId(int cartId);
+
+    CartDetailRequest convertCartDetailRequest(CartDetailEntity cartDetailEntity);
+
     boolean insert(CartDetailDTO cartDetailDTO);
 
     boolean update(CartDetailDTO cartDetailDTO);

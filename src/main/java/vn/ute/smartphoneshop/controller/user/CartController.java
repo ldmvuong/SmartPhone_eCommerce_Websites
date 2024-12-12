@@ -152,7 +152,7 @@ public class CartController {
         return "redirect:"+request.getHeader("referer");
     }
 
-    @PostMapping("/dec-cart")
+    @GetMapping("/dec-cart")
     public String decrementCart(@Valid @RequestParam("productId") int productId, HttpSession session, RedirectAttributes redirectAttributes) {
         CartEntity cart = (CartEntity) session.getAttribute("cart");
 
@@ -178,7 +178,7 @@ public class CartController {
         return "redirect:/user/carts";
     }
 
-    @PostMapping("/inc-cart")
+    @GetMapping("/inc-cart")
     public String incrementCart(@Valid @RequestParam("productId") int productId, HttpSession session, RedirectAttributes redirectAttributes) {
         CartEntity cart = (CartEntity) session.getAttribute("cart");
 

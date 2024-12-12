@@ -359,13 +359,13 @@
                                                     <div class="payment-details pl-10 mb-50">
                                                         <h6 class="widget-title border-left mb-20">Our Order</h6>
                                                         <table>
-                                                            <tr th:each="cartDetail : ${cartDetail}">
+                                                            <tr th:each="cartDetail : ${cartDetailToBuy}">
                                                                 <td class="td-title-1" th:text="${cartDetail.productId.name} + ' x ' + ${cartDetail.quantity}"></td>
                                                                 <td class="td-title-2" th:text="${#numbers.formatDecimal(cartDetail.productId.price * cartDetail.quantity, 1, 'COMMA', 0, 'POINT')}"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td-title-1">Cart Subtotal</td>
-                                                                <td class="td-title-2" th:text="${cart != null ? cart.totalPrice : 0}"></td>
+                                                                <td class="td-title-2" th:text="${cart != null ? totalPriceToPayment : 0}"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td-title-1">Voucher</td>
@@ -373,8 +373,8 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="order-total">Order Total</td>
-                                                                <td class="order-total-price" id="orderTotal" th:data-original-price="${cart != null ? cart.totalPrice : 0}">
-                                                                    <span th:text="${cart != null ? cart.totalPrice : 0}"></span>
+                                                                <td class="order-total-price" id="orderTotal" th:data-original-price="${cart != null ? totalPriceToPayment : 0}">
+                                                                    <span th:text="${cart != null ? totalPriceToPayment : 0}"></span>
                                                                 </td>
                                                             </tr>
                                                         </table>

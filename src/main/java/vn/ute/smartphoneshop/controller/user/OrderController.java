@@ -3,6 +3,7 @@ package vn.ute.smartphoneshop.controller.user;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,24 +62,32 @@ public class OrderController {
     }
 
     @GetMapping("")
-    public String orders(Model model) {
+    public String orders(Model model, @RequestParam("selectedProducts")List<Integer> selectedProducts, HttpSession session) {
         UserDTO currentUser = getCurrentUser();
         CartEntity cartEntity = new CartEntity();
         List<CartDetailRequest> cartDetailRequestList = new ArrayList<>();
-        List<CartDetailRequest> cartDetail = new ArrayList<>();
+        List<CartDetailRequest> cartDetailToBuy = new ArrayList<>();
         int numberProducts = 0;
+        BigDecimal totalPriceToPayment = BigDecimal.ZERO;
 
         if (currentUser != null) {
             cartEntity = cartService.findCartByUserId(currentUser.getUserId());
             if (cartEntity != null) {
                 cartDetailRequestList = cartDetailService.findByCartId(cartEntity.getCartId());
-                cartDetail = cartDetailRequestList;
                 numberProducts = cartDetailRequestList.size();
                 if (cartDetailRequestList.size() > 2) {
                     cartDetailRequestList = cartDetailRequestList.subList(0, 2);
                 }
             }
         }
+
+        for (int productId : selectedProducts) {
+            CartDetailEntity cartDetailEntity = cartDetailService.findByCartIdAndProductId(cartEntity.getCartId(),productId);
+            CartDetailRequest cartDetailRequest = cartDetailService.convertCartDetailRequest(cartDetailEntity);
+            cartDetailToBuy.add(cartDetailRequest);
+            totalPriceToPayment = totalPriceToPayment.add(BigDecimal.valueOf(cartDetailRequest.getCartPrice()));
+        }
+
 
         // Retrieve voucher names and values from service or database
         List<String> voucherNames = voucherService.getAllVoucherNames();
@@ -89,13 +98,17 @@ public class OrderController {
         model.addAttribute("address", currentUser.getAddress());
         model.addAttribute("numberProducts", numberProducts);
         model.addAttribute("cart", cartEntity);
-        model.addAttribute("cartDetail", cartDetail);
         model.addAttribute("cartDetailList", cartDetailRequestList);
         model.addAttribute("brands", brandEntityList);
+        model.addAttribute("cartDetailToBuy", cartDetailToBuy);
+        model.addAttribute("totalPriceToPayment",totalPriceToPayment);
 
         // Add voucher info to model to be used in JavaScript
         model.addAttribute("voucherNames", voucherNames);
         model.addAttribute("voucherValues", voucherValues);
+
+        session.setAttribute("cartDetailToBuy", cartDetailToBuy);
+        session.setAttribute("totalPriceToPayment", totalPriceToPayment);
 
         return "web/checkout";
     }
@@ -109,9 +122,8 @@ public class OrderController {
         UserDTO currentUser = getCurrentUser();
 
         CartEntity cart = cartService.findCartByUserId(currentUser.getUserId());
-        List<CartDetailRequest> cartDetailList = cartDetailService.findByCartId(cart.getCartId());
-
-        BigDecimal cartTotalPrice = new BigDecimal(cart.getTotalPrice());
+        List<CartDetailRequest> cartDetailToBuy = (List<CartDetailRequest>) session.getAttribute("cartDetailToBuy");
+        BigDecimal totalPriceToPayment = (BigDecimal) session.getAttribute("totalPriceToPayment");
 
         VoucherEntity voucher = null;
         BigDecimal discount = BigDecimal.ZERO;
@@ -120,9 +132,11 @@ public class OrderController {
             voucher = voucherService.findVoucherByCode(voucherCode);
             if (voucher != null) {
                 BigDecimal discountPercent = BigDecimal.valueOf(voucher.getDiscountPercent());
-                discount = cartTotalPrice.multiply(discountPercent.divide(BigDecimal.valueOf(100)));
-                cartTotalPrice = cartTotalPrice.subtract(discount);
-                session.setAttribute("cartTotalPrice", cartTotalPrice);
+                discount = totalPriceToPayment.multiply(discountPercent.divide(BigDecimal.valueOf(100)));
+
+                totalPriceToPayment = totalPriceToPayment.subtract(discount);
+                session.removeAttribute("totalPriceToPayment");
+                session.setAttribute("totalPriceToPayment", totalPriceToPayment);
                 session.setAttribute("voucher",voucher);
             }
         }
@@ -131,8 +145,8 @@ public class OrderController {
 
         if ("Paypal".equalsIgnoreCase(paymentMethod)) {
             try {
-                BigDecimal totalPriceUSD = PriceUtil.convertVNDToUSD(cartTotalPrice);
-                String approvalUrl = createPayPalPayment(totalPriceUSD, currentUser, cart, cartDetailList, voucher, payment, session);
+                BigDecimal totalPriceUSD = PriceUtil.convertVNDToUSD(totalPriceToPayment);
+                String approvalUrl = createPayPalPayment(totalPriceUSD, currentUser, cart, cartDetailToBuy, voucher, payment, session);
                 response.sendRedirect(approvalUrl);
                 return null;
             } catch (Exception e) {
@@ -141,13 +155,12 @@ public class OrderController {
             }
         }
         else if("VnPay".equalsIgnoreCase(paymentMethod)){
-            BigDecimal totalPriceUSD = PriceUtil.convertVNDToUSD(cartTotalPrice);
-            session.setAttribute("totalPriceToPayment", cartTotalPrice);
+            session.setAttribute("totalPriceToPayment", totalPriceToPayment);
             session.setAttribute("payment", payment);
             return "redirect:/user/checkout/vnpay";
         }
         else {
-            OrderEntity order = orderService.createOrder(currentUser.getUserId(), cartTotalPrice, voucher, payment, cart.getCartId(), cartDetailList);
+            OrderEntity order = orderService.createOrder(currentUser.getUserId(), totalPriceToPayment, voucher, payment, cart.getCartId(), cartDetailToBuy);
             return "redirect:/user/my-profile";
         }
     }

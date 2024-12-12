@@ -51,6 +51,16 @@ public class CartDetailServiceImpl implements ICartDetailService {
     }
 
     @Override
+    public CartDetailRequest convertCartDetailRequest(CartDetailEntity cartDetailEntity){
+        CartDetailRequest cartDetailRequest = new CartDetailRequest();
+        BeanUtils.copyProperties(cartDetailEntity, cartDetailRequest);
+        cartDetailRequest.setCartPrice(cartDetailEntity.getCartPrice());
+        cartDetailRequest.setProductId(cartDetailEntity.getProduct());
+        cartDetailRequest.setQuantity(cartDetailEntity.getQuantity());
+        return cartDetailRequest;
+    }
+
+    @Override
     public boolean insert(CartDetailDTO cartDetailDTO) {
         try {
             CartDetailEntity cartDetailEntity = new CartDetailEntity();

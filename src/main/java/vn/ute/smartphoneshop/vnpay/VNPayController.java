@@ -13,10 +13,7 @@ import vn.ute.smartphoneshop.entity.PaymentEntity;
 import vn.ute.smartphoneshop.entity.VoucherEntity;
 import vn.ute.smartphoneshop.model.dto.UserDTO;
 import vn.ute.smartphoneshop.model.request.CartDetailRequest;
-import vn.ute.smartphoneshop.service.impl.CartDetailServiceImpl;
-import vn.ute.smartphoneshop.service.impl.OrderServiceImpl;
-import vn.ute.smartphoneshop.service.impl.PaymentServiceImpl;
-import vn.ute.smartphoneshop.service.impl.UserServiceImpl;
+import vn.ute.smartphoneshop.service.impl.*;
 import vn.ute.smartphoneshop.utils.Constant;
 import vn.ute.smartphoneshop.utils.SecurityUtil;
 
@@ -42,6 +39,9 @@ public class VNPayController {
 
     @Autowired
     PaymentServiceImpl paymentService;
+
+    @Autowired
+    CartServiceImpl cartService;
 
     private UserDTO getCurrentUser() {
         String username = SecurityUtil.getCurrentUsername();
@@ -91,17 +91,18 @@ public class VNPayController {
             // Lấy thông tin từ session
             UserDTO user = (UserDTO) getCurrentUser();
             CartEntity cart = (CartEntity) session.getAttribute("cart");
-            List<CartDetailRequest> cartDetails = cartDetailService.findByCartId(cart.getCartId());
+            cart = cartService.findCartByUserId(user.getUserId());
+            List<CartDetailRequest> cartDetailToPayment = (List<CartDetailRequest>) session.getAttribute("cartDetailToBuy");
             VoucherEntity voucher = (VoucherEntity) session.getAttribute("voucher");
             PaymentEntity payment = (PaymentEntity) session.getAttribute("payment");
             BigDecimal cartTotalPrice = (BigDecimal) session.getAttribute("totalPriceToPayment"); // Lấy tổng giá đã giảm
 
-            if (user == null || cart == null || cartDetails == null || cartTotalPrice == null) {
+            if (user == null || cart == null || cartDetailToPayment == null || cartTotalPrice == null) {
                 return "redirect:/user/checkout";
             }
 
             // Tạo đơn hàng với tổng giá đã giảm
-            OrderEntity order = orderService.createOrder(user.getUserId(), cartTotalPrice, voucher, payment, cart.getCartId(), cartDetails);
+            OrderEntity order = orderService.createOrder(user.getUserId(), cartTotalPrice, voucher, payment, cart.getCartId(), cartDetailToPayment);
 
             // Xóa các thuộc tính trong session sau khi đã xử lý xong
             session.removeAttribute("cart");

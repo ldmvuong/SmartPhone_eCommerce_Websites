@@ -1,4 +1,4 @@
-<!doctype html>
+    <!doctype html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{web/fragments/head::head}"></head>
 
@@ -25,6 +25,7 @@
                                 <div class="tab-pane active" id="shopping-cart">
                                     <div class="shopping-cart-content">
                                         <div class="table-content table-responsive mb-50">
+                                            <form th:action="@{/user/checkout}" method="get" id="checkoutForm">
                                                 <table class="text-center">
                                                     <thead>
                                                     <tr>
@@ -39,9 +40,19 @@
                                                     <tbody>
                                                     <!-- tr -->
                                                     <tr th:each="cartDetail : ${cartDetailListFull}">
-                                                        <td>
-                                                            <input type="checkbox" name="operating-1" value="phone-1">
+                                                        <td class="product-checkbox">
+                                                            <div class="checkbox-container">
+                                                                <input type="checkbox"
+                                                                       th:id="'brand-' + ${cartDetail.productId.productId}"
+                                                                       class="product-checkbox"
+                                                                       th:name="selectedProducts"
+                                                                       th:value="${cartDetail.productId.productId}" />
+                                                                <label th:for="'brand-' + ${cartDetail.productId.productId}" class="checkbox-label"></label>
+                                                            </div>
                                                         </td>
+<!--                                                        <td>-->
+<!--                                                            <input type="checkbox" name="operating-1" value="phone-1">-->
+<!--                                                        </td>-->
                                                         <td class="product-thumbnail">
                                                             <div class="pro-thumbnail-img">
                                                                 <img th:src="@{|/${cartDetail.productId.imagePath}|}" alt="">
@@ -58,15 +69,17 @@
                                                         <td class="product-price" th:text="${cartDetail.productId.price}"></td>
                                                         <td class="product-quantity">
                                                             <div class="cart-plus-minus f-left">
-                                                                <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">
-                                                                    <input type="hidden" name="productId" th:value="${cartDetail.productId.productId}"/>
-                                                                    <button type="submit" class="dec qtybutton">-</button>
-                                                                </form>
+                                                                <a th:href="@{/user/carts/dec-cart(productId=${cartDetail.productId.productId})}" class="dec qtybutton">-</a>
+<!--                                                                <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">-->
+<!--                                                                    <input type="hidden" name="productId" th:value="${cartDetail.productId.productId}"/>-->
+<!--                                                                    <button type="submit" class="dec qtybutton">-</button>-->
+<!--                                                                </form>-->
                                                                 <input type="number" class="cart-plus-minus-box" name="qtybutton" th:value="${cartDetail.quantity}" readonly>
-                                                                <form th:action="@{/user/carts/inc-cart}" method="post" style="display: inline;">
-                                                                    <input type="hidden" name="productId" th:value="${cartDetail.productId.productId}" />
-                                                                    <button type="submit" class="inc qtybutton">+</button>
-                                                                </form>
+                                                                <a th:href="@{/user/carts/inc-cart(productId=${cartDetail.productId.productId})}" class="inc qtybutton">+</a>
+<!--                                                                <form th:action="@{/user/carts/inc-cart}" method="post" style="display: inline;">-->
+<!--                                                                    <input type="hidden" name="productId" th:value="${cartDetail.productId.productId}" />-->
+<!--                                                                    <button type="submit" class="inc qtybutton">+</button>-->
+<!--                                                                </form>-->
                                                             </div>
                                                         </td>
                                                         <td id="product-subtotal-${cartDetail.productId.productId}" class="product-subtotal">
@@ -76,16 +89,17 @@
                                                             <a th:href="@{/user/carts/delete-cart(productId=${cartDetail.productId.productId})}"><i class="zmdi zmdi-close"></i></a>
                                                         </td>
                                                     </tr>
-                                                    <div class="bot">
-                                                        <div></div>
-                                                        <button class="tf-button w208" type="submit">Save</button>
-                                                    </div>
                                                     </tbody>
                                                 </table>
-                                            </div>
+                                                <div class="bot">
+                                                    <button class="single_add_to_cart_button" type="submit">Check out</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- shopping-cart end -->
+
                             </div>
                         </div>
                     </div>

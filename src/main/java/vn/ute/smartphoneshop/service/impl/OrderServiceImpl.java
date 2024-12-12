@@ -39,9 +39,6 @@ public class OrderServiceImpl implements IOrderService {
     private ICartDetailService cartDetailService;
 
     @Autowired
-    private IPaymentService paymentService;
-
-    @Autowired
     private IUserService userService;
 
     @Override
@@ -65,10 +62,10 @@ public class OrderServiceImpl implements IOrderService {
             orderDetail.setProduct(cartDetail.getProductId());
             orderDetail.setQuantity(cartDetail.getQuantity());
             orderDetail.setUnitPrice(BigDecimal.valueOf(cartDetail.getProductId().getPrice()));
+            cartDetailService.delete(cartDetailService.findByCartIdAndProductId(cartId,cartDetail.getProductId().getProductId()).getCartDetailId());
 
             orderDetailRepository.save(orderDetail);
         }
-        cartDetailService.deleteAllByCartId(cartId);
         return order;
     }
 
