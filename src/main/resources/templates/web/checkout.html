@@ -24,7 +24,7 @@
                             <div class="breadcrumbs-inner">
                                 <h1 class="breadcrumbs-title">Checkout</h1>
                                 <ul class="breadcrumb-list">
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a th:href="@{/home}">Home</a></li>
                                     <li>Checkout</li>
                                 </ul>
                             </div>
@@ -45,29 +45,23 @@
                         <div class="col-lg-2">
                             <ul class="nav cart-tab">
                                 <li>
-                                    <a class="active" href="#shopping-cart" data-bs-toggle="tab">
+                                    <a class="active" th:href="@{/user/carts}" onclick="return true;">
                                         <span>01</span>
                                         Shopping cart
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="active" href="#wishlist" data-bs-toggle="tab">
-                                        <span>02</span>
-                                        Wishlist
-                                    </a>
-                                </li>
-                                <li>
                                     <a class="active" href="#checkout" data-bs-toggle="tab">
-                                        <span>03</span>
+                                        <span>02</span>
                                         Checkout
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#order-complete" data-bs-toggle="tab">
-                                        <span>04</span>
-                                        Order complete
-                                    </a>
-                                </li>
+<!--                                <li>-->
+<!--                                    <a href="#order-complete" data-bs-toggle="tab">-->
+<!--                                        <span>03</span>-->
+<!--                                        Order complete-->
+<!--                                    </a>-->
+<!--                                </li>-->
                             </ul>
                         </div>
                         <div class="col-lg-10">
@@ -76,260 +70,10 @@
                                 <!-- shopping-cart start -->
                                 <div class="tab-pane" id="shopping-cart">
                                     <div class="shopping-cart-content">
-                                        <form action="#">
-                                            <div class="table-content table-responsive mb-50">
-                                                <table class="text-center">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="product-thumbnail">product</th>
-                                                            <th class="product-price">price</th>
-                                                            <th class="product-quantity">Quantity</th>
-                                                            <th class="product-subtotal">total</th>
-                                                            <th class="product-remove">remove</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img th:src="@{/web/img/cart/1.jpg}" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-start">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-quantity">
-                                                                <div class="cart-plus-minus f-left">
-                                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div> 
-                                                            </td>
-                                                            <td class="product-subtotal">$1020.00</td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img th:src="@{/web/img/cart/2.jpg}" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-start">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-quantity">
-                                                                <div class="cart-plus-minus f-left">
-                                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div> 
-                                                            </td>
-                                                            <td class="product-subtotal">$1020.00</td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img th:src="@{/web/img/cart/3.jpg}" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-start">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-quantity">
-                                                                <div class="cart-plus-minus f-left">
-                                                                    <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                                                                </div> 
-                                                            </td>
-                                                            <td class="product-subtotal">$1020.00</td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="coupon-discount box-shadow p-30 mb-50">
-                                                        <h6 class="widget-title border-left mb-20">coupon discount</h6>
-                                                        <p>Enter your coupon code if you have one!</p>
-                                                        <input type="text" name="name" placeholder="Enter your code here.">
-                                                        <button class="submit-btn-1 black-bg btn-hover-2" type="submit">apply coupon</button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="payment-details box-shadow p-30 mb-50">
-                                                        <h6 class="widget-title border-left mb-20">payment details</h6>
-                                                        <table>
-                                                            <tr>
-                                                                <td class="td-title-1">Cart Subtotal</td>
-                                                                <td class="td-title-2">$155.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="td-title-1">Shipping and Handing</td>
-                                                                <td class="td-title-2">$15.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="td-title-1">Vat</td>
-                                                                <td class="td-title-2">$00.00</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="order-total">Order Total</td>
-                                                                <td class="order-total-price">$170.00</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="culculate-shipping box-shadow p-30">
-                                                        <h6 class="widget-title border-left mb-20">culculate shipping</h6>
-                                                        <p>Enter your coupon code if you have one!</p>
-                                                        <div class="row">
-                                                            <div class="col-sm-4 col-xs-12">
-                                                                <input type="text"  placeholder="Country">
-                                                            </div>
-                                                            <div class="col-sm-4 col-xs-12">
-                                                                <input type="text"  placeholder="Region / State">
-                                                            </div>
-                                                            <div class="col-sm-4 col-xs-12">
-                                                                <input type="text"  placeholder="Post code">
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <button class="submit-btn-1 black-bg btn-hover-2">get a quote</button>   
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <a th:href="@{/user/carts}"></a>
                                     </div>
                                 </div>
                                 <!-- shopping-cart end -->
-                                <!-- wishlist start -->
-                                <div class="tab-pane" id="wishlist">
-                                    <div class="wishlist-content">
-                                        <form action="#">
-                                            <div class="table-content table-responsive mb-50">
-                                                <table class="text-center">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="product-thumbnail">product</th>
-                                                            <th class="product-price">price</th>
-                                                            <th class="product-stock">Stock status</th>
-                                                            <th class="product-add-cart">add to cart</th>
-                                                            <th class="product-remove">remove</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img th:src="@{/web/img/cart/1.jpg}" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-start">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-stock text-uppercase">in stoct</td>
-                                                            <td class="product-add-cart">
-                                                                <a href="#" title="Add To Cart">
-                                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                                </a>
-                                                            </td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img th:src="@{/web/img/cart/2.jpg}" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-start">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-stock text-uppercase">in stoct</td>
-                                                            <td class="product-add-cart">
-                                                                <a href="#" title="Add To Cart">
-                                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                                </a>
-                                                            </td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- tr -->
-                                                        <tr>
-                                                            <td class="product-thumbnail">
-                                                                <div class="pro-thumbnail-img">
-                                                                    <img th:src="@{/web/img/cart/3.jpg}" alt="">
-                                                                </div>
-                                                                <div class="pro-thumbnail-info text-start">
-                                                                    <h6 class="product-title-2">
-                                                                        <a href="#">dummy product name</a>
-                                                                    </h6>
-                                                                    <p>Brand: Brand Name</p>
-                                                                    <p>Model: Grand s2</p>
-                                                                    <p> Color: Black, White</p>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-price">$560.00</td>
-                                                            <td class="product-stock text-uppercase">in stoct</td>
-                                                            <td class="product-add-cart">
-                                                                <a href="#" title="Add To Cart">
-                                                                    <i class="zmdi zmdi-shopping-cart-plus"></i>
-                                                                </a>
-                                                            </td>
-                                                            <td class="product-remove">
-                                                                <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- wishlist end -->
                                 <!-- checkout start -->
                                 <!-- Giao diện checkout.html -->
                                 <div class="tab-pane active" id="checkout">
@@ -416,103 +160,103 @@
                                 </div>
                                 <!-- checkout end -->
                                 <!-- order-complete start -->
-                                <div class="tab-pane" id="order-complete">
-                                    <div class="order-complete-content box-shadow">
-                                        <div class="thank-you p-30 text-center">
-                                            <h6 class="text-black-5 mb-0">Thank you. Your order has been received.</h6>
-                                        </div>
-                                        <div class="order-info p-30 mb-10">
-                                            <ul class="order-info-list">
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
-                                                <li>
-                                                    <h6>order no</h6>
-                                                    <p>m 2653257</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <!-- our order -->
-                                            <div class="col-md-6">
-                                                <div class="payment-details p-30">
-                                                    <h6 class="widget-title border-left mb-20">our order</h6>
-                                                    <table>
-                                                        <tr>
-                                                            <td class="td-title-1">Dummy Product Name x 2</td>
-                                                            <td class="td-title-2">$1855.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Dummy Product Name</td>
-                                                            <td class="td-title-2">$555.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Cart Subtotal</td>
-                                                            <td class="td-title-2">$2410.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Shipping and Handing</td>
-                                                            <td class="td-title-2">$15.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Vat</td>
-                                                            <td class="td-title-2">$00.00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="order-total">Order Total</td>
-                                                            <td class="order-total-price">$2425.00</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>         
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="bill-details p-30">
-                                                    <h6 class="widget-title border-left mb-20">billing details</h6>
-                                                    <ul class="bill-address">
-                                                        <li>
-                                                            <span>Address:</span>
-                                                            28 Green Tower, Street Name, New York City, USA
-                                                        </li>
-                                                        <li>
-                                                            <span>email:</span>
-                                                            info@companyname.com
-                                                        </li>
-                                                        <li>
-                                                            <span>phone : </span>
-                                                            (+880) 19453 821758
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="bill-details pl-30">
-                                                    <h6 class="widget-title border-left mb-20">billing details</h6>
-                                                    <ul class="bill-address">
-                                                        <li>
-                                                            <span>Address:</span>
-                                                            28 Green Tower, Street Name, New York City, USA
-                                                        </li>
-                                                        <li>
-                                                            <span>email:</span>
-                                                            info@companyname.com
-                                                        </li>
-                                                        <li>
-                                                            <span>phone : </span>
-                                                            (+880) 19453 821758
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <div class="tab-pane" id="order-complete">-->
+<!--                                    <div class="order-complete-content box-shadow">-->
+<!--                                        <div class="thank-you p-30 text-center">-->
+<!--                                            <h6 class="text-black-5 mb-0">Thank you. Your order has been received.</h6>-->
+<!--                                        </div>-->
+<!--                                        <div class="order-info p-30 mb-10">-->
+<!--                                            <ul class="order-info-list">-->
+<!--                                                <li>-->
+<!--                                                    <h6>order no</h6>-->
+<!--                                                    <p>m 2653257</p>-->
+<!--                                                </li>-->
+<!--                                                <li>-->
+<!--                                                    <h6>order no</h6>-->
+<!--                                                    <p>m 2653257</p>-->
+<!--                                                </li>-->
+<!--                                                <li>-->
+<!--                                                    <h6>order no</h6>-->
+<!--                                                    <p>m 2653257</p>-->
+<!--                                                </li>-->
+<!--                                                <li>-->
+<!--                                                    <h6>order no</h6>-->
+<!--                                                    <p>m 2653257</p>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        <div class="row">-->
+<!--                                            &lt;!&ndash; our order &ndash;&gt;-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="payment-details p-30">-->
+<!--                                                    <h6 class="widget-title border-left mb-20">our order</h6>-->
+<!--                                                    <table>-->
+<!--                                                        <tr>-->
+<!--                                                            <td class="td-title-1">Dummy Product Name x 2</td>-->
+<!--                                                            <td class="td-title-2">$1855.00</td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td class="td-title-1">Dummy Product Name</td>-->
+<!--                                                            <td class="td-title-2">$555.00</td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td class="td-title-1">Cart Subtotal</td>-->
+<!--                                                            <td class="td-title-2">$2410.00</td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td class="td-title-1">Shipping and Handing</td>-->
+<!--                                                            <td class="td-title-2">$15.00</td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td class="td-title-1">Vat</td>-->
+<!--                                                            <td class="td-title-2">$00.00</td>-->
+<!--                                                        </tr>-->
+<!--                                                        <tr>-->
+<!--                                                            <td class="order-total">Order Total</td>-->
+<!--                                                            <td class="order-total-price">$2425.00</td>-->
+<!--                                                        </tr>-->
+<!--                                                    </table>-->
+<!--                                                </div>         -->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-6">-->
+<!--                                                <div class="bill-details p-30">-->
+<!--                                                    <h6 class="widget-title border-left mb-20">billing details</h6>-->
+<!--                                                    <ul class="bill-address">-->
+<!--                                                        <li>-->
+<!--                                                            <span>Address:</span>-->
+<!--                                                            28 Green Tower, Street Name, New York City, USA-->
+<!--                                                        </li>-->
+<!--                                                        <li>-->
+<!--                                                            <span>email:</span>-->
+<!--                                                            info@companyname.com-->
+<!--                                                        </li>-->
+<!--                                                        <li>-->
+<!--                                                            <span>phone : </span>-->
+<!--                                                            (+880) 19453 821758-->
+<!--                                                        </li>-->
+<!--                                                    </ul>-->
+<!--                                                </div>-->
+<!--                                                <div class="bill-details pl-30">-->
+<!--                                                    <h6 class="widget-title border-left mb-20">billing details</h6>-->
+<!--                                                    <ul class="bill-address">-->
+<!--                                                        <li>-->
+<!--                                                            <span>Address:</span>-->
+<!--                                                            28 Green Tower, Street Name, New York City, USA-->
+<!--                                                        </li>-->
+<!--                                                        <li>-->
+<!--                                                            <span>email:</span>-->
+<!--                                                            info@companyname.com-->
+<!--                                                        </li>-->
+<!--                                                        <li>-->
+<!--                                                            <span>phone : </span>-->
+<!--                                                            (+880) 19453 821758-->
+<!--                                                        </li>-->
+<!--                                                    </ul>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <!-- order-complete end -->
                             </div>
                         </div>
@@ -525,157 +269,7 @@
         <!-- End page content -->
 
         <!-- START FOOTER AREA -->
-        <footer id="footer" class="footer-area section">
-            <div class="footer-top">
-                <div class="container-fluid">
-                    <div class="plr-185">
-                        <div class="footer-top-inner gray-bg">
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-5 col-md-5">
-                                    <div class="single-footer footer-about">
-                                        <div class="footer-logo">
-                                            <img th:src="@{/web/img/logo/logo.png}" alt="">
-                                        </div>
-                                        <div class="footer-brief">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                                Ipsum has been the subas industry's standard dummy text ever since the 1500s,
-                                            </p>
-                                            <p>When an unknown printer took a galley of type and If you are going to use a
-                                                passage of Lorem Ipsum scrambled it to make.</p>
-                                        </div>
-                                        <ul class="footer-social">
-                                            <li>
-                                                <a class="facebook" href="#" title="Facebook"><i
-                                                        class="zmdi zmdi-facebook"></i></a>
-                                            </li>
-                                            <li>
-                                                <a class="google-plus" href="#" title="Google Plus"><i
-                                                        class="zmdi zmdi-google-plus"></i></a>
-                                            </li>
-                                            <li>
-                                                <a class="twitter" href="#" title="Twitter"><i class="zmdi zmdi-twitter"></i></a>
-                                            </li>
-                                            <li>
-                                                <a class="rss" href="#" title="RSS"><i class="zmdi zmdi-rss"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 d-block d-xl-block d-lg-none d-md-none">
-                                    <div class="single-footer">
-                                        <h4 class="footer-title border-left">Shipping</h4>
-                                        <ul class="footer-menu">
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>New Products</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>Discount Products</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>Best Sell Products</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>Popular Products</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>Manufactirers</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>Suppliers</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="#"><i class="zmdi zmdi-circle"></i><span>Special Products</span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-lg-3 col-md-3">
-                                    <div class="single-footer">
-                                        <h4 class="footer-title border-left">my account</h4>
-                                        <ul class="footer-menu">
-                                            <li>
-                                                <a href="my-account.html"><i class="zmdi zmdi-circle"></i><span>My
-                                                        Account</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="wishlist.html"><i class="zmdi zmdi-circle"></i><span>My
-                                                        Wishlist</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html"><i class="zmdi zmdi-circle"></i><span>My Cart</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="login.html"><i class="zmdi zmdi-circle"></i><span>Sign In</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="login.html"><i
-                                                        class="zmdi zmdi-circle"></i><span>Registration</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="checkout.html"><i class="zmdi zmdi-circle"></i><span>Check
-                                                        out</span></a>
-                                            </li>
-                                            <li>
-                                                <a href="order.html"><i class="zmdi zmdi-circle"></i><span>Oder
-                                                        Complete</span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4">
-                                    <div class="single-footer">
-                                        <h4 class="footer-title border-left">Get in touch</h4>
-                                        <div class="footer-message">
-                                            <form action="#">
-                                                <input type="text" name="name" placeholder="Your name here...">
-                                                <input type="text" name="email" placeholder="Your email here...">
-                                                <textarea class="height-80" name="message"
-                                                    placeholder="Your messege here..."></textarea>
-                                                <button class="submit-btn-1 mt-20 btn-hover-1" type="submit">submit
-                                                    message</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom black-bg">
-                <div class="container-fluid">
-                    <div class="plr-185">
-                        <div class="copyright">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="copyright-text">
-                                        <p class="copy-text"> © 2022 <strong>Subas</strong> Made With <i class="zmdi zmdi-favorite" style="color: red;" aria-hidden="true"></i> By <a class="company-name" href="https://themeforest.net/user/codecarnival/portfolio">
-                                <strong> CodeCarnival</strong></a>.</p>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <ul class="footer-payment text-end">
-                                        <li>
-                                            <a href="#"><img th:src="@{/web/img/payment/1.jpg}" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img th:src="@{/web/img/payment/2.jpg}" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img th:src="@{/web/img/payment/3.jpg}" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><img th:src="@{/web/img/payment/4.jpg}" alt=""></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <div th:replace="~{web/fragments/footer::footer}"></div>
         <!-- END FOOTER AREA -->
 
         <!--style-customizer start -->

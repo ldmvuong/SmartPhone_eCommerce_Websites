@@ -142,19 +142,21 @@
                                                     <p class="color-title f-left">Quantity</p>
                                                     <div class="cart-plus-minus f-left" style="margin-left: 20px">
                                                             <!-- Form to decrease quantity -->
-                                                            <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">
-                                                                <input type="hidden" name="productId" th:value="${product.productId}"/>
-                                                                <button type="submit" class="dec qtybutton">-</button>
-                                                            </form>
-
+<!--                                                            <form th:action="@{/user/carts/dec-cart}" method="post" style="display: inline;">-->
+<!--                                                                <input type="hidden" name="productId" th:value="${product.productId}"/>-->
+<!--                                                                <button type="submit" class="dec qtybutton">-</button>-->
+<!--                                                            </form>-->
+                                                            <a th:href="@{/user/carts/dec-cart(productId=${product.productId})}" class="dec qtybutton">-</a>
                                                             <!-- Quantity input -->
                                                             <input type="number" class="cart-plus-minus-box" name="qtybutton" th:value="${amountOfProduct}" readonly />
 
                                                             <!-- Form to increase quantity -->
-                                                            <form th:action="@{/user/carts/inc-cart}" method="post" style="display: inline;">
-                                                                <input type="hidden" name="productId" th:value="${product.productId}" />
-                                                                <button type="submit" class="inc qtybutton">+</button>
-                                                            </form>
+<!--                                                            <form th:action="@{/user/carts/inc-cart}" method="post" style="display: inline;">-->
+<!--                                                                <input type="hidden" name="productId" th:value="${product.productId}" />-->
+<!--                                                                <button type="submit" class="inc qtybutton">+</button>-->
+<!--                                                            </form>-->
+                                                            <a th:href="@{/user/carts/inc-cart(productId=${product.productId})}" class="inc qtybutton">+</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="sin-pro-action f-right">
@@ -237,7 +239,7 @@
                                                                         </div>
                                                                     </div>
                                                                             <input type="hidden" name="ratingValue" id="ratingValue" th:field="*{star}"/>
-                                                                            <input type="hidden" name="orderId" th:value="${order.orderId}">
+                                                                            <input type="hidden" name="orderId" th:if="${order != null}" th:value="${order.orderId}">
 
                                                                             <textarea style="width: 580px; margin-left: 20px; margin-right: 30px"
                                                                                   class="height-50"
