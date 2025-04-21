@@ -1,14 +1,12 @@
-# Dùng JDK 17 làm base image
-FROM openjdk:17-jdk-slim
-
-# Tạo thư mục /app trong container
+# Build stage
+FROM maven:3.9.1-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy file JAR từ thư mục target (sau khi build)
-COPY target/*.jar app.jar
-
-# Mở port 8080 (khớp với server.port trong app)
+# Run stage
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Lệnh chạy Spring Boot app
 ENTRYPOINT ["java", "-jar", "app.jar"]
